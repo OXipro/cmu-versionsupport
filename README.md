@@ -1,0 +1,24 @@
+```xml
+<repository>
+  <id>version-support</id>
+  <url>https://gitlab.com/api/v4/projects/14877570/packages/maven</url>
+</repository>
+
+<dependency>
+  <groupId>com.andrei1058.spigot.versionsupport</groupId>
+  <artifactId>sounds-version</artifactId>
+  <version>[1.0,)</version>
+</dependency>
+```
+
+```java
+        String version = Bukkit.getServer().getClass().getName().split(".")[3];
+        Class c = null;
+        try {
+            c = Class.forName("com.andrei1058.spigot.versionsupport.sound." + version);
+        } catch (ClassNotFoundException e) {
+            //I can't run on your version
+            return;
+        }
+        SoundSupport soundSupport = c.getConstructors()[0].newInstance();
+```
