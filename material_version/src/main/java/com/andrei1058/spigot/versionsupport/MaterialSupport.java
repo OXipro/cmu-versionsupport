@@ -70,11 +70,18 @@ public interface MaterialSupport {
 
     /**
      * Get the right material for current version.
-     * @param v1_8 material for 1.8 to 1.11 included.
+     *
+     * @param v1_8  material for 1.8 to 1.11 included.
      * @param v1_12 material for 1.12.
      * @param v1_13 material for 1.13 and newer.
      * @return null if material is invalid.
      */
     @Nullable
     Material getForCurrent(String v1_8, String v1_12, String v1_13);
+
+    /**
+     * @param material target material.
+     * @return true if given material is cake.
+     */
+    boolean isCake(Material material);
 }

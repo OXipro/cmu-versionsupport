@@ -32,23 +32,23 @@ public class v1_13_R1 implements MaterialSupport {
     }
 
     public boolean isWool(Material material) {
-        return material.toString().contains("_WOOL");
+        return material.toString().endsWith("_WOOL");
     }
 
     public boolean isBed(Material material) {
-        return material.toString().contains("_BED");
+        return material.toString().endsWith("_BED");
     }
 
     public boolean isGlass(Material material) {
-        return material.toString().contains("_STAINED_GLASS") || material.toString().equals("GLASS");
+        return material.toString().endsWith("_STAINED_GLASS") || material.toString().equals("GLASS");
     }
 
     public boolean isGlassPane(Material material) {
-        return material.toString().contains("_STAINED_GLASS_PANE");
+        return material.toString().endsWith("_STAINED_GLASS_PANE");
     }
 
     public boolean isTerracotta(Material material) {
-        return material.toString().contains("_TERRACOTTA");
+        return material.toString().endsWith("_TERRACOTTA");
     }
 
     public boolean isConcrete(Material material) {
@@ -62,5 +62,9 @@ public class v1_13_R1 implements MaterialSupport {
     @Nullable
     public Material getForCurrent(String v1_8, String v1_12, String v1_13) {
         return getMaterial(v1_13);
+    }
+
+    public boolean isCake(Material material) {
+        return material.toString().equals("CAKE");
     }
 }

@@ -63,4 +63,8 @@ public class v1_8_R3 implements MaterialSupport {
     public Material getForCurrent(String v1_8, String v1_12, String v1_13) {
         return getMaterial(v1_8);
     }
+
+    public boolean isCake(Material material) {
+        return material == Material.CAKE || material == Material.CAKE_BLOCK;
+    }
 }
