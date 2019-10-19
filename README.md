@@ -41,7 +41,7 @@ public class Main extends JavaPlugin {
 ```xml
 <dependency>
   <groupId>com.andrei1058.spigot.versionsupport</groupId>
-  <artifactId>sounds-version</artifactId>
+  <artifactId>material-version</artifactId>
   <version>[1.0,)</version>
 </dependency>
 ```
