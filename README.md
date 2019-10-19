@@ -17,15 +17,7 @@
 ```java
 public class Main extends JavaPlugin {
     public void onEnable(){
-        String version = Bukkit.getServer().getClass().getName().split(".")[3];
-        Class c;
-        try {
-            c = Class.forName("com.andrei1058.spigot.versionsupport.sound." + version);
-        } catch (ClassNotFoundException e) {
-            //I can't run on your version
-            return;
-        }
-        SoundSupport soundSupport = c.getConstructors()[0].newInstance();
+        SoundSupport soundSupport = SoundSupport.SupportBuilder.load();
     }   
 }
 ```
@@ -49,15 +41,7 @@ public class Main extends JavaPlugin {
 ```java
 public class Main extends JavaPlugin {
     public void onEnable(){
-        String version = Bukkit.getServer().getClass().getName().split(".")[3];
-        Class c;
-        try {
-            c = Class.forName("com.andrei1058.spigot.versionsupport.material." + version);
-        } catch (ClassNotFoundException e) {
-            //I can't run on your version
-            return;
-        }
-        MaterialSupport materialSupport = c.getConstructors()[0].newInstance();
+        MaterialSupport materialSupport = MaterialSupport.SupportBuilder.load();
     }   
 }
 ```

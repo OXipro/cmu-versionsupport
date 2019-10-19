@@ -1,8 +1,10 @@
 package com.andrei1058.spigot.versionsupport;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 
 import javax.annotation.Nullable;
+import java.lang.reflect.InvocationTargetException;
 
 public interface SoundSupport {
 
@@ -34,4 +36,27 @@ public interface SoundSupport {
      */
     @Nullable
     Sound getForCurrentVersion(String v1_8, String v1_12, String v1_13);
+
+    class SupportBuilder {
+
+        /**
+         * @return block support for your server version. Null if not supported.
+         */
+        @Nullable
+        public static SoundSupport load() {
+            String version = Bukkit.getServer().getClass().getName().split(".")[3];
+            Class c;
+            try {
+                c = Class.forName("com.andrei1058.spigot.versionsupport.sound." + version);
+            } catch (ClassNotFoundException e) {
+                //I can't run on your version
+                return null;
+            }
+            try {
+                return (SoundSupport) c.getConstructors()[0].newInstance();
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+                return null;
+            }
+        }
+    }
 }

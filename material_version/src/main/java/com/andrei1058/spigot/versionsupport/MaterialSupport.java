@@ -1,8 +1,10 @@
 package com.andrei1058.spigot.versionsupport;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 
 import javax.annotation.Nullable;
+import java.lang.reflect.InvocationTargetException;
 
 public interface MaterialSupport {
 
@@ -84,4 +86,27 @@ public interface MaterialSupport {
      * @return true if given material is cake.
      */
     boolean isCake(Material material);
+
+    class SupportBuilder {
+
+        /**
+         * @return block support for your server version. Null if not supported.
+         */
+        @Nullable
+        public static MaterialSupport load() {
+            String version = Bukkit.getServer().getClass().getName().split(".")[3];
+            Class c;
+            try {
+                c = Class.forName("com.andrei1058.spigot.versionsupport.material." + version);
+            } catch (ClassNotFoundException e) {
+                //I can't run on your version
+                return null;
+            }
+            try {
+                return (MaterialSupport) c.getConstructors()[0].newInstance();
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+                return null;
+            }
+        }
+    }
 }
