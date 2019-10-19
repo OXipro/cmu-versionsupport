@@ -20,6 +20,7 @@
         <module>block_v1_13_R1</module>
         <module>block_v1_14_R1</module>
         <module>block_common</module>
+        <module>itemstack_version</module>
     </modules>
 
     <repositories>
