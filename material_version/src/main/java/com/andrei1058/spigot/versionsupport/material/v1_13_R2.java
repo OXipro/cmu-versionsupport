@@ -5,7 +5,7 @@ import org.bukkit.Material;
 
 import javax.annotation.Nullable;
 
-public class v1_13_R1 implements MaterialSupport {
+public class v1_13_R2 implements MaterialSupport {
 
     public boolean isMaterial(String name) {
         try {
