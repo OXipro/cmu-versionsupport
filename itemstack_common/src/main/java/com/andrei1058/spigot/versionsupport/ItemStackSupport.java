@@ -1,10 +1,12 @@
 package com.andrei1058.spigot.versionsupport;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nullable;
+import java.lang.reflect.InvocationTargetException;
 
 public interface ItemStackSupport {
 
@@ -30,6 +32,14 @@ public interface ItemStackSupport {
      */
     @Nullable
     ItemStack createItem(String material, int amount, byte data);
+
+    /**
+     * @param material material
+     * @param amount   amount.
+     * @param data     item data.
+     * @return the created itemStack.
+     */
+    ItemStack createItem(Material material, int amount, byte data);
 
     /**
      * @param itemStack target item stack.
@@ -63,14 +73,20 @@ public interface ItemStackSupport {
 
     /**
      * Make an item unbreakable.
+     *
+     * @param itemStack   target item.
+     * @param unbreakable true or false.
      */
-    void setUnbreakable(ItemStack itemStack);
+    void setUnbreakable(ItemStack itemStack, boolean unbreakable);
 
     /**
-     * @param itemStack target item.
-     * @param amount    amount to be removed.
+     * Use you own system to check if the player has enough in his inventory.
+     *
+     * @param i      target item.
+     * @param p      target player.
+     * @param amount amount to be removed.
      */
-    void minusAmount(ItemStack itemStack, int amount);
+    void minusAmount(Player p, ItemStack i, int amount);
 
     /**
      * @param itemStack target item.
@@ -113,4 +129,27 @@ public interface ItemStackSupport {
      * @return true if is a projectile.
      */
     boolean isProjectile(ItemStack itemStack);
+
+    class SupportBuilder {
+
+        /**
+         * @return block support for your server version. Null if not supported.
+         */
+        @Nullable
+        public static ItemStackSupport load() {
+            String version = Bukkit.getServer().getClass().getName().split(".")[3];
+            Class c;
+            try {
+                c = Class.forName("com.andrei1058.spigot.versionsupport.itemstack." + version);
+            } catch (ClassNotFoundException e) {
+                //I can't run on your version
+                return null;
+            }
+            try {
+                return (ItemStackSupport) c.getConstructors()[0].newInstance();
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+                return null;
+            }
+        }
+    }
 }

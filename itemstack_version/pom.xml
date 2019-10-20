@@ -9,15 +9,50 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>itemstack_version</artifactId>
+    <artifactId>itemstack-version</artifactId>
 
     <dependencies>
         <dependency>
-            <groupId>com.github.azbh111</groupId>
-            <artifactId>craftbukkit-1.8.8</artifactId>
-            <version>R</version>
-            <type>jar</type>
-            <scope>provided</scope>
+            <groupId>com.andrei1058.spigot.versionsupport</groupId>
+            <artifactId>itemstack_v1_8_R3</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.andrei1058.spigot.versionsupport</groupId>
+            <artifactId>itemstack_v1_9_R2</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.andrei1058.spigot.versionsupport</groupId>
+            <artifactId>itemstack_v1_10_R1</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.andrei1058.spigot.versionsupport</groupId>
+            <artifactId>itemstack_v1_11_R1</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.andrei1058.spigot.versionsupport</groupId>
+            <artifactId>itemstack_v1_12_R1</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.andrei1058.spigot.versionsupport</groupId>
+            <artifactId>itemstack_v1_13_R2</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.andrei1058.spigot.versionsupport</groupId>
+            <artifactId>itemstack_v1_14_R1</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>

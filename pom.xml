@@ -17,16 +17,28 @@
         <module>block_v1_10_R1</module>
         <module>block_v1_11_R1</module>
         <module>block_v1_12_R1</module>
-        <module>block_v1_13_R1</module>
+        <module>block_v1_13_R2</module>
         <module>block_v1_14_R1</module>
         <module>block_common</module>
         <module>itemstack_version</module>
+        <module>itemstack_common</module>
+        <module>itemstack_v1_8_R3</module>
+        <module>itemstack_v1_9_R2</module>
+        <module>itemstack_v1_10_R1</module>
+        <module>itemstack_v1_11_R1</module>
+        <module>itemstack_v1_12_R1</module>
+        <module>itemstack_v1_13_R2</module>
+        <module>itemstack_v1_14_R1</module>
     </modules>
 
     <repositories>
         <repository>
             <id>bukkit-repo</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </repository>
+        <repository>
+            <id>spigotmc-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
     </repositories>
 

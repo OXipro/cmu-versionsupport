@@ -69,3 +69,27 @@ public class Main extends JavaPlugin {
     }   
 }
 ```
+
+### ItemStack Support
+
+```xml
+<repository>
+  <id>version-support</id>
+  <url>https://gitlab.com/api/v4/projects/14877570/packages/maven</url>
+</repository>
+```
+```xml
+<dependency>
+  <groupId>com.andrei1058.spigot.versionsupport</groupId>
+  <artifactId>itemstack-version</artifactId>
+  <version>[1.0,)</version>
+</dependency>
+```
+
+```java
+public class Main extends JavaPlugin {
+    public void onEnable(){
+        ItemStackSupport itemStackSupport = ItemStackSupport.SupportBuilder.load();
+    }   
+}
+```
