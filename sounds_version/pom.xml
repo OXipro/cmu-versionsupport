@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>versionsupport</artifactId>
-        <groupId>com.andrei1058.spigot.versionsupport</groupId>
+        <groupId>com.andrei1058.mcversionsupport</groupId>
         <version>1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
