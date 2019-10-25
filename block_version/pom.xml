@@ -44,7 +44,7 @@
         </dependency>
         <dependency>
             <groupId>com.andrei1058.spigot.versionsupport</groupId>
-            <artifactId>block_v1_13_R1</artifactId>
+            <artifactId>block_v1_13_R2</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
