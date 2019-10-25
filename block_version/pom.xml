@@ -50,7 +50,7 @@
         </dependency>
         <dependency>
             <groupId>com.andrei1058.spigot.versionsupport</groupId>
-            <artifactId>block_v1_14</artifactId>
+            <artifactId>block_v1_14_R1</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
