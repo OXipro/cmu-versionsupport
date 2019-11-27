@@ -8,7 +8,7 @@
 ```
 ```xml
 <dependency>
-  <groupId>com.andrei1058.spigot.versionsupport</groupId>
+  <groupId>com.andrei1058.mcversionsupport</groupId>
   <artifactId>sounds-version</artifactId>
   <version>[1.0,)</version>
 </dependency>
@@ -32,7 +32,7 @@ public class Main extends JavaPlugin {
 ```
 ```xml
 <dependency>
-  <groupId>com.andrei1058.spigot.versionsupport</groupId>
+  <groupId>com.andrei1058.mcversionsupport</groupId>
   <artifactId>material-version</artifactId>
   <version>[1.0,)</version>
 </dependency>
@@ -56,7 +56,7 @@ public class Main extends JavaPlugin {
 ```
 ```xml
 <dependency>
-  <groupId>com.andrei1058.spigot.versionsupport</groupId>
+  <groupId>com.andrei1058.mcversionsupport</groupId>
   <artifactId>block-version</artifactId>
   <version>[1.0,)</version>
 </dependency>
@@ -80,7 +80,7 @@ public class Main extends JavaPlugin {
 ```
 ```xml
 <dependency>
-  <groupId>com.andrei1058.spigot.versionsupport</groupId>
+  <groupId>com.andrei1058.mcversionsupport</groupId>
   <artifactId>itemstack-version</artifactId>
   <version>[1.0,)</version>
 </dependency>
