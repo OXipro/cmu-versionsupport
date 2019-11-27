@@ -94,7 +94,7 @@ public interface MaterialSupport {
          */
         @Nullable
         public static MaterialSupport load() {
-            String version = Bukkit.getServer().getClass().getName().split(".")[3];
+            String version = Bukkit.getServer().getClass().getName().split("\\.")[3];
             Class c;
             try {
                 c = Class.forName("com.andrei1058.spigot.versionsupport.material." + version);
