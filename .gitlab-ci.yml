@@ -7,9 +7,11 @@ image: "maven:latest"
 
 maven-job:
   script:
+    - 'wget https://www.serverjars.com/api/fetchJar/bukkit/1.8.8'
+    - 'mvn install:install-file -Dfile=bukkit-1.8.8.jar -DgroupId=org.bukkit -DartifactId=craftbukkit-nms -Dversion=v1_8_R3 -Dpackaging=jar'
     - 'mvn versions:set -DnewVersion=1.0-SNAPSHOT'
     - 'mvn versions:update-child-modules'
-    - 'mvn clean -Dftp_add=$FTP_ADD -Dftp_usr=$FTP_USR -Dftp_pass=$FTP_PASS deploy -s ci_settings.xml'
+    - 'mvn clean deploy -s ci_settings.xml'
   artifacts:
     paths:
       - '*/target/*.jar'
