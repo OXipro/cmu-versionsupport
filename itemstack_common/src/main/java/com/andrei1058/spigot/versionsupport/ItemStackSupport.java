@@ -140,7 +140,7 @@ public interface ItemStackSupport {
             String version = Bukkit.getServer().getClass().getName().split("\\.")[3];
             Class c;
             try {
-                c = Class.forName("com.andrei1058.spigot.versionsupport.itemstack." + version);
+                c = Class.forName("com.andrei1058.spigot.versionsupport.itemstack_" + version);
             } catch (ClassNotFoundException e) {
                 //I can't run on your version
                 return null;

@@ -24,12 +24,11 @@
     </build>
     <dependencies>
         <dependency>
-            <groupId>com.github.azbh111</groupId>
-            <artifactId>craftbukkit-1.8.8</artifactId>
-            <version>R</version>
+            <groupId>org.bukkit</groupId>
+            <artifactId>craftbukkit-nms</artifactId>
+            <version>v1_8_R3</version>
+            <type>jar</type>
             <scope>provided</scope>
         </dependency>
     </dependencies>
-
-
 </project>

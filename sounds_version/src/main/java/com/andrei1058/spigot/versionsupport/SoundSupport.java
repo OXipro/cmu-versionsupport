@@ -47,7 +47,7 @@ public interface SoundSupport {
             String version = Bukkit.getServer().getClass().getName().split("\\.")[3];
             Class c;
             try {
-                c = Class.forName("com.andrei1058.spigot.versionsupport.sound." + version);
+                c = Class.forName("com.andrei1058.spigot.versionsupport.sound_" + version);
             } catch (ClassNotFoundException e) {
                 //I can't run on your version
                 return null;

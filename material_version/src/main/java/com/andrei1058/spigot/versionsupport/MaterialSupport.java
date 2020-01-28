@@ -24,7 +24,7 @@ public interface MaterialSupport {
     /**
      * @param name        material name.
      * @param alternative alternative material.
-     * @return {@param alternative} if {@param name} is null.
+     * @return alternative if name is null.
      */
     Material getMaterialOr(String name, Material alternative);
 
@@ -97,7 +97,7 @@ public interface MaterialSupport {
             String version = Bukkit.getServer().getClass().getName().split("\\.")[3];
             Class c;
             try {
-                c = Class.forName("com.andrei1058.spigot.versionsupport.material." + version);
+                c = Class.forName("com.andrei1058.spigot.versionsupport.material_" + version);
             } catch (ClassNotFoundException e) {
                 //I can't run on your version
                 return null;
