@@ -12,7 +12,7 @@
             </configuration>
         </server>
         <server>
-            <id>ftp-reo</id>
+            <id>ftp-repo</id>
             <username>${env.FTP_USR}</username>
             <password>${env.FTP_PASS}</password>
         </server>
