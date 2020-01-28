@@ -76,5 +76,9 @@
             <id>ftp-repo</id>
             <url>ftp://andrei1058.com</url>
         </repository>
+        <snapshotRepository>
+            <id>ftp-repo</id>
+            <url>ftp://andrei1058.com</url>
+        </snapshotRepository>
     </distributionManagement>
 </project>
