@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>versionsupport</artifactId>
-        <groupId>com.andrei1058.mcversionsupport</groupId>
+        <groupId>com.andrei1058.spigot.versionsupport</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -25,9 +25,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.github.azbh111</groupId>
-            <artifactId>craftbukkit-1.8.8</artifactId>
-            <version>R</version>
+            <groupId>org.bukkit</groupId>
+            <artifactId>craftbukkit-nms</artifactId>
+            <version>v1_8_R3</version>
             <type>jar</type>
             <scope>provided</scope>
         </dependency>
