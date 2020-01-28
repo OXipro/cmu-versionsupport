@@ -85,11 +85,11 @@
     <distributionManagement>
         <repository>
             <id>ftp-repo</id>
-            <url>ftp://andrei1058.com</url>
+            <url>ftp://andrei1058.com/releases</url>
         </repository>
         <snapshotRepository>
             <id>ftp-repo</id>
-            <url>ftp://andrei1058.com</url>
+            <url>ftp://andrei1058.com/snapshots</url>
         </snapshotRepository>
     </distributionManagement>
 </project>
