@@ -25,7 +25,7 @@ maven-dev:
     - 'mvn install:install-file -Dfile=bukkit-1.14.4.jar -DgroupId=org.bukkit -DartifactId=craftbukkit-nms -Dversion=v1_14_R1 -Dpackaging=jar'
     - 'wget -q --trust-server-names https://www.serverjars.com/api/fetchJar/bukkit/1.15.2'
     - 'mvn install:install-file -Dfile=bukkit-1.15.2.jar -DgroupId=org.bukkit -DartifactId=craftbukkit-nms -Dversion=v1_15_R1 -Dpackaging=jar'
-    - 'mvn versions:set -DnewVersion=1.0-SNAPSHOT-$CI_COMMIT_SHORT_SHA'
+    - 'mvn versions:set -DnewVersion=1.0-$CI_COMMIT_SHORT_SHA-SNAPSHOT'
     - 'mvn versions:update-child-modules'
     - 'mvn clean deploy -s ci_settings.xml'
   artifacts:
