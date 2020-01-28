@@ -7,7 +7,9 @@ image: "maven:latest"
 
 maven-job:
   script:
-    - 'mvn clean deploy -s ci_settings.xml'
+    - 'mvn versions:set -DnewVersion=1.0-SNAPSHOT'
+    - 'mvn versions:update-child-modules'
+    - 'mvn clean -Dftp_add=$FTP_ADD -Dftp_usr=$FTP_USR -Dftp_pass=$FTP_PASS install -s ci_settings.xml'
   artifacts:
     paths:
       - '*/target/*.jar'

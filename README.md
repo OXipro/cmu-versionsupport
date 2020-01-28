@@ -2,8 +2,8 @@
 
 ```xml
 <repository>
-  <id>version-support</id>
-  <url>https://gitlab.com/api/v4/projects/14877570/packages/maven</url>
+  <id>andrei1058-repo</id>
+  <url>http://repo.andrei1058.com</url>
 </repository>
 ```
 ```xml
@@ -26,8 +26,8 @@ public class Main extends JavaPlugin {
 
 ```xml
 <repository>
-  <id>version-support</id>
-  <url>https://gitlab.com/api/v4/projects/14877570/packages/maven</url>
+  <id>andrei1058-repo</id>
+  <url>http://repo.andrei1058.com</url>
 </repository>
 ```
 ```xml
@@ -50,8 +50,8 @@ public class Main extends JavaPlugin {
 
 ```xml
 <repository>
-  <id>version-support</id>
-  <url>https://gitlab.com/api/v4/projects/14877570/packages/maven</url>
+  <id>andrei1058-repo</id>
+  <url>http://repo.andrei1058.com</url>
 </repository>
 ```
 ```xml
@@ -74,8 +74,8 @@ public class Main extends JavaPlugin {
 
 ```xml
 <repository>
-  <id>version-support</id>
-  <url>https://gitlab.com/api/v4/projects/14877570/packages/maven</url>
+  <id>andrei1058-repo</id>
+  <url>http://repo.andrei1058.com</url>
 </repository>
 ```
 ```xml
