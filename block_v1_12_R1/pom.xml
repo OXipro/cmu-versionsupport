@@ -25,9 +25,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.github.azbh111</groupId>
-            <artifactId>craftbukkit-1.12.2</artifactId>
-            <version>R</version>
+            <groupId>org.bukkit</groupId>
+            <artifactId>craftbukkit-nms</artifactId>
+            <version>v1_12_R1</version>
             <type>jar</type>
             <scope>provided</scope>
         </dependency>

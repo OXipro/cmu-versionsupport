@@ -7,8 +7,22 @@ image: "maven:latest"
 
 maven-job:
   script:
-    - 'wget https://www.serverjars.com/api/fetchJar/bukkit/1.8.8'
+    - 'wget -q --trust-server-names https://www.serverjars.com/api/fetchJar/bukkit/1.8.8'
     - 'mvn install:install-file -Dfile=bukkit-1.8.8.jar -DgroupId=org.bukkit -DartifactId=craftbukkit-nms -Dversion=v1_8_R3 -Dpackaging=jar'
+    - 'wget -q --trust-server-names https://www.serverjars.com/api/fetchJar/bukkit/1.9.4'
+    - 'mvn install:install-file -Dfile=bukkit-1.9.4.jar -DgroupId=org.bukkit -DartifactId=craftbukkit-nms -Dversion=v1_9_R2 -Dpackaging=jar'
+    - 'wget -q --trust-server-names https://www.serverjars.com/api/fetchJar/bukkit/1.10.2'
+    - 'mvn install:install-file -Dfile=bukkit-1.10.2.jar -DgroupId=org.bukkit -DartifactId=craftbukkit-nms -Dversion=v1_10_R1 -Dpackaging=jar'
+    - 'wget -q --trust-server-names https://www.serverjars.com/api/fetchJar/bukkit/1.11.2'
+    - 'mvn install:install-file -Dfile=bukkit-1.11.2.jar -DgroupId=org.bukkit -DartifactId=craftbukkit-nms -Dversion=v1_11_R1 -Dpackaging=jar'
+    - 'wget -q --trust-server-names https://www.serverjars.com/api/fetchJar/bukkit/1.12.2'
+    - 'mvn install:install-file -Dfile=bukkit-1.12.2.jar -DgroupId=org.bukkit -DartifactId=craftbukkit-nms -Dversion=v1_12_R1 -Dpackaging=jar'
+    - 'wget -q --trust-server-names https://www.serverjars.com/api/fetchJar/bukkit/1.13.2'
+    - 'mvn install:install-file -Dfile=bukkit-1.13.2.jar -DgroupId=org.bukkit -DartifactId=craftbukkit-nms -Dversion=v1_13_R1 -Dpackaging=jar'
+    - 'wget -q --trust-server-names https://www.serverjars.com/api/fetchJar/bukkit/1.14.4'
+    - 'mvn install:install-file -Dfile=bukkit-1.14.4.jar -DgroupId=org.bukkit -DartifactId=craftbukkit-nms -Dversion=v1_14_R1 -Dpackaging=jar'
+    - 'wget -q --trust-server-names https://www.serverjars.com/api/fetchJar/bukkit/1.15.2'
+    - 'mvn install:install-file -Dfile=bukkit-1.15.2.jar -DgroupId=org.bukkit -DartifactId=craftbukkit-nms -Dversion=v1_15_R1 -Dpackaging=jar'
     - 'mvn versions:set -DnewVersion=1.0-SNAPSHOT'
     - 'mvn versions:update-child-modules'
     - 'mvn clean deploy -s ci_settings.xml'
