@@ -26,7 +26,7 @@
         <dependency>
             <groupId>org.bukkit</groupId>
             <artifactId>craftbukkit-nms</artifactId>
-            <version>v1_8_R31</version>
+            <version>v1_8_R3</version>
             <type>jar</type>
             <scope>provided</scope>
         </dependency>
