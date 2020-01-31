@@ -53,8 +53,8 @@ public interface SoundSupport {
                 return null;
             }
             try {
-                return (SoundSupport) c.getConstructors()[0].newInstance();
-            } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+                return (SoundSupport) c.newInstance();
+            } catch (InstantiationException | IllegalAccessException e) {
                 return null;
             }
         }

@@ -103,8 +103,8 @@ public interface MaterialSupport {
                 return null;
             }
             try {
-                return (MaterialSupport) c.getConstructors()[0].newInstance();
-            } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+                return (MaterialSupport) c.newInstance();
+            } catch (InstantiationException | IllegalAccessException e) {
                 return null;
             }
         }
