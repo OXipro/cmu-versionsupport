@@ -146,8 +146,8 @@ public interface ItemStackSupport {
                 return null;
             }
             try {
-                return (ItemStackSupport) c.getConstructors()[0].newInstance();
-            } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+                return (ItemStackSupport) c.newInstance();
+            } catch (InstantiationException | IllegalAccessException e) {
                 return null;
             }
         }

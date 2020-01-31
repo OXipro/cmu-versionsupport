@@ -49,8 +49,8 @@ public interface BlockSupport {
                 return null;
             }
             try {
-                return (BlockSupport) c.getConstructors()[0].newInstance();
-            } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+                return (BlockSupport) c.newInstance();
+            } catch (InstantiationException | IllegalAccessException e) {
                 return null;
             }
         }
