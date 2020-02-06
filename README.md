@@ -3,7 +3,7 @@
 ```xml
 <repository>
   <id>andrei1058-repo</id>
-  <url>http://repo.andrei1058.com</url>
+  <url>http://repo.andrei1058.com/releases</url>
 </repository>
 ```
 ```xml
@@ -27,7 +27,7 @@ public class Main extends JavaPlugin {
 ```xml
 <repository>
   <id>andrei1058-repo</id>
-  <url>http://repo.andrei1058.com</url>
+  <url>http://repo.andrei1058.com/releases</url>
 </repository>
 ```
 ```xml
@@ -51,7 +51,7 @@ public class Main extends JavaPlugin {
 ```xml
 <repository>
   <id>andrei1058-repo</id>
-  <url>http://repo.andrei1058.com</url>
+  <url>http://repo.andrei1058.com/releases</url>
 </repository>
 ```
 ```xml
@@ -75,7 +75,7 @@ public class Main extends JavaPlugin {
 ```xml
 <repository>
   <id>andrei1058-repo</id>
-  <url>http://repo.andrei1058.com</url>
+  <url>http://repo.andrei1058.com/releases</url>
 </repository>
 ```
 ```xml
@@ -90,6 +90,30 @@ public class Main extends JavaPlugin {
 public class Main extends JavaPlugin {
     public void onEnable(){
         ItemStackSupport itemStackSupport = ItemStackSupport.SupportBuilder.load();
+    }   
+}
+```
+
+### Title/ Action messages Support
+
+```xml
+<repository>
+  <id>andrei1058-repo</id>
+  <url>http://repo.andrei1058.com/releases</url>
+</repository>
+```
+```xml
+<dependency>
+  <groupId>com.andrei1058.spigot.versionsupport</groupId>
+  <artifactId>title-version</artifactId>
+  <version>[1.0,)</version>
+</dependency>
+```
+
+```java
+public class Main extends JavaPlugin {
+    public void onEnable(){
+        TitleSupport titleSupport = TitleSupport.SupportBuilder.load();
     }   
 }
 ```
