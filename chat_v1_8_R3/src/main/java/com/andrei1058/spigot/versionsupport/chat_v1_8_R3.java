@@ -27,9 +27,7 @@ public class chat_v1_8_R3 implements ChatSupport {
 
     public void sendMessage(@NotNull CommandSender commandSender, @NotNull TextComponent[] textComponent){
         if (commandSender instanceof Player){
-            for (TextComponent component : textComponent){
-                ((Player) commandSender).spigot().sendMessage(component);
-            }
+            ((Player) commandSender).spigot().sendMessage(textComponent);
         } else {
             for (TextComponent component : textComponent){
                 commandSender.sendMessage(component.getText());
@@ -39,9 +37,7 @@ public class chat_v1_8_R3 implements ChatSupport {
 
     public void sendMessage(@NotNull CommandSender commandSender, @NotNull BaseComponent[] baseComponent){
         if (commandSender instanceof Player){
-            for (BaseComponent component : baseComponent){
-                ((Player) commandSender).spigot().sendMessage(component);
-            }
+            ((Player) commandSender).spigot().sendMessage(baseComponent);
         } else {
             for (BaseComponent component : baseComponent){
                 commandSender.sendMessage(component.toPlainText());
