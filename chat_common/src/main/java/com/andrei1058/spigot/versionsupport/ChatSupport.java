@@ -1,5 +1,6 @@
 package com.andrei1058.spigot.versionsupport;
 
+import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -12,6 +13,8 @@ public interface ChatSupport {
     void sendMessage(@NotNull CommandSender commandSender, @NotNull TextComponent textComponent);
 
     void sendMessage(@NotNull CommandSender commandSender, @NotNull TextComponent[] textComponent);
+
+    ComponentBuilder append(ComponentBuilder componentBuilder, TextComponent textComponent);
 
     class SupportBuilder {
 
