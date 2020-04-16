@@ -1,6 +1,6 @@
 package com.andrei1058.spigot.versionsupport;
 
-import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.command.CommandSender;
@@ -17,14 +17,34 @@ public class chat_v1_8_R3 implements ChatSupport {
         }
     }
 
+    public void sendMessage(@NotNull CommandSender commandSender, @NotNull BaseComponent baseComponent){
+        if (commandSender instanceof Player){
+            ((Player) commandSender).spigot().sendMessage(baseComponent);
+        } else {
+            commandSender.sendMessage(baseComponent.toPlainText());
+        }
+    }
+
     public void sendMessage(@NotNull CommandSender commandSender, @NotNull TextComponent[] textComponent){
         if (commandSender instanceof Player){
             for (TextComponent component : textComponent){
-                ((Player) commandSender).spigot().sendMessage(textComponent);
+                ((Player) commandSender).spigot().sendMessage(component);
             }
         } else {
             for (TextComponent component : textComponent){
                 commandSender.sendMessage(component.getText());
+            }
+        }
+    }
+
+    public void sendMessage(@NotNull CommandSender commandSender, @NotNull BaseComponent[] baseComponent){
+        if (commandSender instanceof Player){
+            for (BaseComponent component : baseComponent){
+                ((Player) commandSender).spigot().sendMessage(component);
+            }
+        } else {
+            for (BaseComponent component : baseComponent){
+                commandSender.sendMessage(component.toPlainText());
             }
         }
     }
