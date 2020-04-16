@@ -2,6 +2,7 @@ package com.andrei1058.spigot.versionsupport;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.Nullable;
 
 public interface TitleSupport {
 
@@ -30,6 +31,7 @@ public interface TitleSupport {
         /**
          * @return block support for your server version. Null if not supported.
          */
+        @Nullable
         public static TitleSupport load() {
             String version = Bukkit.getServer().getClass().getName().split("\\.")[3];
             Class c;

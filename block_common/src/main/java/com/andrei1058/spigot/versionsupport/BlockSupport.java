@@ -41,7 +41,7 @@ public interface BlockSupport {
         @Nullable
         public static BlockSupport load() {
             String version = Bukkit.getServer().getClass().getName().split("\\.")[3];
-            Class c;
+            Class<?> c;
             try {
                 c = Class.forName("com.andrei1058.spigot.versionsupport.block_" + version);
             } catch (ClassNotFoundException e) {
