@@ -117,3 +117,27 @@ public class Main extends JavaPlugin {
     }   
 }
 ```
+
+### Chat messages Support
+
+```xml
+<repository>
+  <id>andrei1058-repo</id>
+  <url>http://repo.andrei1058.com/releases</url>
+</repository>
+```
+```xml
+<dependency>
+  <groupId>com.andrei1058.spigot.versionsupport</groupId>
+  <artifactId>chat-version</artifactId>
+  <version>[1.0,)</version>
+</dependency>
+```
+
+```java
+public class Main extends JavaPlugin {
+    public void onEnable(){
+        ChatSupport chatSupport = ChatSupport.SupportBuilder.load();
+    }   
+}
+```
