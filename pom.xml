@@ -19,6 +19,7 @@
         <module>block_v1_12_R1</module>
         <module>block_v1_13_R2</module>
         <module>block_v1_14_R1</module>
+        <module>block_v1_16_R1</module>
         <module>block_common</module>
         <module>itemstack_version</module>
         <module>itemstack_common</module>
@@ -29,6 +30,7 @@
         <module>itemstack_v1_12_R1</module>
         <module>itemstack_v1_13_R2</module>
         <module>itemstack_v1_14_R1</module>
+        <module>itemstack_v1_16_R1</module>
         <module>block_v1_15_R1</module>
         <module>itemstack_v1_15_R1</module>
         <module>title_version</module>
@@ -41,6 +43,7 @@
         <module>title_v1_13_R2</module>
         <module>title_v1_14_R1</module>
         <module>title_v1_15_R1</module>
+        <module>title_v1_16_R1</module>
         <module>chat_version</module>
         <module>chat_common</module>
         <module>chat_v1_8_R3</module>

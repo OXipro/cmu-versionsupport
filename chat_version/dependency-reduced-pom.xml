@@ -6,7 +6,7 @@
     <version>1.0-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>title_version</artifactId>
+  <artifactId>chat_version</artifactId>
   <build>
     <plugins>
       <plugin>

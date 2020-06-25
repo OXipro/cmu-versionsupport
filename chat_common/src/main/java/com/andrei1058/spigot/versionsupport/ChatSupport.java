@@ -44,6 +44,7 @@ public interface ChatSupport {
                     case "v1_13_R2":
                     case "v1_14_R1":
                     case "v1_15_R1":
+                    case "v1_16_R1":
                         c = Class.forName("com.andrei1058.spigot.versionsupport.chat_v1_12_R1");
                         break;
                     default:

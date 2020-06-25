@@ -34,7 +34,7 @@ public interface TitleSupport {
         @Nullable
         public static TitleSupport load() {
             String version = Bukkit.getServer().getClass().getName().split("\\.")[3];
-            Class c;
+            Class<?> c;
             try {
                 c = Class.forName("com.andrei1058.spigot.versionsupport.title_" + version);
             } catch (ClassNotFoundException e) {
