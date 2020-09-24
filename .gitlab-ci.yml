@@ -9,7 +9,7 @@ maven-dev:
   except:
     - 'master'
   script:
-    - 'mvn versions:set -DnewVersion=1.4.0-SNAPSHOT'
+    - 'mvn versions:set -DnewVersion=1.5.0-SNAPSHOT'
     - 'mvn versions:update-child-modules'
     - 'mvn clean deploy -s ci_settings.xml'
   artifacts:
@@ -21,7 +21,7 @@ maven-job:
   only:
     - 'master'
   script:
-    - 'mvn versions:set -DnewVersion=1.4.0'
+    - 'mvn versions:set -DnewVersion=1.5.0'
     - 'mvn versions:update-child-modules'
     - 'mvn clean deploy -s ci_settings.xml'
   artifacts:

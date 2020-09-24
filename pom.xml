@@ -48,6 +48,28 @@
         <module>chat_common</module>
         <module>chat_v1_8_R3</module>
         <module>chat_v1_12_R1</module>
+        <module>cmd-version</module>
+        <module>cmd_v1_8_R3</module>
+        <module>cmd_common</module>
+        <module>cmd_v1_9_R2</module>
+        <module>cmd_v1_10_R1</module>
+        <module>cmd_v1_11_R1</module>
+        <module>cmd_v1_12_R1</module>
+        <module>cmd_v1_13_R2</module>
+        <module>cmd_v1_14_R1</module>
+        <module>cmd_v1_15_R1</module>
+        <module>cmd_v1_16_R1</module>
+        <module>particle_common</module>
+        <module>particle_version</module>
+        <module>particle-v1_8_R3</module>
+        <module>particle_v1_9_R2</module>
+        <module>particle_v1_10_R1</module>
+        <module>particle_v1_11_R1</module>
+        <module>particle_v1_12_R1</module>
+        <module>particle_v1_13_R2</module>
+        <module>particle_v1_14_R1</module>
+        <module>particle_v1_15_R1</module>
+        <module>particle_v1_16_R1</module>
     </modules>
 
     <repositories>
@@ -63,14 +85,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>javax.annotation</groupId>
-            <artifactId>javax.annotation-api</artifactId>
-            <version>1.3.2</version>
-        </dependency>
-        <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
-            <version>16.0.2</version>
+            <version>20.1.0</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -125,6 +142,15 @@
             </plugin>
         </plugins>
     </build>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.2.0</version>
+            </plugin>
+        </plugins>
+    </reporting>
 
     <distributionManagement>
         <repository>

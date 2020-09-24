@@ -141,3 +141,49 @@ public class Main extends JavaPlugin {
     }   
 }
 ```
+
+### Command Support
+```xml
+<repository>
+  <id>andrei1058-releases</id>
+  <url>http://repo.andrei1058.com/releases</url>
+</repository>
+```
+```xml
+<dependency>
+  <groupId>com.andrei1058.spigot.versionsupport</groupId>
+  <artifactId>cmd-version</artifactId>
+  <version>[1.0,)</version>
+</dependency>
+```
+
+```java
+public class Main extends JavaPlugin {
+    public void onEnable(){
+        CommandSupport cmdSupport = CommandSupport.SupportBuilder.load();
+    }   
+}
+```
+
+### Particle Effects Support
+```xml
+<repository>
+  <id>andrei1058-releases</id>
+  <url>http://repo.andrei1058.com/releases</url>
+</repository>
+```
+```xml
+<dependency>
+  <groupId>com.andrei1058.spigot.versionsupport</groupId>
+  <artifactId>particle-version</artifactId>
+  <version>[1.0,)</version>
+</dependency>
+```
+
+```java
+public class Main extends JavaPlugin {
+    public void onEnable(){
+        ParticleSupport cmdSupport = ParticleSupport.SupportBuilder.load();
+    }   
+}
+```
