@@ -9,8 +9,7 @@ import java.lang.reflect.InvocationTargetException;
 public interface BlockSupport {
 
     /**
-     * Change a block data.
-     * Used for versions under 1.13.
+     * Change a block data only if server version is older than 1.13.
      *
      * @param block target.
      * @param data  block data.
