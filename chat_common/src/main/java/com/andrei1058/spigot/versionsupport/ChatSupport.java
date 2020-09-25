@@ -11,14 +11,44 @@ import javax.annotation.Nullable;
 
 public interface ChatSupport {
 
+    /**
+     * Send a text component to the command sender.
+     *
+     * @param commandSender command sender.
+     * @param textComponent text component.
+     */
     void sendMessage(@NotNull CommandSender commandSender, @NotNull TextComponent textComponent);
 
+    /**
+     * Send a text component list to the command sender.
+     *
+     * @param commandSender command sender.
+     * @param textComponent text component array.
+     */
     void sendMessage(@NotNull CommandSender commandSender, @NotNull TextComponent[] textComponent);
 
+    /**
+     * Append content to the component builder.
+     *
+     * @param componentBuilder component builder.
+     * @param textComponent text component.
+     */
     ComponentBuilder append(ComponentBuilder componentBuilder, TextComponent textComponent);
 
+    /**
+     * Send a baseComponent to the command sender.
+     *
+     * @param commandSender command sender.
+     * @param baseComponent baseComponent.
+     */
     void sendMessage(@NotNull CommandSender commandSender, @NotNull BaseComponent baseComponent);
 
+    /**
+     * Send a baseComponent array to the command sender.
+     *
+     * @param commandSender command sender.
+     * @param baseComponent baseComponent list.
+     */
     void sendMessage(@NotNull CommandSender commandSender, @NotNull BaseComponent[] baseComponent);
 
     class SupportBuilder {
@@ -31,7 +61,7 @@ public interface ChatSupport {
             String version = Bukkit.getServer().getClass().getName().split("\\.")[3];
             Class<?> c;
             try {
-                switch (version){
+                switch (version) {
                     case "v1_8_R3":
                     case "v1_9_R1":
                     case "v1_9_R2":

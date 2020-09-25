@@ -9,12 +9,16 @@ import java.lang.reflect.InvocationTargetException;
 public interface SoundSupport {
 
     /**
+     * Check if the given sound is valid for the current server version.
+     *
      * @param name sound name.
      * @return true if given name is an existing sound.
      */
     boolean isSound(String name);
 
     /**
+     * Get sound by name.
+     *
      * @param name sound name.
      * @return Sound with given name. Null if does not exist.
      */
@@ -22,6 +26,8 @@ public interface SoundSupport {
     Sound getSound(String name);
 
     /**
+     * Get sound by name if valid or fallback sound.
+     *
      * @param name        sound name.
      * @param alternative alternative if not found.
      * @return sound with given name or alternative if not found.
@@ -29,9 +35,11 @@ public interface SoundSupport {
     Sound getSoundOr(String name, Sound alternative);
 
     /**
-     * @param v1_8  sound name
-     * @param v1_12 sound name
-     * @param v1_13 sound name
+     * Get sound for current server version.
+     *
+     * @param v1_8  sound name. Will return this if server version is 1.8.
+     * @param v1_12 sound name. Will return this is server version is in range [1.9,1.12]
+     * @param v1_13 sound name. Will return this if server version is in range [1.13,)
      * @return right sound for current version.
      */
     @Nullable

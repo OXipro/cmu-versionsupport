@@ -7,6 +7,13 @@ import org.jetbrains.annotations.Nullable;
 
 public interface CommandSupport {
 
+    /**
+     * Register a command.
+     *
+     * @param plugin   owner.
+     * @param cmdName  command name.
+     * @param instance command instance.
+     */
     boolean registerCommand(Plugin plugin, String cmdName, Command instance);
 
     class SupportBuilder {
