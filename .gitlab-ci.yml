@@ -12,9 +12,11 @@ maven-dev:
     - 'mvn versions:set -DnewVersion=1.5.0-SNAPSHOT'
     - 'mvn versions:update-child-modules'
     - 'mvn clean deploy -s ci_settings.xml'
+  after_script:
+    - 'sh docs_upload.sh'
   artifacts:
     paths:
-      - '*/target/*.jar'
+      - '*/target/*version-*.jar'
     expire_in: 2 days
 
 maven-job:
@@ -24,6 +26,8 @@ maven-job:
     - 'mvn versions:set -DnewVersion=1.5.0'
     - 'mvn versions:update-child-modules'
     - 'mvn clean deploy -s ci_settings.xml'
+  after_script:
+    - 'sh docs_upload.sh'
   artifacts:
     paths:
       - '*/target/*.jar'
