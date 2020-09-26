@@ -17,7 +17,7 @@ or for development builds:
 ```xml
 <repository>
   <id>andrei1058-snapshots</id>
-  <url>http://repo.andrei1058.com/releases</url>
+  <url>http://repo.andrei1058.com/snapshots</url>
 </repository>
 ``` 
 <br/>  
