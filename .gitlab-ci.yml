@@ -9,7 +9,7 @@ maven-dev:
   except:
     - 'master'
   script:
-    - 'mvn versions:set -DnewVersion=1.5.1-SNAPSHOT'
+    - 'mvn versions:set -DnewVersion=1.5.2-SNAPSHOT'
     - 'mvn versions:update-child-modules'
     - 'mvn clean deploy -s ci_settings.xml'
   after_script:
@@ -23,7 +23,7 @@ maven-job:
   only:
     - 'master'
   script:
-    - 'mvn versions:set -DnewVersion=1.5.1'
+    - 'mvn versions:set -DnewVersion=1.5.2'
     - 'mvn versions:update-child-modules'
     - 'mvn clean deploy -s ci_settings.xml'
   after_script:
