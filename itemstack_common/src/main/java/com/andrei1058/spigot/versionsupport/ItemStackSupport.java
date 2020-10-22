@@ -160,6 +160,23 @@ public interface ItemStackSupport {
      */
     boolean isProjectile(ItemStack itemStack);
 
+    /**
+     * Check if the given item is a player head.
+     *
+     * @param itemStack item to be checked.
+     * @return true if is a player head.
+     */
+    boolean isPlayerHead(ItemStack itemStack);
+
+    /**
+     * Apply player skin on a head.
+     *
+     * @param player    player skin owner.
+     * @param itemStack item to copy NBTTags from. Nullable.
+     * @return player head with player's skin.
+     */
+    ItemStack applyPlayerSkinOnHead(Player player, ItemStack itemStack);
+
     class SupportBuilder {
 
         /**

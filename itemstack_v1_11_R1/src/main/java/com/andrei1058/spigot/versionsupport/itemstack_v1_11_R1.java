@@ -2,11 +2,14 @@ package com.andrei1058.spigot.versionsupport;
 
 import net.minecraft.server.v1_11_R1.*;
 import org.bukkit.Material;
+import org.bukkit.craftbukkit.v1_11_R1.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_11_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.SkullMeta;
 
 import javax.annotation.Nullable;
+import java.lang.reflect.Field;
 
 class itemstack_v1_11_R1 implements ItemStackSupport {
     @Nullable
@@ -121,5 +124,33 @@ class itemstack_v1_11_R1 implements ItemStackSupport {
         if (CraftItemStack.asNMSCopy(itemStack) == null) return false;
         if (CraftItemStack.asNMSCopy(itemStack).getItem() == null) return false;
         return CraftItemStack.asNMSCopy(itemStack).getItem() instanceof IProjectile;
+    }
+
+    @Override
+    public boolean isPlayerHead(ItemStack itemStack) {
+        return itemStack.getType() == Material.SKULL_ITEM && itemStack.getData().getData() == 3;
+    }
+
+    @Override
+    public org.bukkit.inventory.ItemStack applyPlayerSkinOnHead(Player player, org.bukkit.inventory.ItemStack copyTagFrom) {
+        org.bukkit.inventory.ItemStack head = new org.bukkit.inventory.ItemStack(org.bukkit.Material.SKULL_ITEM, 1, (short) 3);
+
+        if (copyTagFrom != null) {
+            net.minecraft.server.v1_11_R1.ItemStack i = CraftItemStack.asNMSCopy(head);
+            i.setTag(CraftItemStack.asNMSCopy(copyTagFrom).getTag());
+            head = CraftItemStack.asBukkitCopy(i);
+        }
+
+        SkullMeta headMeta = (SkullMeta) head.getItemMeta();
+        Field profileField;
+        try {
+            profileField = headMeta.getClass().getDeclaredField("profile");
+            profileField.setAccessible(true);
+            profileField.set(headMeta, ((CraftPlayer) player).getProfile());
+        } catch (NoSuchFieldException | IllegalArgumentException | IllegalAccessException e1) {
+            e1.printStackTrace();
+        }
+        head.setItemMeta(headMeta);
+        return head;
     }
 }

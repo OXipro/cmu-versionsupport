@@ -1,9 +1,9 @@
 package com.andrei1058.spigot.versionsupport;
 
-import net.minecraft.server.v1_15_R1.*;
+import net.minecraft.server.v1_16_R1.*;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_15_R1.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_15_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_16_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_16_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
@@ -11,7 +11,7 @@ import org.bukkit.inventory.meta.SkullMeta;
 import javax.annotation.Nullable;
 import java.lang.reflect.Field;
 
-class itemstack_v1_15_R1 implements ItemStackSupport {
+class itemstack_v1_16_R1 implements ItemStackSupport {
     @Nullable
     public ItemStack getInHand(Player player) {
         return player.getInventory().getItemInMainHand();
@@ -38,7 +38,7 @@ class itemstack_v1_15_R1 implements ItemStackSupport {
     }
 
     public ItemStack addTag(ItemStack itemStack, String key, String value) {
-        net.minecraft.server.v1_15_R1.ItemStack cis = CraftItemStack.asNMSCopy(itemStack);
+        net.minecraft.server.v1_16_R1.ItemStack cis = CraftItemStack.asNMSCopy(itemStack);
         NBTTagCompound tag = cis.getTag();
         if (tag == null) {
             tag = new NBTTagCompound();
@@ -49,7 +49,7 @@ class itemstack_v1_15_R1 implements ItemStackSupport {
     }
 
     public boolean hasTag(ItemStack itemStack, String key) {
-        net.minecraft.server.v1_15_R1.ItemStack cis = CraftItemStack.asNMSCopy(itemStack);
+        net.minecraft.server.v1_16_R1.ItemStack cis = CraftItemStack.asNMSCopy(itemStack);
         return cis.getTag() != null && cis.hasTag() && (cis.getTag().hasKey(key));
     }
 
@@ -61,7 +61,7 @@ class itemstack_v1_15_R1 implements ItemStackSupport {
     }
 
     public ItemStack removeTag(ItemStack itemStack, String key) {
-        net.minecraft.server.v1_15_R1.ItemStack cis = CraftItemStack.asNMSCopy(itemStack);
+        net.minecraft.server.v1_16_R1.ItemStack cis = CraftItemStack.asNMSCopy(itemStack);
         NBTTagCompound tag = cis.getTag();
         if (tag == null) return itemStack;
         if (!tag.hasKey(key)) return itemStack;
@@ -84,7 +84,7 @@ class itemstack_v1_15_R1 implements ItemStackSupport {
     }
 
     public double getDamage(ItemStack itemStack) {
-        net.minecraft.server.v1_15_R1.ItemStack nmsStack = CraftItemStack.asNMSCopy(itemStack);
+        net.minecraft.server.v1_16_R1.ItemStack nmsStack = CraftItemStack.asNMSCopy(itemStack);
         if (nmsStack.getTag() == null) return 0D;
         return nmsStack.getTag().getDouble("generic.attackDamage");
     }
@@ -123,9 +123,8 @@ class itemstack_v1_15_R1 implements ItemStackSupport {
     public boolean isProjectile(ItemStack itemStack) {
         if (CraftItemStack.asNMSCopy(itemStack) == null) return false;
         if (CraftItemStack.asNMSCopy(itemStack).getItem() == null) return false;
-        return CraftItemStack.asNMSCopy(itemStack).getItem() instanceof IProjectile;
+        return CraftItemStack.asNMSCopy(itemStack).A() instanceof IProjectile;
     }
-
 
     @Override
     public boolean isPlayerHead(ItemStack itemStack) {
@@ -137,7 +136,7 @@ class itemstack_v1_15_R1 implements ItemStackSupport {
         org.bukkit.inventory.ItemStack head = new org.bukkit.inventory.ItemStack(Material.PLAYER_HEAD, 1);
 
         if (copyTagFrom != null) {
-            net.minecraft.server.v1_15_R1.ItemStack i = CraftItemStack.asNMSCopy(head);
+            net.minecraft.server.v1_16_R1.ItemStack i = CraftItemStack.asNMSCopy(head);
             i.setTag(CraftItemStack.asNMSCopy(copyTagFrom).getTag());
             head = CraftItemStack.asBukkitCopy(i);
         }
@@ -145,7 +144,6 @@ class itemstack_v1_15_R1 implements ItemStackSupport {
         SkullMeta headMeta = (SkullMeta) head.getItemMeta();
         Field profileField;
         try {
-            //noinspection ConstantConditions
             profileField = headMeta.getClass().getDeclaredField("profile");
             profileField.setAccessible(true);
             profileField.set(headMeta, ((CraftPlayer) player).getProfile());

@@ -206,6 +206,8 @@ public class Main extends JavaPlugin {
         itemStackSupport.isAxe(item);
         itemStackSupport.isBow(item);
         itemStackSupport.isProjectile(item);
+        itemStackSupport.isPlayerHead(item);
+        itemStackSupport.applyPlayerSkinOnHead(player, null);
     }   
 }
 ```
