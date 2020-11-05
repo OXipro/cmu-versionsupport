@@ -131,6 +131,12 @@ class itemstack_v1_10_R1 implements ItemStackSupport {
         return itemStack.getType() == Material.SKULL_ITEM && itemStack.getData().getData() == 3;
     }
 
+    @SuppressWarnings("deprecation")
+    @Override
+    public byte getItemData(ItemStack itemStack){
+        return itemStack.getData().getData();
+    }
+
     @Override
     public org.bukkit.inventory.ItemStack applyPlayerSkinOnHead(Player player, org.bukkit.inventory.ItemStack copyTagFrom) {
         org.bukkit.inventory.ItemStack head = new org.bukkit.inventory.ItemStack(org.bukkit.Material.SKULL_ITEM, 1, (short) 3);

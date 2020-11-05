@@ -177,6 +177,14 @@ public interface ItemStackSupport {
      */
     ItemStack applyPlayerSkinOnHead(Player player, ItemStack itemStack);
 
+    /**
+     * Get item data.
+     * Will always return 0 for 1.13+.
+     */
+    default byte getItemData(ItemStack itemStack){
+        return 0;
+    }
+
     class SupportBuilder {
 
         /**

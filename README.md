@@ -208,6 +208,8 @@ public class Main extends JavaPlugin {
         itemStackSupport.isProjectile(item);
         itemStackSupport.isPlayerHead(item);
         itemStackSupport.applyPlayerSkinOnHead(player, null);
+        // get item data for 1.12 or older
+        itemStackSupport.getItemData(item);
     }   
 }
 ```
