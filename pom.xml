@@ -78,6 +78,17 @@
         <module>player_npc_v1_15_R1</module>
         <module>player_npc_v1_16_R1</module>
         <module>player_npc_v1_16_R2</module>
+        <module>block_v1_16_R2</module>
+        <module>block_v1_16_R3</module>
+        <module>cmd_v1_16_R2</module>
+        <module>cmd_v1_16_R3</module>
+        <module>itemstack_v1_16_R2</module>
+        <module>itemstack_v1_16_R3</module>
+        <module>particle_v1_16_R2</module>
+        <module>particle_v1_16_R3</module>
+        <module>player_npc_v1_16_R3</module>
+        <module>title_v1_16_R2</module>
+        <module>title_v1_16_R3</module>
     </modules>
 
     <repositories>
