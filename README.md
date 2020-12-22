@@ -374,3 +374,43 @@ public class Main extends JavaPlugin {
     }   
 }
 ```
+
+### Player NPC Support
+[![JavaDocs](https://img.shields.io/badge/JavaDocs-PlayerNPC-orange)](http://javadocs.andrei1058.com/SpigotVersionSupport/player-npc-version)
+
+Supports 1.12+. Create Player entities (not fake).
+
+##### Dependency
+```xml
+<dependency>
+  <groupId>com.andrei1058.spigot.versionsupport</groupId>
+  <artifactId>player-npc-version</artifactId>
+  <version>[1.5.0,)</version>
+  <scope>compile</scope>
+</dependency>
+```
+
+##### How to use
+```java
+public class Main extends JavaPlugin {
+
+    private static PlayerNPCSupport playerNPCSupport;
+
+    public void onEnable(){
+        // loading support
+        playerNPCSupport = PlayerNPCSupport.SupportBuilder.load();
+
+        // server version not supported
+        if (playerNPCSupport == null){
+            getLogger().severe("Server version not supported");
+            Bukkit.getPluginManager().disablePlugin(this);
+            return;
+        }
+
+        // demo of a few methods. check all of them on javadocs
+        // returns player
+        playerNPCSupport.spawnNPC(Location location, GameProfile gameProfile);
+        // returns player
+        playerNPCSupport.spawnNPC(Location location, Player player, boolean copyArmor);
+    }   
+}

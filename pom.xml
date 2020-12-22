@@ -7,7 +7,7 @@
     <groupId>com.andrei1058.spigot.versionsupport</groupId>
     <artifactId>versionsupport</artifactId>
     <packaging>pom</packaging>
-    <version>1.5.2-SNAPSHOT</version>
+    <version>1.5.3-SNAPSHOT</version>
     <modules>
         <module>sounds_version</module>
         <module>material_version</module>
@@ -70,6 +70,14 @@
         <module>particle_v1_14_R1</module>
         <module>particle_v1_15_R1</module>
         <module>particle_v1_16_R1</module>
+        <module>player_npc_common</module>
+        <module>player_npc_v1_12_R1</module>
+        <module>player-npc-version</module>
+        <module>player_npc_v1_13_R2</module>
+        <module>player_npc_v1_14_R1</module>
+        <module>player_npc_v1_15_R1</module>
+        <module>player_npc_v1_16_R1</module>
+        <module>player_npc_v1_16_R2</module>
     </modules>
 
     <repositories>

@@ -23,7 +23,10 @@ lftp -c "set ftp:ssl-allow no; open -u $APIDOCS_USER,$APIDOCS_PASS andrei1058.co
 lftp -c "set ftp:ssl-allow no; open -u $APIDOCS_USER,$APIDOCS_PASS andrei1058.com; mirror -Rev sounds_version/target/apidocs ./$CI_PROJECT_TITLE/sounds-version  --ignore-time --parallel=10 --exclude-glob .git* --exclude .git/"
 
 # title support upload
-lftp -c "set ftp:ssl-allow no; open -u $APIDOCS_USER,$APIDOCS_PASS andrei1058.com; mirror -Rev titlecommon/target/apidocs ./$CI_PROJECT_TITLE/title-version  --ignore-time --parallel=10 --exclude-glob .git* --exclude .git/"
+lftp -c "set ftp:ssl-allow no; open -u $APIDOCS_USER,$APIDOCS_PASS andrei1058.com; mirror -Rev titlecommon/target/apidocs ./$CI_PROJECT_TITLE/title-version  --ignore-time --parallel=10 --exclude-glob .git* --exclude .git/"# title support upload
+
+# player NPC support upload
+lftp -c "set ftp:ssl-allow no; open -u $APIDOCS_USER,$APIDOCS_PASS andrei1058.com; mirror -Rev player_npc_common/target/apidocs ./$CI_PROJECT_TITLE/player-npc-version  --ignore-time --parallel=10 --exclude-glob .git* --exclude .git/"
 
 
 
