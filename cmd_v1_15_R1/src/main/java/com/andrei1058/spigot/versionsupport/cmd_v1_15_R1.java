@@ -1,6 +1,5 @@
 package com.andrei1058.spigot.versionsupport;
 
-import com.andrei1058.spigot.versionsupport.CommandSupport;
 import org.bukkit.command.Command;
 import org.bukkit.craftbukkit.v1_15_R1.CraftServer;
 import org.bukkit.plugin.Plugin;

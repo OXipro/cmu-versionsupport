@@ -1,6 +1,5 @@
 package com.andrei1058.spigot.versionsupport;
 
-import com.andrei1058.spigot.versionsupport.PlayerNPCSupport;
 import com.mojang.authlib.GameProfile;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.server.v1_16_R1.*;
