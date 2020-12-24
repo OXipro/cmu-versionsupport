@@ -7,6 +7,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nullable;
+import java.util.Collection;
 import java.util.List;
 
 @SuppressWarnings("unused")
@@ -19,6 +20,8 @@ public interface PlayerNPCSupport {
     void sendDestroyPacket(Entity entity, Player receiver);
 
     void sendDestroyPacket(Entity entity, List<Player> receivers);
+
+    void sendDestroyPacket(Entity entity, Collection<Player> receivers);
 
 
     class SupportBuilder {
