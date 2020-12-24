@@ -70,4 +70,19 @@ public class Player_NPC_v1_16_R3 implements PlayerNPCSupport {
         }
         return player.getBukkitEntity();
     }
+
+
+    @Override
+    public void sendDestroyPacket(org.bukkit.entity.Entity entity, Player receiver) {
+        PacketPlayOutEntityDestroy packet = new PacketPlayOutEntityDestroy(entity.getEntityId());
+        ((CraftPlayer) receiver).getHandle().playerConnection.sendPacket(packet);
+    }
+
+    @Override
+    public void sendDestroyPacket(org.bukkit.entity.Entity entity, List<Player> receivers) {
+        PacketPlayOutEntityDestroy packet = new PacketPlayOutEntityDestroy(entity.getEntityId());
+        for (Player receiver : receivers) {
+            ((CraftPlayer) receiver).getHandle().playerConnection.sendPacket(packet);
+        }
+    }
 }

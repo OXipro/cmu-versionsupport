@@ -10,8 +10,10 @@ import org.bukkit.craftbukkit.v1_15_R1.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_15_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 
+import java.util.List;
 import java.util.TreeSet;
 
+@SuppressWarnings("unused")
 public class Player_NPC_1_15_R1 implements PlayerNPCSupport {
 
     @Override
@@ -66,5 +68,19 @@ public class Player_NPC_1_15_R1 implements PlayerNPCSupport {
             }
         }
         return player.getBukkitEntity();
+    }
+
+    @Override
+    public void sendDestroyPacket(org.bukkit.entity.Entity entity, Player receiver) {
+        PacketPlayOutEntityDestroy packet = new PacketPlayOutEntityDestroy(entity.getEntityId());
+        ((CraftPlayer) receiver).getHandle().playerConnection.sendPacket(packet);
+    }
+
+    @Override
+    public void sendDestroyPacket(org.bukkit.entity.Entity entity, List<Player> receivers) {
+        PacketPlayOutEntityDestroy packet = new PacketPlayOutEntityDestroy(entity.getEntityId());
+        for (Player receiver : receivers) {
+            ((CraftPlayer) receiver).getHandle().playerConnection.sendPacket(packet);
+        }
     }
 }
