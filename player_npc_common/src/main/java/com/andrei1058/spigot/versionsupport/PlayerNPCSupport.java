@@ -21,7 +21,7 @@ public interface PlayerNPCSupport {
 
     void sendDestroyPacket(Entity entity, List<Player> receivers);
 
-    void sendDestroyPacket(Entity entity, Collection<Player> receivers);
+    void sendDestroyPacket(Entity entity, Collection<? extends Player> receivers);
 
 
     class SupportBuilder {
