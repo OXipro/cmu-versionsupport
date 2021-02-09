@@ -108,6 +108,13 @@ public interface MaterialSupport {
      */
     boolean isCake(Material material);
 
+    /**
+     * Check if the given material is soil.
+     */
+    boolean isSoil(Material material);
+
+    Material getSoil();
+
     class SupportBuilder {
 
         /**

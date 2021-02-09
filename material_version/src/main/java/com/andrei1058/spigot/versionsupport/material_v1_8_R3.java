@@ -66,4 +66,14 @@ class material_v1_8_R3 implements MaterialSupport {
     public boolean isCake(Material material) {
         return material == Material.CAKE || material == Material.CAKE_BLOCK;
     }
+
+    @Override
+    public boolean isSoil(Material material) {
+        return material == Material.SOIL;
+    }
+
+    @Override
+    public Material getSoil() {
+        return Material.SOIL;
+    }
 }

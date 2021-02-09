@@ -6,6 +6,18 @@ import javax.annotation.Nullable;
 
 class material_v1_13_R2 implements MaterialSupport {
 
+    private final Material soil = Material.getMaterial("FARMLAND");
+
+    @Override
+    public boolean isSoil(Material material) {
+        return material == soil;
+    }
+
+    @Override
+    public Material getSoil() {
+        return soil;
+    }
+
     public boolean isMaterial(String name) {
         try {
             Material.valueOf(name.toUpperCase());

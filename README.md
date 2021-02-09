@@ -103,6 +103,7 @@ public class Main extends JavaPlugin {
         materialSupport.isConcretePowder(event.getBlock().getMaterial());
         materialSupport.isCake(event.getBlock().getMaterial());
         materialSupport.isMaterial(event.getBlock().getMaterial());
+        materialSupport.isSoil(event.getBlock().getMaterial());
         // returns v1_8 if server version is 1.8, returns v1_12 if
         // the server version is in range [1.9,1.12] otherwise 1.13
         materialSupport.getForCurrent(v1_8, v1_12, v1_13);
