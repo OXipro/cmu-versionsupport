@@ -1,5 +1,7 @@
 package com.andrei1058.spigot.versionsupport;
 
+import com.mojang.authlib.GameProfile;
+import com.mojang.authlib.properties.Property;
 import net.minecraft.server.v1_16_R3.*;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
@@ -10,6 +12,8 @@ import org.bukkit.inventory.meta.SkullMeta;
 
 import javax.annotation.Nullable;
 import java.lang.reflect.Field;
+import java.util.Base64;
+import java.util.UUID;
 
 @SuppressWarnings("unused")
 public class itemstack_v1_16_R3 implements ItemStackSupport {
@@ -154,6 +158,35 @@ public class itemstack_v1_16_R3 implements ItemStackSupport {
             }
             head.setItemMeta(headMeta);
         }
+        return head;
+    }
+
+    @Override
+    public ItemStack applySkinTextureOnHead(String texture, ItemStack copyTagFrom) {
+
+        org.bukkit.inventory.ItemStack head = new org.bukkit.inventory.ItemStack(Material.PLAYER_HEAD, 1);
+
+        if (copyTagFrom != null) {
+            net.minecraft.server.v1_16_R3.ItemStack i = CraftItemStack.asNMSCopy(head);
+            i.setTag(CraftItemStack.asNMSCopy(copyTagFrom).getTag());
+            head = CraftItemStack.asBukkitCopy(i);
+        }
+
+        GameProfile profile = new GameProfile(UUID.randomUUID(), null);
+        byte[] encodedData = Base64.getEncoder().encode(String.format("{textures:{SKIN:{url:\"%s\"}}}", "https://textures.minecraft.net/texture/" + texture).getBytes());
+        profile.getProperties().put("textures", new Property("textures", new String(encodedData)));
+
+        SkullMeta headMeta = (SkullMeta) head.getItemMeta();
+        Field profileField;
+        try {
+            assert headMeta != null;
+            profileField = headMeta.getClass().getDeclaredField("profile");
+            profileField.setAccessible(true);
+            profileField.set(headMeta, profile);
+        } catch (NoSuchFieldException | IllegalArgumentException | IllegalAccessException e1) {
+            e1.printStackTrace();
+        }
+        head.setItemMeta(headMeta);
         return head;
     }
 }

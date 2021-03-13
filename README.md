@@ -211,6 +211,8 @@ public class Main extends JavaPlugin {
         itemStackSupport.applyPlayerSkinOnHead(player, null);
         // get item data for 1.12 or older
         itemStackSupport.getItemData(item);
+        // put custom texture on player head
+        item = itemStackSupport.applySkinTextureOnHead("eb28f4eeff891b78d51f75d8722c628484ba49df9c9f2371898c26967386", null);
     }   
 }
 ```

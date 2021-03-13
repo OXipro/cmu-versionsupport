@@ -1,5 +1,7 @@
 package com.andrei1058.spigot.versionsupport;
 
+import com.mojang.authlib.GameProfile;
+import com.mojang.authlib.properties.Property;
 import net.minecraft.server.v1_13_R2.*;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_13_R2.entity.CraftPlayer;
@@ -10,7 +12,11 @@ import org.bukkit.inventory.meta.SkullMeta;
 
 import javax.annotation.Nullable;
 import java.lang.reflect.Field;
+import java.util.Base64;
+import java.util.Objects;
+import java.util.UUID;
 
+@SuppressWarnings("unused")
 class itemstack_v1_13_R2 implements ItemStackSupport {
     @Nullable
     public ItemStack getInHand(Player player) {
@@ -70,7 +76,7 @@ class itemstack_v1_13_R2 implements ItemStackSupport {
     }
 
     public void setUnbreakable(ItemStack itemStack, boolean unbreakable) {
-        itemStack.getItemMeta().setUnbreakable(true);
+        Objects.requireNonNull(itemStack.getItemMeta()).setUnbreakable(true);
     }
 
     public void minusAmount(Player p, ItemStack i, int amount) {
@@ -143,9 +149,39 @@ class itemstack_v1_13_R2 implements ItemStackSupport {
         SkullMeta headMeta = (SkullMeta) head.getItemMeta();
         Field profileField;
         try {
+            assert headMeta != null;
             profileField = headMeta.getClass().getDeclaredField("profile");
             profileField.setAccessible(true);
             profileField.set(headMeta, ((CraftPlayer) player).getProfile());
+        } catch (NoSuchFieldException | IllegalArgumentException | IllegalAccessException e1) {
+            e1.printStackTrace();
+        }
+        head.setItemMeta(headMeta);
+        return head;
+    }
+
+    @Override
+    public ItemStack applySkinTextureOnHead(String texture, ItemStack copyTagFrom) {
+
+        org.bukkit.inventory.ItemStack head = new org.bukkit.inventory.ItemStack(Material.PLAYER_HEAD, 1);
+
+        if (copyTagFrom != null) {
+            net.minecraft.server.v1_13_R2.ItemStack i = CraftItemStack.asNMSCopy(head);
+            i.setTag(CraftItemStack.asNMSCopy(copyTagFrom).getTag());
+            head = CraftItemStack.asBukkitCopy(i);
+        }
+
+        GameProfile profile = new GameProfile(UUID.randomUUID(), null);
+        byte[] encodedData = Base64.getEncoder().encode(String.format("{textures:{SKIN:{url:\"%s\"}}}", "https://textures.minecraft.net/texture/" + texture).getBytes());
+        profile.getProperties().put("textures", new Property("textures", new String(encodedData)));
+
+        SkullMeta headMeta = (SkullMeta) head.getItemMeta();
+        Field profileField;
+        try {
+            assert headMeta != null;
+            profileField = headMeta.getClass().getDeclaredField("profile");
+            profileField.setAccessible(true);
+            profileField.set(headMeta, profile);
         } catch (NoSuchFieldException | IllegalArgumentException | IllegalAccessException e1) {
             e1.printStackTrace();
         }
