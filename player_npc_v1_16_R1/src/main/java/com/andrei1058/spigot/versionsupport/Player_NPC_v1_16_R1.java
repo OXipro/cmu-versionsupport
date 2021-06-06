@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.TreeSet;
 
 @SuppressWarnings("unused")
-public class Player_NPC_V1_16_R1 implements PlayerNPCSupport {
+public class Player_NPC_v1_16_R1 implements PlayerNPCSupport {
 
     @Override
     public Player spawnNPC(Location location, GameProfile gameProfile) {

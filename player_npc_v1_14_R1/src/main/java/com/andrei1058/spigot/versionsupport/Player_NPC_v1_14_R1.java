@@ -1,13 +1,13 @@
 package com.andrei1058.spigot.versionsupport;
 
 import com.mojang.authlib.GameProfile;
-import net.minecraft.server.v1_15_R1.*;
+import net.minecraft.server.v1_14_R1.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_15_R1.CraftServer;
-import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
-import org.bukkit.craftbukkit.v1_15_R1.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_15_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_14_R1.CraftServer;
+import org.bukkit.craftbukkit.v1_14_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_14_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_14_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 
 import java.util.Collection;
@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.TreeSet;
 
 @SuppressWarnings("unused")
-public class Player_NPC_1_15_R1 implements PlayerNPCSupport {
+public class Player_NPC_v1_14_R1 implements PlayerNPCSupport {
 
     @Override
     public Player spawnNPC(Location location, GameProfile gameProfile) {
