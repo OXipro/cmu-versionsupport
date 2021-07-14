@@ -9,6 +9,7 @@ public interface BlockSupport {
 
     /**
      * Change a block data only if server version is older than 1.13.
+     * On 1.13+ if the given block is Ageable it will assign the given age.
      *
      * @param block target.
      * @param data  block data.
