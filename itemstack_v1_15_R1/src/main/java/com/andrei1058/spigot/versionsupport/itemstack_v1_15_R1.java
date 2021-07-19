@@ -80,6 +80,11 @@ class itemstack_v1_15_R1 implements ItemStackSupport {
     }
 
     public void minusAmount(Player p, ItemStack i, int amount) {
+        if (p.getInventory().getItemInOffHand().equals(i)){
+            p.getInventory().setItemInOffHand(new ItemStack(Material.AIR));
+            p.updateInventory();
+            return;
+        }
         if (i.getAmount() - amount <= 0) {
             p.getInventory().removeItem(i);
             return;
