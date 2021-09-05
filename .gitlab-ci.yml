@@ -3,13 +3,13 @@ variables:
   MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
 
 
-image: "maven:3.6.3-jdk-8"
+image: "maven:3.6.3-jdk-11"
 
 maven-dev:
   except:
     - 'master'
   script:
-    - 'mvn versions:set -DnewVersion=1.5.4-SNAPSHOT'
+    - 'mvn versions:set -DnewVersion=1.5.5-SNAPSHOT'
     - 'mvn versions:update-child-modules'
     - 'mvn clean deploy -s ci_settings.xml'
   after_script:
@@ -23,7 +23,7 @@ maven-job:
   only:
     - 'master'
   script:
-    - 'mvn versions:set -DnewVersion=1.5.4'
+    - 'mvn versions:set -DnewVersion=1.5.5'
     - 'mvn versions:update-child-modules'
     - 'mvn clean deploy -s ci_settings.xml'
   after_script:
