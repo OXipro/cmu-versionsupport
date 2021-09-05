@@ -417,3 +417,44 @@ public class Main extends JavaPlugin {
         playerNPCSupport.spawnNPC(Location location, Player player, boolean copyArmor);
     }   
 }
+```
+
+### Player Utils Support
+[![JavaDocs](https://img.shields.io/badge/JavaDocs-PlayerNPC-orange)](http://javadocs.andrei1058.com/SpigotVersionSupport/player-npc-version)
+
+Supports 1.8.8+. An interface to support modified player methods through the versions.
+
+##### Dependency
+```xml
+<dependency>
+  <groupId>com.andrei1058.spigot.versionsupport</groupId>
+  <artifactId>player_utils_version</artifactId>
+  <version>[1.5.5,)</version>
+  <scope>compile</scope>
+</dependency>
+```
+
+##### How to use
+```java
+public class Main extends JavaPlugin {
+
+    private static PlayerUtilsSupport playerVersionedUtils;
+
+    public void onEnable(){
+        // loading support
+        playerVersionedUtils = PlayerUtilsSupport.SupportBuilder.load();
+
+        // server version not supported
+        if (playerVersionedUtils == null){
+            getLogger().severe("Server version not supported");
+            Bukkit.getPluginManager().disablePlugin(this);
+            return;
+        }
+
+        // hide a player to a player (receiver)
+        playerVersionedUtils.hidePlayer(Player toBeHidden, Player receiver, Plugin requester);
+        // un-hide a player to a player
+        playerVersionedUtils.unHidePlayer(Player toBeShown, Player receiver, Plugin requester);
+    }   
+}
+```
