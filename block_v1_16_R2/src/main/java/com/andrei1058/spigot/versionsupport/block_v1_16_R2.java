@@ -23,7 +23,7 @@ public class block_v1_16_R2 implements BlockSupport {
         try {
             Field field = BlockBase.class.getDeclaredField("durability");
             field.setAccessible(true);
-            field.set(Class.forName("net.minecraft.server.v1_16_R1.Blocks." + new_v1_13.toUpperCase()), durability);
+            field.set(Class.forName("net.minecraft.server.v1_16_R2.Blocks." + new_v1_13.toUpperCase()), durability);
 
         } catch (NoSuchFieldException | IllegalAccessException | ClassNotFoundException e) {
             e.printStackTrace();
