@@ -7,10 +7,11 @@
     <groupId>com.andrei1058.spigot.versionsupport</groupId>
     <artifactId>versionsupport</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.6-SNAPSHOT</version>
     <modules>
         <module>sounds_version</module>
         <module>material_version</module>
+
         <module>block_version</module>
         <module>block_v1_8_R3</module>
         <module>block_v1_9_R2</module>
@@ -19,8 +20,13 @@
         <module>block_v1_12_R1</module>
         <module>block_v1_13_R2</module>
         <module>block_v1_14_R1</module>
+        <module>block_v1_15_R1</module>
         <module>block_v1_16_R1</module>
+        <module>block_v1_16_R2</module>
+        <module>block_v1_16_R3</module>
+        <module>block_v1_17_R1</module>
         <module>block_common</module>
+
         <module>itemstack_version</module>
         <module>itemstack_common</module>
         <module>itemstack_v1_8_R3</module>
@@ -31,11 +37,14 @@
         <module>itemstack_v1_13_R2</module>
         <module>itemstack_v1_14_R1</module>
         <module>itemstack_v1_16_R1</module>
-        <module>block_v1_15_R1</module>
         <module>itemstack_v1_15_R1</module>
+        <module>itemstack_v1_16_R2</module>
+        <module>itemstack_v1_16_R3</module>
+        <module>itemstack_v1_17_R1</module>
+
         <module>title_version</module>
-        <module>title_v1_8_R3</module>
         <module>titlecommon</module>
+        <module>title_v1_8_R3</module>
         <module>title_v1_9_R2</module>
         <module>title_v1_10_R1</module>
         <module>title_v1_12_R1</module>
@@ -44,13 +53,18 @@
         <module>title_v1_14_R1</module>
         <module>title_v1_15_R1</module>
         <module>title_v1_16_R1</module>
+        <module>title_v1_16_R2</module>
+        <module>title_v1_16_R3</module>
+        <module>title_v1_17_R1</module>
+
         <module>chat_version</module>
         <module>chat_common</module>
         <module>chat_v1_8_R3</module>
         <module>chat_v1_12_R1</module>
+
         <module>cmd-version</module>
-        <module>cmd_v1_8_R3</module>
         <module>cmd_common</module>
+        <module>cmd_v1_8_R3</module>
         <module>cmd_v1_9_R2</module>
         <module>cmd_v1_10_R1</module>
         <module>cmd_v1_11_R1</module>
@@ -59,6 +73,10 @@
         <module>cmd_v1_14_R1</module>
         <module>cmd_v1_15_R1</module>
         <module>cmd_v1_16_R1</module>
+        <module>cmd_v1_16_R2</module>
+        <module>cmd_v1_16_R3</module>
+        <module>cmd_v1_17_R1</module>
+
         <module>particle_common</module>
         <module>particle_version</module>
         <module>particle-v1_8_R3</module>
@@ -70,6 +88,33 @@
         <module>particle_v1_14_R1</module>
         <module>particle_v1_15_R1</module>
         <module>particle_v1_16_R1</module>
+        <module>particle_v1_16_R2</module>
+        <module>particle_v1_16_R3</module>
+        <module>particle_v1_17_R1</module>
+
+        <module>player_npc_common</module>
+        <module>player_npc_v1_12_R1</module>
+        <module>player-npc-version</module>
+        <module>player_npc_v1_13_R2</module>
+        <module>player_npc_v1_14_R1</module>
+        <module>player_npc_v1_15_R1</module>
+        <module>player_npc_v1_16_R1</module>
+        <module>player_npc_v1_16_R2</module>
+        <module>player_npc_v1_16_R3</module>
+        <module>player_npc_v1_17_R1</module>
+
+        <module>player_utils_common</module>
+        <module>player_utils_version</module>
+        <module>player_utils_v1_8_R3</module>
+        <module>player_utils_v1_9_R2</module>
+        <module>player_utils_v1_10_R1</module>
+        <module>player_utils_v1_11_R1</module>
+        <module>player_utils_v1_12_R1</module>
+        <module>player_utils_v1_13_R2</module>
+        <module>player_utils_v1_14_R1</module>
+        <module>player_utils_v1_15_R1</module>
+        <module>player_utils_v1_16_R3</module>
+        <module>player_utils_v1_17_R1</module>
     </modules>
 
     <repositories>
@@ -87,7 +132,7 @@
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
-            <version>20.1.0</version>
+            <version>22.0.0</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

@@ -4,7 +4,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 
 import javax.annotation.Nullable;
-import java.lang.reflect.InvocationTargetException;
 
 public interface MaterialSupport {
 
@@ -108,6 +107,13 @@ public interface MaterialSupport {
      * @return true if given material is cake.
      */
     boolean isCake(Material material);
+
+    /**
+     * Check if the given material is soil.
+     */
+    boolean isSoil(Material material);
+
+    Material getSoil();
 
     class SupportBuilder {
 

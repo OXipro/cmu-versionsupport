@@ -103,6 +103,7 @@ public class Main extends JavaPlugin {
         materialSupport.isConcretePowder(event.getBlock().getMaterial());
         materialSupport.isCake(event.getBlock().getMaterial());
         materialSupport.isMaterial(event.getBlock().getMaterial());
+        materialSupport.isSoil(event.getBlock().getMaterial());
         // returns v1_8 if server version is 1.8, returns v1_12 if
         // the server version is in range [1.9,1.12] otherwise 1.13
         materialSupport.getForCurrent(v1_8, v1_12, v1_13);
@@ -206,6 +207,12 @@ public class Main extends JavaPlugin {
         itemStackSupport.isAxe(item);
         itemStackSupport.isBow(item);
         itemStackSupport.isProjectile(item);
+        itemStackSupport.isPlayerHead(item);
+        itemStackSupport.applyPlayerSkinOnHead(player, null);
+        // get item data for 1.12 or older
+        itemStackSupport.getItemData(item);
+        // put custom texture on player head
+        item = itemStackSupport.applySkinTextureOnHead("eb28f4eeff891b78d51f75d8722c628484ba49df9c9f2371898c26967386", null);
     }   
 }
 ```
@@ -367,6 +374,87 @@ public class Main extends JavaPlugin {
         particleSupport.spawnParticle(world, "particleName", x, y, z, offsetX, offsetY, offsetZ, speed, amount);
         // returns V18 if server version is 1.8, returns V19 for 1.9, V12 for [1.10,1.12] and V13 for 1.13 and newer.
         particleSupport.getForVersion(world, "v18", "v19", "V12", "V13");
+    }   
+}
+```
+
+### Player NPC Support
+[![JavaDocs](https://img.shields.io/badge/JavaDocs-PlayerNPC-orange)](http://javadocs.andrei1058.com/SpigotVersionSupport/player-npc-version)
+
+Supports 1.12+. Create Player entities (not fake).
+
+##### Dependency
+```xml
+<dependency>
+  <groupId>com.andrei1058.spigot.versionsupport</groupId>
+  <artifactId>player-npc-version</artifactId>
+  <version>[1.5.0,)</version>
+  <scope>compile</scope>
+</dependency>
+```
+
+##### How to use
+```java
+public class Main extends JavaPlugin {
+
+    private static PlayerNPCSupport playerNPCSupport;
+
+    public void onEnable(){
+        // loading support
+        playerNPCSupport = PlayerNPCSupport.SupportBuilder.load();
+
+        // server version not supported
+        if (playerNPCSupport == null){
+            getLogger().severe("Server version not supported");
+            Bukkit.getPluginManager().disablePlugin(this);
+            return;
+        }
+
+        // demo of a few methods. check all of them on javadocs
+        // returns player
+        playerNPCSupport.spawnNPC(Location location, GameProfile gameProfile);
+        // returns player
+        playerNPCSupport.spawnNPC(Location location, Player player, boolean copyArmor);
+    }   
+}
+```
+
+### Player Utils Support
+[![JavaDocs](https://img.shields.io/badge/JavaDocs-PlayerNPC-orange)](http://javadocs.andrei1058.com/SpigotVersionSupport/player-npc-version)
+
+Supports 1.8.8+. An interface to support modified player methods through the versions.
+
+##### Dependency
+```xml
+<dependency>
+  <groupId>com.andrei1058.spigot.versionsupport</groupId>
+  <artifactId>player_utils_version</artifactId>
+  <version>[1.5.5,)</version>
+  <scope>compile</scope>
+</dependency>
+```
+
+##### How to use
+```java
+public class Main extends JavaPlugin {
+
+    private static PlayerUtilsSupport playerVersionedUtils;
+
+    public void onEnable(){
+        // loading support
+        playerVersionedUtils = PlayerUtilsSupport.SupportBuilder.load();
+
+        // server version not supported
+        if (playerVersionedUtils == null){
+            getLogger().severe("Server version not supported");
+            Bukkit.getPluginManager().disablePlugin(this);
+            return;
+        }
+
+        // hide a player to a player (receiver)
+        playerVersionedUtils.hidePlayer(Player toBeHidden, Player receiver, Plugin requester);
+        // un-hide a player to a player
+        playerVersionedUtils.unHidePlayer(Player toBeShown, Player receiver, Plugin requester);
     }   
 }
 ```

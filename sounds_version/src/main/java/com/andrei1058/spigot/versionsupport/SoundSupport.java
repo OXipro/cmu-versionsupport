@@ -4,7 +4,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 
 import javax.annotation.Nullable;
-import java.lang.reflect.InvocationTargetException;
 
 public interface SoundSupport {
 

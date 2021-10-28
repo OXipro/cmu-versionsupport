@@ -1,6 +1,7 @@
 package com.andrei1058.spigot.versionsupport;
 
 import org.bukkit.block.Block;
+import org.bukkit.block.data.Ageable;
 import org.bukkit.block.data.type.WallSign;
 
 import java.lang.reflect.Field;
@@ -8,6 +9,11 @@ import java.lang.reflect.Field;
 class block_v1_15_R1 implements BlockSupport {
 
     public void setBlockData(Block block, byte data) {
+        if (block.getBlockData() instanceof Ageable) {
+            Ageable ageable = (Ageable) block.getBlockData();
+            ageable.setAge(data);
+            block.setBlockData(ageable, true);
+        }
     }
 
     public void setDurability(String oldName, String new_v1_13, float durability) {

@@ -6,7 +6,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nullable;
-import java.lang.reflect.InvocationTargetException;
 
 public interface ItemStackSupport {
 
@@ -159,6 +158,41 @@ public interface ItemStackSupport {
      * @return true if is a projectile.
      */
     boolean isProjectile(ItemStack itemStack);
+
+    /**
+     * Check if the given item is a player head.
+     *
+     * @param itemStack item to be checked.
+     * @return true if is a player head.
+     */
+    boolean isPlayerHead(ItemStack itemStack);
+
+    /**
+     * Apply player skin on a head.
+     *
+     * @param player    player skin owner.
+     * @param copyTagFrom item to copy NBTTags from. Nullable.
+     * @return player head with player's skin.
+     */
+    ItemStack applyPlayerSkinOnHead(Player player, ItemStack copyTagFrom);
+
+    /**
+     * Apply skin texture on a head.
+     *
+     * @param texture   texture URI. The part after 'textures.minecraft.net/texture/'.
+     *                  You can get textures from minecraft-heads.com.
+     * @param itemStack item to copy NBTTags from. Nullable.
+     * @return player head with given skin.
+     */
+    ItemStack applySkinTextureOnHead(String texture, ItemStack itemStack);
+
+    /**
+     * Get item data.
+     * Will always return 0 for 1.13+.
+     */
+    default byte getItemData(ItemStack itemStack) {
+        return 0;
+    }
 
     class SupportBuilder {
 
