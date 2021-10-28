@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
+@SuppressWarnings("unused")
 public class title_v1_16_R3 implements TitleSupport {
 
     private static final UUID uuid = new UUID(0L, 0L);
