@@ -18,10 +18,8 @@ public class block_v1_17_R1 implements BlockSupport {
     }
 
     public void setDurability(String oldName, String new_v1_13, float durability) {
-        //todo this requires testing. may not work.
         try {
-            //noinspection JavaReflectionMemberAccess
-            Field field = BlockBase.class.getDeclaredField("durability");
+            Field field = BlockBase.class.getDeclaredField("aI");
             field.setAccessible(true);
             field.set(Class.forName("net.minecraft.server.v1_17_R1.Blocks." + new_v1_13.toUpperCase()), durability);
 
