@@ -78,7 +78,7 @@ public interface ItemStackSupport {
     String getTag(ItemStack itemStack, String key);
 
     /**
-     * Remote a NBT tag from an item stack.
+     * Remove a NBT tag from an item stack.
      *
      * @param key       tag key to be removed.
      * @param itemStack target item.
@@ -210,6 +210,7 @@ public interface ItemStackSupport {
                 return null;
             }
             try {
+                //noinspection deprecation
                 return (ItemStackSupport) c.newInstance();
             } catch (InstantiationException | IllegalAccessException e) {
                 return null;

@@ -5,7 +5,7 @@
     <parent>
         <artifactId>versionsupport</artifactId>
         <groupId>com.andrei1058.spigot.versionsupport</groupId>
-        <version>1.6-SNAPSHOT</version>
+        <version>1.5.3</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -84,6 +84,12 @@
             <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.andrei1058.spigot.versionsupport</groupId>
+            <artifactId>cmd_v1_18_R1</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -91,7 +97,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>3.3.1-SNAPSHOT</version>
                 <executions>
                     <execution>
                         <phase>package</phase>

@@ -7,7 +7,7 @@
     <groupId>com.andrei1058.spigot.versionsupport</groupId>
     <artifactId>versionsupport</artifactId>
     <packaging>pom</packaging>
-    <version>1.6-SNAPSHOT</version>
+    <version>1.5.3</version>
     <modules>
         <module>sounds_version</module>
         <module>material_version</module>
@@ -25,6 +25,7 @@
         <module>block_v1_16_R2</module>
         <module>block_v1_16_R3</module>
         <module>block_v1_17_R1</module>
+        <module>block_v1_18_R1</module>
         <module>block_common</module>
 
         <module>itemstack_version</module>
@@ -41,6 +42,7 @@
         <module>itemstack_v1_16_R2</module>
         <module>itemstack_v1_16_R3</module>
         <module>itemstack_v1_17_R1</module>
+        <module>itemstack_v1_18_R1</module>
 
         <module>title_version</module>
         <module>titlecommon</module>
@@ -56,6 +58,7 @@
         <module>title_v1_16_R2</module>
         <module>title_v1_16_R3</module>
         <module>title_v1_17_R1</module>
+        <module>title_v1_18_R1</module>
 
         <module>chat_version</module>
         <module>chat_common</module>
@@ -76,6 +79,7 @@
         <module>cmd_v1_16_R2</module>
         <module>cmd_v1_16_R3</module>
         <module>cmd_v1_17_R1</module>
+        <module>cmd_v1_18_R1</module>
 
         <module>particle_common</module>
         <module>particle_version</module>
@@ -91,6 +95,7 @@
         <module>particle_v1_16_R2</module>
         <module>particle_v1_16_R3</module>
         <module>particle_v1_17_R1</module>
+        <module>particle_v1_18_R1</module>
 
         <module>player_npc_common</module>
         <module>player_npc_v1_12_R1</module>
@@ -102,6 +107,7 @@
         <module>player_npc_v1_16_R2</module>
         <module>player_npc_v1_16_R3</module>
         <module>player_npc_v1_17_R1</module>
+        <module>player_npc_v1_18_R1</module>
 
         <module>player_utils_common</module>
         <module>player_utils_version</module>
@@ -115,7 +121,17 @@
         <module>player_utils_v1_15_R1</module>
         <module>player_utils_v1_16_R3</module>
         <module>player_utils_v1_17_R1</module>
+        <module>player_utils_v1_18_R1</module>
     </modules>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <!-- This is a temporary reference as the Maven Shade plugin
+                that supports Java 17 is not released yet -->
+            <id>maven-snapshots</id>
+            <url>https://repository.apache.org/content/repositories/snapshots/</url>
+        </pluginRepository>
+    </pluginRepositories>
 
     <repositories>
         <repository>
