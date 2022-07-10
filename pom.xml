@@ -7,7 +7,7 @@
     <groupId>com.andrei1058.spigot.versionsupport</groupId>
     <artifactId>versionsupport</artifactId>
     <packaging>pom</packaging>
-    <version>1.6.3</version>
+    <version>1.6.4-SNAPSHOT</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -128,6 +128,7 @@
         <module>player_utils_v1_16_R3</module>
         <module>player_utils_v1_17_R1</module>
         <module>player_utils_v1_18_R1</module>
+        <module>itemstack_v1_19_R1</module>
     </modules>
 
     <pluginRepositories>

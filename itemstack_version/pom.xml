@@ -5,7 +5,7 @@
     <parent>
         <artifactId>versionsupport</artifactId>
         <groupId>com.andrei1058.spigot.versionsupport</groupId>
-        <version>1.6.3</version>
+        <version>1.6.4-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -87,6 +87,12 @@
         <dependency>
             <groupId>com.andrei1058.spigot.versionsupport</groupId>
             <artifactId>itemstack_v1_18_R1</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.andrei1058.spigot.versionsupport</groupId>
+            <artifactId>itemstack_v1_19_R1</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
