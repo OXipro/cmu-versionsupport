@@ -129,6 +129,8 @@
         <module>player_utils_v1_17_R1</module>
         <module>player_utils_v1_18_R1</module>
         <module>itemstack_v1_19_R1</module>
+        <module>particle_v1_19_R1</module>
+        <module>block_v1_19_R1</module>
     </modules>
 
     <pluginRepositories>

@@ -127,8 +127,11 @@ public interface MaterialSupport {
             try {
                 c = Class.forName("com.andrei1058.spigot.versionsupport.material_" + version);
             } catch (ClassNotFoundException e) {
-                //I can't run on your version
-                return null;
+                try {
+                    c = Class.forName("com.andrei1058.spigot.versionsupport.material_v1_13_R2");
+                } catch (ClassNotFoundException ex) {
+                    return null;
+                }
             }
             try {
                 return (MaterialSupport) c.newInstance();
