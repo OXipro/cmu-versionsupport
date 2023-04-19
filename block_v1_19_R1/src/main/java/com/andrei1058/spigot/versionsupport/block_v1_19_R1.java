@@ -20,7 +20,7 @@ public class block_v1_19_R1 implements BlockSupport {
         try {
             Field field = BlockBase.class.getDeclaredField("aI");
             field.setAccessible(true);
-            field.set(Class.forName("net.minecraft.server.v1_18_R1.Blocks." + new_v1_13.toUpperCase()), durability);
+            field.set(Class.forName("net.minecraft.server.v1_19_R1.Blocks." + new_v1_13.toUpperCase()), durability);
 
         } catch (NoSuchFieldException | IllegalAccessException | ClassNotFoundException e) {
             e.printStackTrace();
