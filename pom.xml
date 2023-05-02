@@ -32,6 +32,7 @@
         <module>block_v1_16_R3</module>
         <module>block_v1_17_R1</module>
         <module>block_v1_18_R1</module>
+        <module>block_v1_18_R2</module>
         <module>block_common</module>
 
         <module>itemstack_version</module>
@@ -49,6 +50,7 @@
         <module>itemstack_v1_16_R3</module>
         <module>itemstack_v1_17_R1</module>
         <module>itemstack_v1_18_R1</module>
+        <module>itemstack_v1_18_R2</module>
         <module>itemstack_v1_19_R1</module>
         <module>itemstack_v1_19_R3</module>
 
