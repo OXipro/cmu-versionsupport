@@ -33,6 +33,8 @@
         <module>block_v1_17_R1</module>
         <module>block_v1_18_R1</module>
         <module>block_v1_18_R2</module>
+        <module>block_v1_19_R1</module>
+        <module>block_v1_19_R3</module>
         <module>block_common</module>
 
         <module>itemstack_version</module>
@@ -107,6 +109,7 @@
         <module>particle_v1_16_R3</module>
         <module>particle_v1_17_R1</module>
         <module>particle_v1_18_R1</module>
+        <module>particle_v1_19_R1</module>
 
         <module>player_npc_common</module>
         <module>player_npc_v1_12_R1</module>
@@ -134,8 +137,6 @@
         <module>player_utils_v1_17_R1</module>
         <module>player_utils_v1_18_R1</module>
         <module>player_utils_v1_19_R3</module>
-        <module>particle_v1_19_R1</module>
-        <module>block_v1_19_R1</module>
     </modules>
 
     <pluginRepositories>
