@@ -176,11 +176,6 @@ public class itemstack_v1_19_R1 implements ItemStackSupport {
     }
 
     @Override
-    public byte getItemData(ItemStack itemStack){
-        return 0;
-    }
-
-    @Override
     public org.bukkit.inventory.ItemStack applyPlayerSkinOnHead(Player player, org.bukkit.inventory.ItemStack copyTagFrom) {
         org.bukkit.inventory.ItemStack head = new org.bukkit.inventory.ItemStack(Material.PLAYER_HEAD, 1);
 
