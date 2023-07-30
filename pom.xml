@@ -204,10 +204,12 @@
                 </executions>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
+                <version>3.1.1</version>
                 <executions>
                     <execution>
-                        <id>deploy</id>
+                        <id>default-deploy</id>
                         <phase>deploy</phase>
                         <goals>
                             <goal>deploy</goal>
@@ -229,12 +231,14 @@
 
     <distributionManagement>
         <repository>
-            <id>ftp-repo</id>
-            <url>ftp://andrei1058.com/releases</url>
+            <id>bedwars-repo</id>
+            <name>Release Maven Repository</name>
+            <url>https://repo.tomkeuper.com/repository/releases/</url>
         </repository>
         <snapshotRepository>
-            <id>ftp-repo</id>
-            <url>ftp://andrei1058.com/snapshots</url>
+            <id>bedwars-repo</id>
+            <name>Snapshot Maven Repository</name>
+            <url>https://repo.tomkeuper.com/repository/snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 </project>
