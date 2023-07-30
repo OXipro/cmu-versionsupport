@@ -9,15 +9,15 @@ This API provides various NMS based methods and spigot extension for deprecated 
 ## Maven Repository
 ```xml
 <repository>
-  <id>andrei1058-releases</id>
-  <url>http://repo.andrei1058.com/releases</url>
+    <id>bedwars2023-releases</id>
+    <url>https://repo.tomkeuper.com/repository/releases/</url>
 </repository>
 ```  
 or for development builds:  
 ```xml
-<repository>
-  <id>andrei1058-snapshots</id>
-  <url>http://repo.andrei1058.com/snapshots</url>
+        <repository>
+    <id>bedwars2023-snapshots</id>
+    <url>https://repo.tomkeuper.com/repository/snapshots/</url>
 </repository>
 ``` 
 <br/>  
@@ -27,7 +27,7 @@ or for development builds:
 ##### Dependency
 ```xml
 <dependency>
-  <groupId>com.andrei1058.spigot.versionsupport</groupId>
+  <groupId>com.tomkeuper.spigot.versionsupport</groupId>
   <artifactId>sounds-version</artifactId>
   <version>[1.5.0,)</version>
   <scope>compile</scope>
@@ -69,7 +69,7 @@ public class Main extends JavaPlugin {
 ##### Dependency
 ```xml
 <dependency>
-  <groupId>com.andrei1058.spigot.versionsupport</groupId>
+  <groupId>com.tomkeuper.spigot.versionsupport</groupId>
   <artifactId>material-version</artifactId>
   <version>[1.5.0,)</version>
   <scope>compile</scope>
@@ -117,7 +117,7 @@ public class Main extends JavaPlugin {
 ##### Dependency
 ```xml
 <dependency>
-  <groupId>com.andrei1058.spigot.versionsupport</groupId>
+  <groupId>com.tomkeuper.spigot.versionsupport</groupId>
   <artifactId>block-version</artifactId>
   <version>[1.5.0,)</version>
   <scope>compile</scope>
@@ -158,7 +158,7 @@ public class Main extends JavaPlugin {
 ##### Dependency
 ```xml
 <dependency>
-  <groupId>com.andrei1058.spigot.versionsupport</groupId>
+  <groupId>com.tomkeuper.spigot.versionsupport</groupId>
   <artifactId>itemstack-version</artifactId>
   <version>[1.5.0,)</version>
   <scope>compile</scope>
@@ -223,7 +223,7 @@ public class Main extends JavaPlugin {
 ##### Dependency
 ```xml
 <dependency>
-  <groupId>com.andrei1058.spigot.versionsupport</groupId>
+  <groupId>com.tomkeuper.spigot.versionsupport</groupId>
   <artifactId>title-version</artifactId>
   <version>[1.5.0,)</version>
   <scope>compile</scope>
@@ -260,7 +260,7 @@ public class Main extends JavaPlugin {
 ##### Dependency
 ```xml
 <dependency>
-  <groupId>com.andrei1058.spigot.versionsupport</groupId>
+  <groupId>com.tomkeuper.spigot.versionsupport</groupId>
   <artifactId>chat-version</artifactId>
   <version>[1.5.0,)</version>
   <scope>compile</scope>
@@ -308,7 +308,7 @@ public class Main extends JavaPlugin {
 ##### Dependency
 ```xml
 <dependency>
-  <groupId>com.andrei1058.spigot.versionsupport</groupId>
+  <groupId>com.tomkeuper.spigot.versionsupport</groupId>
   <artifactId>cmd-version</artifactId>
   <version>[1.5.0,)</version>
   <scope>compile</scope>
@@ -344,7 +344,7 @@ public class Main extends JavaPlugin {
 ##### Dependency
 ```xml
 <dependency>
-  <groupId>com.andrei1058.spigot.versionsupport</groupId>
+  <groupId>com.tomkeuper.spigot.versionsupport</groupId>
   <artifactId>particle-version</artifactId>
   <version>[1.5.0,)</version>
   <scope>compile</scope>
@@ -386,7 +386,7 @@ Supports 1.12+. Create Player entities (not fake).
 ##### Dependency
 ```xml
 <dependency>
-  <groupId>com.andrei1058.spigot.versionsupport</groupId>
+  <groupId>com.tomkeuper.spigot.versionsupport</groupId>
   <artifactId>player-npc-version</artifactId>
   <version>[1.5.0,)</version>
   <scope>compile</scope>
@@ -427,7 +427,7 @@ Supports 1.8.8+. An interface to support modified player methods through the ver
 ##### Dependency
 ```xml
 <dependency>
-  <groupId>com.andrei1058.spigot.versionsupport</groupId>
+  <groupId>com.tomkeuper.spigot.versionsupport</groupId>
   <artifactId>player_utils_version</artifactId>
   <version>[1.5.5,)</version>
   <scope>compile</scope>

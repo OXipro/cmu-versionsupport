@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>versionsupport</artifactId>
-        <groupId>com.andrei1058.spigot.versionsupport</groupId>
+        <groupId>com.tomkeuper.spigot.versionsupport</groupId>
         <version>1.6.4</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -18,67 +18,67 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.andrei1058.spigot.versionsupport</groupId>
+            <groupId>com.tomkeuper.spigot.versionsupport</groupId>
             <artifactId>player_utils_v1_8_R3</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>com.andrei1058.spigot.versionsupport</groupId>
+            <groupId>com.tomkeuper.spigot.versionsupport</groupId>
             <artifactId>player_utils_v1_9_R2</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>com.andrei1058.spigot.versionsupport</groupId>
+            <groupId>com.tomkeuper.spigot.versionsupport</groupId>
             <artifactId>player_utils_v1_10_R1</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>com.andrei1058.spigot.versionsupport</groupId>
+            <groupId>com.tomkeuper.spigot.versionsupport</groupId>
             <artifactId>player_utils_v1_11_R1</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>com.andrei1058.spigot.versionsupport</groupId>
+            <groupId>com.tomkeuper.spigot.versionsupport</groupId>
             <artifactId>player_utils_v1_12_R1</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>com.andrei1058.spigot.versionsupport</groupId>
+            <groupId>com.tomkeuper.spigot.versionsupport</groupId>
             <artifactId>player_utils_v1_13_R2</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>com.andrei1058.spigot.versionsupport</groupId>
+            <groupId>com.tomkeuper.spigot.versionsupport</groupId>
             <artifactId>player_utils_v1_14_R1</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>com.andrei1058.spigot.versionsupport</groupId>
+            <groupId>com.tomkeuper.spigot.versionsupport</groupId>
             <artifactId>player_utils_v1_15_R1</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>com.andrei1058.spigot.versionsupport</groupId>
+            <groupId>com.tomkeuper.spigot.versionsupport</groupId>
             <artifactId>player_utils_v1_16_R3</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>com.andrei1058.spigot.versionsupport</groupId>
+            <groupId>com.tomkeuper.spigot.versionsupport</groupId>
             <artifactId>player_utils_v1_17_R1</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>com.andrei1058.spigot.versionsupport</groupId>
+            <groupId>com.tomkeuper.spigot.versionsupport</groupId>
             <artifactId>player_utils_common</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>
