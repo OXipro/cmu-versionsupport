@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.tomkeuper.spigot.versionsupport</groupId>
+    <groupId>com.oxipro.cmu.versionsupport</groupId>
     <artifactId>versionsupport</artifactId>
     <packaging>pom</packaging>
     <version>1.7.2</version>
@@ -57,6 +57,7 @@
         <module>itemstack_v1_19_R3</module>
         <module>itemstack_v1_20_R2</module>
         <module>itemstack_v1_20_R3</module>
+        <module>itemstack_v1_21_R5</module>
 
         <module>title_version</module>
         <module>titlecommon</module>
@@ -75,6 +76,7 @@
         <module>title_v1_18_R1</module>
         <module>title_v1_19_R3</module>
         <module>title_v1_20_R3</module>
+        <module>title_v1_21_R5</module>
 
         <module>chat_version</module>
         <module>chat_common</module>
@@ -141,6 +143,16 @@
         <module>player_utils_v1_18_R1</module>
         <module>player_utils_v1_19_R3</module>
         <module>player_utils_v1_20_R3</module>
+        <module>player_utils_v1_20_R4</module>
+        <module>player_utils_v1_21_R5</module>
+
+        <module>entity_utils_common</module>
+        <module>entity_utils_version</module>
+        <module>entity_utils_v1_21_R5</module>
+
+
+
+        <module>version_mapping</module>
     </modules>
 
     <pluginRepositories>

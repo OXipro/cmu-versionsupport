@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>versionsupport</artifactId>
-        <groupId>com.tomkeuper.spigot.versionsupport</groupId>
+        <groupId>com.oxipro.cmu.versionsupport</groupId>
         <version>1.7.2</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -29,6 +29,11 @@
             <artifactId>spigot</artifactId>
             <version>1.8.8-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.oxipro.cmu.versionsupport</groupId>
+            <artifactId>version_mapping</artifactId>
+            <version>1.7.2</version>
         </dependency>
     </dependencies>
 </project>

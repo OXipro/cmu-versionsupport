@@ -27,7 +27,7 @@ or for development builds:
 ##### Dependency
 ```xml
 <dependency>
-  <groupId>com.tomkeuper.spigot.versionsupport</groupId>
+  <groupId>com.oxipro.cmu.versionsupport</groupId>
   <artifactId>sounds-version</artifactId>
   <version>[1.5.0,)</version>
   <scope>compile</scope>
@@ -69,7 +69,7 @@ public class Main extends JavaPlugin {
 ##### Dependency
 ```xml
 <dependency>
-  <groupId>com.tomkeuper.spigot.versionsupport</groupId>
+  <groupId>com.oxipro.cmu.versionsupport</groupId>
   <artifactId>material-version</artifactId>
   <version>[1.5.0,)</version>
   <scope>compile</scope>
@@ -117,7 +117,7 @@ public class Main extends JavaPlugin {
 ##### Dependency
 ```xml
 <dependency>
-  <groupId>com.tomkeuper.spigot.versionsupport</groupId>
+  <groupId>com.oxipro.cmu.versionsupport</groupId>
   <artifactId>block-version</artifactId>
   <version>[1.5.0,)</version>
   <scope>compile</scope>
@@ -158,7 +158,7 @@ public class Main extends JavaPlugin {
 ##### Dependency
 ```xml
 <dependency>
-  <groupId>com.tomkeuper.spigot.versionsupport</groupId>
+  <groupId>com.oxipro.cmu.versionsupport</groupId>
   <artifactId>itemstack-version</artifactId>
   <version>[1.5.0,)</version>
   <scope>compile</scope>
@@ -223,7 +223,7 @@ public class Main extends JavaPlugin {
 ##### Dependency
 ```xml
 <dependency>
-  <groupId>com.tomkeuper.spigot.versionsupport</groupId>
+  <groupId>com.oxipro.cmu.versionsupport</groupId>
   <artifactId>title-version</artifactId>
   <version>[1.5.0,)</version>
   <scope>compile</scope>
@@ -260,7 +260,7 @@ public class Main extends JavaPlugin {
 ##### Dependency
 ```xml
 <dependency>
-  <groupId>com.tomkeuper.spigot.versionsupport</groupId>
+  <groupId>com.oxipro.cmu.versionsupport</groupId>
   <artifactId>chat-version</artifactId>
   <version>[1.5.0,)</version>
   <scope>compile</scope>
@@ -308,7 +308,7 @@ public class Main extends JavaPlugin {
 ##### Dependency
 ```xml
 <dependency>
-  <groupId>com.tomkeuper.spigot.versionsupport</groupId>
+  <groupId>com.oxipro.cmu.versionsupport</groupId>
   <artifactId>cmd-version</artifactId>
   <version>[1.5.0,)</version>
   <scope>compile</scope>
@@ -344,7 +344,7 @@ public class Main extends JavaPlugin {
 ##### Dependency
 ```xml
 <dependency>
-  <groupId>com.tomkeuper.spigot.versionsupport</groupId>
+  <groupId>com.oxipro.cmu.versionsupport</groupId>
   <artifactId>particle-version</artifactId>
   <version>[1.5.0,)</version>
   <scope>compile</scope>
@@ -386,7 +386,7 @@ Supports 1.12+. Create Player entities (not fake).
 ##### Dependency
 ```xml
 <dependency>
-  <groupId>com.tomkeuper.spigot.versionsupport</groupId>
+  <groupId>com.oxipro.cmu.versionsupport</groupId>
   <artifactId>player-npc-version</artifactId>
   <version>[1.5.0,)</version>
   <scope>compile</scope>
@@ -427,7 +427,7 @@ Supports 1.8.8+. An interface to support modified player methods through the ver
 ##### Dependency
 ```xml
 <dependency>
-  <groupId>com.tomkeuper.spigot.versionsupport</groupId>
+  <groupId>com.oxipro.cmu.versionsupport</groupId>
   <artifactId>player_utils_version</artifactId>
   <version>[1.5.5,)</version>
   <scope>compile</scope>
