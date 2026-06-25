@@ -83,7 +83,7 @@
         <module>chat_v1_8_R3</module>
         <module>chat_v1_12_R1</module>
 
-        <module>cmd-version</module>
+        <module>cmd_version</module>
         <module>cmd_common</module>
         <module>cmd_v1_8_R3</module>
         <module>cmd_v1_9_R2</module>

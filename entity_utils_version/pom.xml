@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>entity_utils-version</artifactId>
+    <artifactId>entity_utils_version</artifactId>
 
     <dependencies>
         <dependency>

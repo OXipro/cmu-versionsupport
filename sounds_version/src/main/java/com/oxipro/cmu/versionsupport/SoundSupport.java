@@ -5,6 +5,8 @@ import org.bukkit.Sound;
 
 import javax.annotation.Nullable;
 
+import static com.oxipro.cmu.versionsupport.VersionMapping.resolveNmsVersion;
+
 public interface SoundSupport {
 
     /**
@@ -47,21 +49,46 @@ public interface SoundSupport {
     class SupportBuilder {
 
         /**
-         * @return block support for your server version. Null if not supported.
+         * @return support for your server version. Null if not supported.
          */
-        @Nullable
         public static SoundSupport load() {
-            String version = Bukkit.getServer().getClass().getName().split("\\.")[3];
-            Class<?> c;
             try {
-                c = Class.forName("com.oxipro.cmu.versionsupport.sound_" + version);
+                String version = resolveNmsVersion();
+                Bukkit.getLogger().info("[CMU Debug] PlayerUtils - Resolved NMS version: " + version);
+
+                if (version == null) {
+                    Bukkit.getLogger().severe("[CMU Debug] PlayerUtils - Unknown server version: " + Bukkit.getBukkitVersion());
+                    return null;
+                }
+
+                Class<?> c;
+                try {
+                    String className = "com.oxipro.cmu.versionsupport.sound_" + version;
+                    Bukkit.getLogger().info("[CMU Debug] PlayerUtils - Trying class: " + className);
+                    c = Class.forName(className);
+                } catch (ClassNotFoundException e) {
+                    Bukkit.getLogger().info("[CMU Debug] PlayerUtils - Version-specific class not found, trying major version...");
+                    try {
+                        String majorVersion = version.substring(0, version.lastIndexOf("_R"));
+                        String className = "com.oxipro.cmu.versionsupport.sound_" + majorVersion;
+                        Bukkit.getLogger().info("[CMU Debug] PlayerUtils - Trying major class: " + className);
+                        c = Class.forName(className);
+                    } catch (ClassNotFoundException | StringIndexOutOfBoundsException ex) {
+                        String className = "com.oxipro.cmu.versionsupport.sound_Default";
+                        Bukkit.getLogger().info("[CMU Debug] PlayerUtils - Trying fallback class: " + className);
+                        c = Class.forName(className);
+                    }
+                }
+
+                Bukkit.getLogger().info("[CMU Debug] PlayerUtils - Successfully loaded: " + c.getName());
+                return (SoundSupport) c.getDeclaredConstructor().newInstance();
+
             } catch (ClassNotFoundException e) {
-                //I can't run on your version
+                Bukkit.getLogger().severe("[CMU Debug] PlayerUtils - No suitable class found (not even Default): " + e.getMessage());
                 return null;
-            }
-            try {
-                return (SoundSupport) c.newInstance();
-            } catch (InstantiationException | IllegalAccessException e) {
+            } catch (ReflectiveOperationException e) {
+                Bukkit.getLogger().severe("[CMU Debug] PlayerUtils - Failed to instantiate: " + e.getMessage());
+                e.printStackTrace();
                 return null;
             }
         }

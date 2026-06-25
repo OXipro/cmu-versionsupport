@@ -23,7 +23,7 @@ public class PlayerUtils_v1_13_R2 implements PlayerUtilsSupport {
 
     @Override
     public void unHidePlayer(Player toUnHide, Player receiver, Plugin plugin) {
-        receiver.hidePlayer(plugin, toUnHide);
+        receiver.showPlayer(plugin, toUnHide);
     }
 
     @Override
