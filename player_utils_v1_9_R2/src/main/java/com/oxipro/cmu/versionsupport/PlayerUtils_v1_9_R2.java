@@ -47,5 +47,8 @@ public class PlayerUtils_v1_9_R2 implements PlayerUtilsSupport {
         Bukkit.getPluginManager().callEvent(deathEvent);
     }
 
-
+    @Override
+    public ItemStack getOffHandItem(Player player) {
+        return player.getInventory().getItemInOffHand();
+    }
 }

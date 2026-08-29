@@ -58,6 +58,7 @@
         <module>itemstack_v1_20_R2</module>
         <module>itemstack_v1_20_R3</module>
         <module>itemstack_v1_21_R5</module>
+        <module>itemstack_v1_21_R7</module>
 
         <module>title_version</module>
         <module>titlecommon</module>

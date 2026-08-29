@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>sounds-version</artifactId>
+    <artifactId>sounds_version</artifactId>
     <build>
         <plugins>
             <plugin>

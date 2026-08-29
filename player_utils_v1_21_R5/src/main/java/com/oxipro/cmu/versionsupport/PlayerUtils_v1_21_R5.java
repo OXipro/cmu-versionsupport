@@ -12,6 +12,7 @@ import org.bukkit.damage.DamageSource;
 import org.bukkit.damage.DamageType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -50,5 +51,10 @@ public class PlayerUtils_v1_21_R5 implements PlayerUtilsSupport {
         DamageSource ds = DamageSource.builder(DamageType.GENERIC).build();
         PlayerDeathEvent deathEvent = new PlayerDeathEvent(player, ds, drops, droppedExp, newLevel, deathMessage);
         Bukkit.getPluginManager().callEvent(deathEvent);
+    }
+
+    @Override
+    public ItemStack getOffHandItem(Player player) {
+        return player.getInventory().getItemInOffHand();
     }
 }

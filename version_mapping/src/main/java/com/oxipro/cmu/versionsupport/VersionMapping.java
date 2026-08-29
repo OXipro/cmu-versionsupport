@@ -89,17 +89,23 @@ public class VersionMapping {
         VERSION_MAP.put("1.21.11", "v1_21_R7");
     }
 
+     @Nullable
+     public static String getMCVersion() {
+         String packageName = Bukkit.getServer().getClass().getPackage().getName();
+         String[] parts = packageName.split("\\.");
+         if (parts.length >= 4) {
+              return parts[3];
+         }
+
+         return Bukkit.getBukkitVersion().split("-")[0];
+    }
+
     @Nullable
     public static String resolveNmsVersion() {
-        String packageName = Bukkit.getServer().getClass().getPackage().getName();
-        String[] parts = packageName.split("\\.");
-        if (parts.length >= 4) {
-            return parts[3];
-        }
+        String bukkitVersion = getMCVersion();
 
-        String bukkitVersion = Bukkit.getBukkitVersion().split("-")[0];
         Bukkit.getLogger().info("[CMU Debug] Resolved bukkit version: " + bukkitVersion);
-        Bukkit.getLogger().info("[CMU Debug] Resolved bukkit version: " + VERSION_MAP.get(bukkitVersion));
+        Bukkit.getLogger().info("[CMU Debug] Resolved matching bukkit/nms version: " + VERSION_MAP.get(bukkitVersion));
         return VERSION_MAP.get(bukkitVersion);
     }
 }

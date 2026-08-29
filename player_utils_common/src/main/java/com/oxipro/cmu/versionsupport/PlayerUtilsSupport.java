@@ -3,6 +3,7 @@ package com.oxipro.cmu.versionsupport;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.Nullable;
 
@@ -39,6 +40,16 @@ public interface PlayerUtilsSupport {
     void fakeDamage(Player player);
 
     void callPlayerDeathEvent(Player player, List<ItemStack> drops, int droppedExp, int newLevel, String deathMessage);
+
+    default ItemStack getOffHandItem(Player player) {
+        try {
+            return (ItemStack) PlayerInventory.class
+                    .getMethod("getItemInOffHand")
+                    .invoke(player.getInventory());
+        } catch (ReflectiveOperationException e) {
+            return null;
+        }
+    }
 
     class SupportBuilder {
 
