@@ -41,6 +41,15 @@ public interface PlayerUtilsSupport {
 
     void callPlayerDeathEvent(Player player, List<ItemStack> drops, int droppedExp, int newLevel, String deathMessage);
 
+    /**
+     * Enable or disable entity collision for the player.
+     * Uses Spigot collidesWithEntities on 1.8, Bukkit setCollidable on 1.9+.
+     */
+    void setCollide(Player player, boolean collide);
+
+    /**
+     * Get the item in the player's off hand. Always null on 1.8.
+     */
     default ItemStack getOffHandItem(Player player) {
         try {
             return (ItemStack) PlayerInventory.class

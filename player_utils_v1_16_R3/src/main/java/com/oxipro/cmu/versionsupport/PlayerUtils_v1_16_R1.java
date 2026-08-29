@@ -47,4 +47,14 @@ public class PlayerUtils_v1_16_R1 implements PlayerUtilsSupport {
         PlayerConnection connection = ((CraftPlayer) player).getHandle().playerConnection;
         connection.sendPacket(packet);
     }
+
+    @Override
+    public ItemStack getOffHandItem(Player player) {
+        return player.getInventory().getItemInOffHand();
+    }
+
+    @Override
+    public void setCollide(Player p, boolean v) {
+        p.setCollidable(v);
+    }
 }

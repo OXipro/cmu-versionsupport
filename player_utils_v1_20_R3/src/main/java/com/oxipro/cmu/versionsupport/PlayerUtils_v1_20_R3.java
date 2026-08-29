@@ -49,4 +49,14 @@ public class PlayerUtils_v1_20_R3 implements PlayerUtilsSupport {
         PlayerDeathEvent deathEvent = new PlayerDeathEvent(player, drops, droppedExp, newLevel, deathMessage);
         Bukkit.getPluginManager().callEvent(deathEvent);
     }
+
+    @Override
+    public ItemStack getOffHandItem(Player player) {
+        return player.getInventory().getItemInOffHand();
+    }
+
+    @Override
+    public void setCollide(Player p, boolean v) {
+        p.setCollidable(v);
+    }
 }

@@ -57,4 +57,9 @@ public class PlayerUtils_v1_21_R5 implements PlayerUtilsSupport {
     public ItemStack getOffHandItem(Player player) {
         return player.getInventory().getItemInOffHand();
     }
+
+    @Override
+    public void setCollide(Player p, boolean v) {
+        p.setCollidable(v);
+    }
 }

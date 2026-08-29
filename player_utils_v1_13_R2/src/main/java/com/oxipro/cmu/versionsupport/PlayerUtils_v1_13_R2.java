@@ -48,4 +48,13 @@ public class PlayerUtils_v1_13_R2 implements PlayerUtilsSupport {
         Bukkit.getPluginManager().callEvent(deathEvent);
     }
 
+    @Override
+    public ItemStack getOffHandItem(Player player) {
+        return player.getInventory().getItemInOffHand();
+    }
+
+    @Override
+    public void setCollide(Player p, boolean v) {
+        p.setCollidable(v);
+    }
 }
