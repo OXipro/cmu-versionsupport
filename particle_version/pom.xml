@@ -98,6 +98,30 @@
         </dependency>
         <dependency>
             <groupId>com.oxipro.cmu.versionsupport</groupId>
+            <artifactId>particle_v1_20_R3</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.oxipro.cmu.versionsupport</groupId>
+            <artifactId>particle_v1_20_R4</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.oxipro.cmu.versionsupport</groupId>
+            <artifactId>particle_v1_21_R5</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.oxipro.cmu.versionsupport</groupId>
+            <artifactId>particle_v1_21_R7</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.oxipro.cmu.versionsupport</groupId>
             <artifactId>particle_common</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>

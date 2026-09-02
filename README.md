@@ -368,12 +368,10 @@ public class Main extends JavaPlugin {
             return;
         }
 
-        // demo of a few methods. check all of them on javadocs
-        particleSupport.spawnParticle(world, x, y, z, "particleName");
-        // amount in certain cases corresponds to particle color
-        particleSupport.spawnParticle(world, "particleName", x, y, z, offsetX, offsetY, offsetZ, speed, amount);
-        // returns V18 if server version is 1.8, returns V19 for 1.9, V12 for [1.10,1.12] and V13 for 1.13 and newer.
-        particleSupport.getForVersion(world, "v18", "v19", "V12", "V13");
+        String particle = particleSupport.getForVersion(
+                "FIREWORKS_SPARK", "FIREWORKS_SPARK", "FIREWORKS_SPARK", "FIREWORKS_SPARK", "FIREWORK");
+        particleSupport.spawnParticle(player, x, y, z, particle);
+        particleSupport.spawnParticle(world, x, y, z, particle);
     }   
 }
 ```
