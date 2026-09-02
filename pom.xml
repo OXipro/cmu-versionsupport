@@ -102,7 +102,7 @@
 
         <module>particle_common</module>
         <module>particle_version</module>
-        <module>particle-v1_8_R3</module>
+        <module>particle_v1_8_R3</module>
         <module>particle_v1_9_R2</module>
         <module>particle_v1_10_R1</module>
         <module>particle_v1_11_R1</module>

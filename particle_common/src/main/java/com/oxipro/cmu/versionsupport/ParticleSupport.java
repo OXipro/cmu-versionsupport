@@ -1,86 +1,82 @@
 package com.oxipro.cmu.versionsupport;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Particle;
 import org.bukkit.World;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
+
+import static com.oxipro.cmu.versionsupport.VersionMapping.resolveNmsVersion;
 
 public interface ParticleSupport {
 
     /**
-     * Check if the given string is a particle.
+     * Check if the given string is a valid particle for this server version.
      *
-     * @param name particle name.
-     * @return true if given name is an existing particle.
+     * @param name particle name (enum constant or namespaced key on 1.20.5+).
+     * @return true if the particle exists.
      */
-    default boolean isParticle(String name) {
-        try {
-            Particle.valueOf(name);
-        } catch (Exception e) {
-            return false;
-        }
-        return true;
-    }
+    boolean isParticle(String name);
 
     /**
-     * Spawn a particle at the given location.
-     *
-     * @param particle particle by name.
+     * Spawn a particle visible only to the given player.
      */
-    default void spawnParticle(World w, float x, float y, float z, String particle) {
-        w.spawnParticle(Particle.valueOf(particle), x, y, z, 1);
-    }
+    void spawnParticle(Player player, float x, float y, float z, String particle);
 
     /**
-     * Spawn particles at the given location in the given box (offsets).
-     *
-     * @param speed  movement speed.
-     * @param amount particles amount. Some particles uses this param as color.
+     * Spawn a particle in the world (visible to players in range).
      */
-    default void spawnParticle(World w, String particle, float x, float y, float z, int offsetX, int offsetY, int offsetZ, int speed, int amount) {
-        w.spawnParticle(Particle.valueOf(particle), x, y, z, amount, offsetX, offsetY, offsetZ, speed);
-    }
+    void spawnParticle(World world, float x, float y, float z, String particle);
 
     /**
-     * Spawn a red stone particle at the given location in the given box (offsets).
+     * Pick the particle name that matches the current server version.
      *
-     * @param speed movement speed.
-     * @param color red stone color.
+     * @param v18  1.8
+     * @param v19  1.9
+     * @param v12  1.10–1.12
+     * @param v13  1.13–1.20.4
+     * @param v205 1.20.5 and newer
      */
-    default void spawnRedstoneParticle(World w, float x, float y, float z, int offsetX, int offsetY, int offsetZ, int speed, int color) {
-        w.spawnParticle(Particle.REDSTONE, x, y, z, color, offsetX, offsetY, offsetZ, speed);
-    }
-
-    /**
-     * Get the right particle for current server version.
-     *
-     * @param v18 particle by name for 1.8 server.
-     * @param v19 particle by name for 1.9 server.
-     * @param V12 particle by name for [1.10, 1.12]
-     * @param V13 particle by name for 1.13 and newer.
-     */
-    default String getForVersion(String v18, String v19, String V12, String V13) {
-        return V13;
-    }
+    String getForVersion(String v18, String v19, String v12, String v13, String v205);
 
     class SupportBuilder {
 
         /**
-         * @return particle support for your server version. Null if not supported.
+         * @return particle support for the running server version, or null if unsupported.
          */
         @Nullable
         public static ParticleSupport load() {
-            String version = Bukkit.getServer().getClass().getName().split("\\.")[3];
-            Class<?> c;
             try {
-                c = Class.forName("com.oxipro.cmu.versionsupport.particle_" + version);
-            } catch (ClassNotFoundException e) {
-                //I can't run on your version
-                return null;
-            }
-            try {
-                return (ParticleSupport) c.newInstance();
-            } catch (InstantiationException | IllegalAccessException e) {
+                String version = resolveNmsVersion();
+                Bukkit.getLogger().info("[CMU Debug] Particle - Resolved NMS version: " + version);
+
+                if (version == null) {
+                    Bukkit.getLogger().severe("[CMU Debug] Particle - Unknown server version: " + Bukkit.getBukkitVersion());
+                    return null;
+                }
+
+                Class<?> c;
+                try {
+                    String className = "com.oxipro.cmu.versionsupport.particle_" + version;
+                    Bukkit.getLogger().info("[CMU Debug] Particle - Trying class: " + className);
+                    c = Class.forName(className);
+                } catch (ClassNotFoundException e) {
+                    try {
+                        String majorVersion = version.substring(0, version.lastIndexOf("_R"));
+                        String className = "com.oxipro.cmu.versionsupport.particle_" + majorVersion;
+                        Bukkit.getLogger().info("[CMU Debug] Particle - Trying major class: " + className);
+                        c = Class.forName(className);
+                    } catch (ClassNotFoundException | StringIndexOutOfBoundsException ex) {
+                        Bukkit.getLogger().severe("[CMU Debug] Particle - No suitable class found for: " + version);
+                        return null;
+                    }
+                }
+
+                Bukkit.getLogger().info("[CMU Debug] Particle - Successfully loaded: " + c.getName());
+                return (ParticleSupport) c.getDeclaredConstructor().newInstance();
+
+            } catch (ReflectiveOperationException e) {
+                Bukkit.getLogger().severe("[CMU Debug] Particle - Failed to instantiate: " + e.getMessage());
+                e.printStackTrace();
                 return null;
             }
         }
