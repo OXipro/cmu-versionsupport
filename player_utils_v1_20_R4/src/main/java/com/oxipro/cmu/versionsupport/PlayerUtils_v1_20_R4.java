@@ -4,6 +4,8 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.PacketPlayOutAnimation;
 import net.minecraft.server.network.PlayerConnection;
 import org.bukkit.Bukkit;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.World;
@@ -58,5 +60,23 @@ public class PlayerUtils_v1_20_R4 implements PlayerUtilsSupport {
     @Override
     public void setCollide(Player p, boolean v) {
         p.setCollidable(v);
+    }
+
+    @Override
+    public void setAbsorptionHearts(Player player, double amount) {
+        double value = Math.max(0.0D, amount);
+        AttributeInstance maxAbsorption = player.getAttribute(Attribute.GENERIC_MAX_ABSORPTION);
+        if (maxAbsorption != null) {
+            maxAbsorption.setBaseValue(value);
+        }
+        player.setAbsorptionAmount(value);
+    }
+
+    @Override
+    public double getAbsorptionHearts(Player player) {
+        if (player == null) {
+            return 0.0D;
+        }
+        return Math.max(0.0D, player.getAbsorptionAmount());
     }
 }
