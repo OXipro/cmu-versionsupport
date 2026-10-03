@@ -3,7 +3,6 @@ package com.oxipro.cmu.versionsupport;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
@@ -58,29 +57,19 @@ public interface ChatSupport {
          */
         @Nullable
         public static ChatSupport load() {
-            String version = Bukkit.getServer().getClass().getName().split("\\.")[3];
-            Class<?> c;
-            try {
-                switch (version) {
-                    case "v1_8_R3":
-                    case "v1_9_R1":
-                    case "v1_9_R2":
-                    case "v1_10_R1":
-                    case "v1_11_R1":
-                        c = Class.forName("com.oxipro.cmu.versionsupport.chat_v1_8_R3");
-                        break;
-                    default:
-                        c = Class.forName("com.oxipro.cmu.versionsupport.chat_v1_12_R1");
-
-                }
-            } catch (ClassNotFoundException e) {
-                //I can't run on your version
+            String version = VersionMapping.resolveNmsVersion();
+            if (version == null) {
                 return null;
             }
-            try {
-                return (ChatSupport) c.newInstance();
-            } catch (InstantiationException | IllegalAccessException e) {
-                return null;
+            switch (version) {
+                case "v1_8_R3":
+                case "v1_9_R1":
+                case "v1_9_R2":
+                case "v1_10_R1":
+                case "v1_11_R1":
+                    return VersionMapping.loadNamed(ChatSupport.class, "com.oxipro.cmu.versionsupport.chat_v1_8_R3");
+                default:
+                    return VersionMapping.loadNamed(ChatSupport.class, "com.oxipro.cmu.versionsupport.chat_v1_12_R1");
             }
         }
     }

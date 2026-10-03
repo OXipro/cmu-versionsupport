@@ -57,4 +57,17 @@ public class PlayerUtils_v1_18_R1 implements PlayerUtilsSupport {
     public void setCollide(Player p, boolean v) {
         p.setCollidable(v);
     }
+
+    @Override
+    public void setAbsorptionHearts(Player player, double amount) {
+        player.setAbsorptionAmount(Math.max(0.0D, amount));
+    }
+
+    @Override
+    public double getAbsorptionHearts(Player player) {
+        if (player == null) {
+            return 0.0D;
+        }
+        return Math.max(0.0D, player.getAbsorptionAmount());
+    }
 }

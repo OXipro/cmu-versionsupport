@@ -1,7 +1,6 @@
 package com.oxipro.cmu.versionsupport;
 
-import net.minecraft.server.v1_8_R3.PacketPlayOutAnimation;
-import net.minecraft.server.v1_8_R3.PlayerConnection;
+import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -55,5 +54,31 @@ public class PlayerUtils_v1_8_R3 implements PlayerUtilsSupport {
     @Override
     public void setCollide(Player p, boolean v) {
         p.spigot().setCollidesWithEntities(v);
+    }
+
+    @Override
+    public void setAbsorptionHearts(Player player, double amount) {
+        ((CraftPlayer) player).getHandle().setAbsorptionHearts((float) Math.max(0.0D, amount));
+
+        EntityPlayer nmsPlayer = ((CraftPlayer) player).getHandle();
+        nmsPlayer.getDataWatcher().watch(9, (byte) 0);
+
+        PacketPlayOutEntityMetadata packet = new PacketPlayOutEntityMetadata(
+                nmsPlayer.getId(),
+                nmsPlayer.getDataWatcher(),
+                true
+        );
+
+        for (org.bukkit.entity.Player viewer : Bukkit.getOnlinePlayers()) {
+            ((CraftPlayer) viewer).getHandle().playerConnection.sendPacket(packet);
+        }
+    }
+
+    @Override
+    public double getAbsorptionHearts(Player player) {
+        if (player == null) {
+            return 0.0D;
+        }
+        return Math.max(0.0F, ((CraftPlayer) player).getHandle().getAbsorptionHearts());
     }
 }

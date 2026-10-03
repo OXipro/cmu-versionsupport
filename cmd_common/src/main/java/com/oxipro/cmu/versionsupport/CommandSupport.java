@@ -1,6 +1,5 @@
 package com.oxipro.cmu.versionsupport;
 
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.Nullable;
@@ -23,19 +22,7 @@ public interface CommandSupport {
          */
         @Nullable
         public static CommandSupport load() {
-            String version = Bukkit.getServer().getClass().getName().split("\\.")[3];
-            Class<?> c;
-            try {
-                c = Class.forName("com.oxipro.cmu.versionsupport.cmd_" + version);
-            } catch (ClassNotFoundException e) {
-                //I can't run on your version
-                return null;
-            }
-            try {
-                return (CommandSupport) c.newInstance();
-            } catch (InstantiationException | IllegalAccessException e) {
-                return null;
-            }
+            return VersionMapping.load(CommandSupport.class, "com.oxipro.cmu.versionsupport.cmd_");
         }
     }
 }
