@@ -11,6 +11,7 @@ import org.bukkit.craftbukkit.v1_20_R3.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_20_R3.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -85,10 +86,12 @@ public class itemstack_v1_20_R3 implements ItemStackSupport {
     }
 
     public void setUnbreakable(@NotNull ItemStack itemStack, boolean unbreakable) {
-        if (itemStack.getItemMeta() == null) {
+        ItemMeta meta = itemStack.getItemMeta();
+        if (meta == null) {
             return;
         }
-        itemStack.getItemMeta().setUnbreakable(true);
+        meta.setUnbreakable(unbreakable);
+        itemStack.setItemMeta(meta);
     }
 
     public void minusAmount(Player p, @NotNull ItemStack i, int amount) {
