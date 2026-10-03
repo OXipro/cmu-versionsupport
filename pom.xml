@@ -157,6 +157,10 @@
 
 
 
+        <module>server_common</module>
+        <module>server_v1_8_R3</module>
+        <module>server_v1_21_R1</module>
+
         <module>version_mapping</module>
     </modules>
 
