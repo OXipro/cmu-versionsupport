@@ -153,9 +153,17 @@
 
         <module>entity_utils_common</module>
         <module>entity_utils_version</module>
+        <module>entity_utils_v1_8_R3</module>
         <module>entity_utils_v1_21_R5</module>
+        <module>entity_utils_v1_21_R7</module>
 
 
+
+        <module>hologram_common</module>
+        <module>hologram_version</module>
+        <module>hologram_v1_8_R3</module>
+        <module>hologram_v1_21_R5</module>
+        <module>hologram_v1_21_R7</module>
 
         <module>server_common</module>
         <module>server_version</module>

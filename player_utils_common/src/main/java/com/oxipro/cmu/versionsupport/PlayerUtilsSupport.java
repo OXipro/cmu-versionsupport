@@ -53,6 +53,17 @@ public interface PlayerUtilsSupport {
         }
     }
 
+
+    /**
+     * Set the player's absorption amount in health points (2 = 1 yellow heart).
+     */
+    void setAbsorptionHearts(Player player, double amount);
+
+    /**
+     * Get the player's absorption amount in health points (2 = 1 yellow heart).
+     */
+    double getAbsorptionHearts(Player player);
+
     class SupportBuilder {
 
         /**
