@@ -153,7 +153,9 @@
 
         <module>entity_utils_common</module>
         <module>entity_utils_version</module>
+        <module>entity_utils_v1_8_R3</module>
         <module>entity_utils_v1_21_R5</module>
+        <module>entity_utils_v1_21_R7</module>
 
 
 

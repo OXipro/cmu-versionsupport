@@ -7,8 +7,8 @@ import net.minecraft.network.protocol.game.PacketPlayOutEntityMetadata;
 import net.minecraft.network.syncher.DataWatcher;
 import net.minecraft.network.syncher.DataWatcherRegistry;
 import org.bukkit.NamespacedKey;
-import org.bukkit.craftbukkit.v1_21_R5.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_21_R5.util.CraftChatMessage;
+import org.bukkit.craftbukkit.v1_21_R7.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_21_R7.util.CraftChatMessage;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 
-public class EntityUtils_v1_21_R5 implements EntityUtilsSupport {
+public class EntityUtils_v1_21_R7 implements EntityUtilsSupport {
     private static final int CUSTOM_NAME_ID = 2;
     private static final int CUSTOM_NAME_VISIBLE_ID = 3;
 
