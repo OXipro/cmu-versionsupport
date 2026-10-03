@@ -6,4 +6,9 @@ public final class Server_Default implements ServerSupport {
     public double recentTps() {
         return -1D;
     }
+
+    @Override
+    public double mspt() {
+        return -1D;
+    }
 }
