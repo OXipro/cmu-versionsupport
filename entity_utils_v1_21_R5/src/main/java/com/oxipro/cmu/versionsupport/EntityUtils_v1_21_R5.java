@@ -7,10 +7,10 @@ import net.minecraft.network.protocol.game.PacketPlayOutEntityMetadata;
 import net.minecraft.network.syncher.DataWatcher;
 import net.minecraft.network.syncher.DataWatcherRegistry;
 import org.bukkit.NamespacedKey;
-import org.bukkit.craftbukkit.v1_21_R5.entity.CraftEntity;
 import org.bukkit.craftbukkit.v1_21_R5.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_21_R5.util.CraftChatMessage;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
@@ -40,12 +40,13 @@ public class EntityUtils_v1_21_R5 implements EntityUtilsSupport {
 
     @Override
     public void setNameTag(Entity entity, Component name) {
-        if (entity == null) {
+        if (!(entity instanceof LivingEntity)) {
             return;
         }
-        IChatBaseComponent nms = toNms(name);
-        ((CraftEntity) entity).getHandle().b(nms);
-        entity.setCustomNameVisible(nms != null);
+        LivingEntity living = (LivingEntity) entity;
+        String value = EntityUtilsSupport.toLegacyName(name);
+        living.setCustomName(value);
+        living.setCustomNameVisible(!value.isEmpty());
     }
 
     @Override
@@ -55,7 +56,11 @@ public class EntityUtils_v1_21_R5 implements EntityUtilsSupport {
             return;
         }
         IChatBaseComponent nms = toNms(name);
-        sendNameTag(viewer, entity, nms, nms != null);
+        try {
+            sendNameTag(viewer, entity, nms, nms != null);
+        } catch (RuntimeException ex) {
+            setNameTag(entity, name);
+        }
     }
 
     private static void sendNameTag(Player viewer, Entity entity, IChatBaseComponent name, boolean visible) {
