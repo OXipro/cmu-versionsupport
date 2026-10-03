@@ -159,6 +159,12 @@
 
 
 
+        <module>hologram_common</module>
+        <module>hologram_version</module>
+        <module>hologram_v1_8_R3</module>
+        <module>hologram_v1_21_R5</module>
+        <module>hologram_v1_21_R7</module>
+
         <module>version_mapping</module>
     </modules>
 
