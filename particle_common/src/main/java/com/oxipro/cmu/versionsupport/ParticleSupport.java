@@ -1,11 +1,8 @@
 package com.oxipro.cmu.versionsupport;
 
-import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
-
-import static com.oxipro.cmu.versionsupport.VersionMapping.resolveNmsVersion;
 
 public interface ParticleSupport {
 
@@ -45,40 +42,7 @@ public interface ParticleSupport {
          */
         @Nullable
         public static ParticleSupport load() {
-            try {
-                String version = resolveNmsVersion();
-                Bukkit.getLogger().info("[CMU Debug] Particle - Resolved NMS version: " + version);
-
-                if (version == null) {
-                    Bukkit.getLogger().severe("[CMU Debug] Particle - Unknown server version: " + Bukkit.getBukkitVersion());
-                    return null;
-                }
-
-                Class<?> c;
-                try {
-                    String className = "com.oxipro.cmu.versionsupport.particle_" + version;
-                    Bukkit.getLogger().info("[CMU Debug] Particle - Trying class: " + className);
-                    c = Class.forName(className);
-                } catch (ClassNotFoundException e) {
-                    try {
-                        String majorVersion = version.substring(0, version.lastIndexOf("_R"));
-                        String className = "com.oxipro.cmu.versionsupport.particle_" + majorVersion;
-                        Bukkit.getLogger().info("[CMU Debug] Particle - Trying major class: " + className);
-                        c = Class.forName(className);
-                    } catch (ClassNotFoundException | StringIndexOutOfBoundsException ex) {
-                        Bukkit.getLogger().severe("[CMU Debug] Particle - No suitable class found for: " + version);
-                        return null;
-                    }
-                }
-
-                Bukkit.getLogger().info("[CMU Debug] Particle - Successfully loaded: " + c.getName());
-                return (ParticleSupport) c.getDeclaredConstructor().newInstance();
-
-            } catch (ReflectiveOperationException e) {
-                Bukkit.getLogger().severe("[CMU Debug] Particle - Failed to instantiate: " + e.getMessage());
-                e.printStackTrace();
-                return null;
-            }
+            return VersionMapping.load(ParticleSupport.class, "com.oxipro.cmu.versionsupport.particle_");
         }
     }
 }
