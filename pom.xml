@@ -158,8 +158,30 @@
 
 
         <module>server_common</module>
+        <module>server_version</module>
         <module>server_v1_8_R3</module>
+        <module>server_v1_9_R2</module>
+        <module>server_v1_10_R1</module>
+        <module>server_v1_11_R1</module>
+        <module>server_v1_12_R1</module>
+        <module>server_v1_13_R2</module>
+        <module>server_v1_14_R1</module>
+        <module>server_v1_15_R1</module>
+        <module>server_v1_16_R1</module>
+        <module>server_v1_16_R2</module>
+        <module>server_v1_16_R3</module>
+        <module>server_v1_17_R1</module>
+        <module>server_v1_18_R1</module>
+        <module>server_v1_18_R2</module>
+        <module>server_v1_19_R1</module>
+        <module>server_v1_19_R3</module>
+        <module>server_v1_20_R2</module>
+        <module>server_v1_20_R3</module>
+        <module>server_v1_20_R4</module>
         <module>server_v1_21_R1</module>
+        <module>server_v1_21_R5</module>
+        <module>server_v1_21_R6</module>
+        <module>server_v1_21_R7</module>
 
         <module>version_mapping</module>
     </modules>
