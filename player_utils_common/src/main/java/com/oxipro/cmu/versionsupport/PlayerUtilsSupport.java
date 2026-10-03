@@ -1,19 +1,12 @@
 package com.oxipro.cmu.versionsupport;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.Nullable;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
-
-import static com.oxipro.cmu.versionsupport.VersionMapping.resolveNmsVersion;
 
 @SuppressWarnings("unused")
 public interface PlayerUtilsSupport {
@@ -67,45 +60,11 @@ public interface PlayerUtilsSupport {
          */
         @Nullable
         public static PlayerUtilsSupport load() {
-            try {
-                String version = resolveNmsVersion();
-                Bukkit.getLogger().info("[CMU Debug] PlayerUtils - Resolved NMS version: " + version);
-
-                if (version == null) {
-                    Bukkit.getLogger().severe("[CMU Debug] PlayerUtils - Unknown server version: " + Bukkit.getBukkitVersion());
-                    return null;
-                }
-
-                Class<?> c;
-                try {
-                    String className = "com.oxipro.cmu.versionsupport.PlayerUtils_" + version;
-                    Bukkit.getLogger().info("[CMU Debug] PlayerUtils - Trying class: " + className);
-                    c = Class.forName(className);
-                } catch (ClassNotFoundException e) {
-                    Bukkit.getLogger().info("[CMU Debug] PlayerUtils - Version-specific class not found, trying major version...");
-                    try {
-                        String majorVersion = version.substring(0, version.lastIndexOf("_R"));
-                        String className = "com.oxipro.cmu.versionsupport.PlayerUtils_" + majorVersion;
-                        Bukkit.getLogger().info("[CMU Debug] PlayerUtils - Trying major class: " + className);
-                        c = Class.forName(className);
-                    } catch (ClassNotFoundException | StringIndexOutOfBoundsException ex) {
-                        String className = "com.oxipro.cmu.versionsupport.PlayerUtils_Default";
-                        Bukkit.getLogger().info("[CMU Debug] PlayerUtils - Trying fallback class: " + className);
-                        c = Class.forName(className);
-                    }
-                }
-
-                Bukkit.getLogger().info("[CMU Debug] PlayerUtils - Successfully loaded: " + c.getName());
-                return (PlayerUtilsSupport) c.getDeclaredConstructor().newInstance();
-
-            } catch (ClassNotFoundException e) {
-                Bukkit.getLogger().severe("[CMU Debug] PlayerUtils - No suitable class found (not even Default): " + e.getMessage());
-                return null;
-            } catch (ReflectiveOperationException e) {
-                Bukkit.getLogger().severe("[CMU Debug] PlayerUtils - Failed to instantiate: " + e.getMessage());
-                e.printStackTrace();
-                return null;
-            }
+            return VersionMapping.load(
+                    PlayerUtilsSupport.class,
+                    "com.oxipro.cmu.versionsupport.PlayerUtils_",
+                    "com.oxipro.cmu.versionsupport.PlayerUtils_Default"
+            );
         }
     }
 }

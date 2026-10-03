@@ -1,7 +1,6 @@
 package com.oxipro.cmu.versionsupport;
 
 import com.mojang.authlib.GameProfile;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -31,14 +30,7 @@ public interface PlayerNPCSupport {
          */
         @Nullable
         public static PlayerNPCSupport load() {
-            String version = Bukkit.getServer().getClass().getName().split("\\.")[3];
-            try {
-                Class<?> c = Class.forName("com.oxipro.cmu.versionsupport.Player_NPC_" + version);
-                return (PlayerNPCSupport) c.newInstance();
-            } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
-                e.printStackTrace();
-            }
-            return null;
+            return VersionMapping.load(PlayerNPCSupport.class, "com.oxipro.cmu.versionsupport.Player_NPC_");
         }
     }
 }

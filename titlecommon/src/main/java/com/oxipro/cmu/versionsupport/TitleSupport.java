@@ -1,6 +1,5 @@
 package com.oxipro.cmu.versionsupport;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
 
@@ -33,19 +32,7 @@ public interface TitleSupport {
          */
         @Nullable
         public static TitleSupport load() {
-            String version = Bukkit.getServer().getClass().getName().split("\\.")[3];
-            Class<?> c;
-            try {
-                c = Class.forName("com.oxipro.cmu.versionsupport.title_" + version);
-            } catch (ClassNotFoundException e) {
-                //I can't run on your version
-                return null;
-            }
-            try {
-                return (TitleSupport) c.newInstance();
-            } catch (InstantiationException | IllegalAccessException e) {
-                return null;
-            }
+            return VersionMapping.load(TitleSupport.class, "com.oxipro.cmu.versionsupport.title_");
         }
     }
 }

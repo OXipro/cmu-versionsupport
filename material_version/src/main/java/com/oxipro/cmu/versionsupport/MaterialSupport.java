@@ -1,6 +1,5 @@
 package com.oxipro.cmu.versionsupport;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 
 import javax.annotation.Nullable;
@@ -122,22 +121,11 @@ public interface MaterialSupport {
          */
         @Nullable
         public static MaterialSupport load() {
-            String version = Bukkit.getServer().getClass().getName().split("\\.")[3];
-            Class<?> c;
-            try {
-                c = Class.forName("com.oxipro.cmu.versionsupport.material_" + version);
-            } catch (ClassNotFoundException e) {
-                try {
-                    c = Class.forName("com.oxipro.cmu.versionsupport.material_v1_13_R2");
-                } catch (ClassNotFoundException ex) {
-                    return null;
-                }
-            }
-            try {
-                return (MaterialSupport) c.newInstance();
-            } catch (InstantiationException | IllegalAccessException e) {
-                return null;
-            }
+            return VersionMapping.load(
+                    MaterialSupport.class,
+                    "com.oxipro.cmu.versionsupport.material_",
+                    "com.oxipro.cmu.versionsupport.material_v1_13_R2"
+            );
         }
     }
 }

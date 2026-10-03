@@ -1,6 +1,5 @@
 package com.oxipro.cmu.versionsupport;
 
-import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 
 import javax.annotation.Nullable;
@@ -39,19 +38,7 @@ public interface BlockSupport {
          */
         @Nullable
         public static BlockSupport load() {
-            String version = Bukkit.getServer().getClass().getName().split("\\.")[3];
-            Class<?> c;
-            try {
-                c = Class.forName("com.oxipro.cmu.versionsupport.block_" + version);
-            } catch (ClassNotFoundException e) {
-                //I can't run on your version
-                return null;
-            }
-            try {
-                return (BlockSupport) c.newInstance();
-            } catch (InstantiationException | IllegalAccessException e) {
-                return null;
-            }
+            return VersionMapping.load(BlockSupport.class, "com.oxipro.cmu.versionsupport.block_");
         }
     }
 }

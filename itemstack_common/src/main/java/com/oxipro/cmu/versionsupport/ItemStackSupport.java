@@ -1,6 +1,5 @@
 package com.oxipro.cmu.versionsupport;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -10,8 +9,6 @@ import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
-import static com.oxipro.cmu.versionsupport.VersionMapping.resolveNmsVersion;
 
 public interface ItemStackSupport {
 
@@ -219,40 +216,7 @@ public interface ItemStackSupport {
          */
         @Nullable
         public static ItemStackSupport load() {
-            try {
-                String version = resolveNmsVersion();
-                Bukkit.getLogger().info("[CMU Debug] Resolved NMS version: " + version);
-
-                if (version == null) {
-                    Bukkit.getLogger().severe("[CMU Debug] Unknown server version: " + Bukkit.getBukkitVersion());
-                    return null;
-                }
-
-                Class<?> c;
-                try {
-                    String className = "com.oxipro.cmu.versionsupport.itemstack_" + version;
-                    Bukkit.getLogger().info("[CMU Debug] Trying class: " + className);
-                    c = Class.forName(className);
-                } catch (ClassNotFoundException e) {
-                    try {
-                        String majorVersion = version.substring(0, version.lastIndexOf("_R"));
-                        String className = "com.oxipro.cmu.versionsupport.itemstack_" + majorVersion;
-                        Bukkit.getLogger().info("[CMU Debug] Trying major class: " + className);
-                        c = Class.forName(className);
-                    } catch (ClassNotFoundException | StringIndexOutOfBoundsException ex) {
-                        Bukkit.getLogger().severe("[CMU Debug] No suitable itemstack class found for: " + version);
-                        return null;
-                    }
-                }
-
-                Bukkit.getLogger().info("[CMU Debug] Successfully loaded: " + c.getName());
-                return (ItemStackSupport) c.getDeclaredConstructor().newInstance();
-
-            } catch (ReflectiveOperationException e) {
-                Bukkit.getLogger().severe("[CMU Debug] Failed to instantiate: " + e.getMessage());
-                e.printStackTrace();
-                return null;
-            }
+            return VersionMapping.load(ItemStackSupport.class, "com.oxipro.cmu.versionsupport.itemstack_");
         }
     }
 }
