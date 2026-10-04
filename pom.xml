@@ -165,6 +165,11 @@
         <module>hologram_v1_21_R5</module>
         <module>hologram_v1_21_R7</module>
 
+        <module>world_common</module>
+        <module>world_version</module>
+        <module>world_v1_8_R3</module>
+        <module>world_v1_13_R2</module>
+
         <module>server_common</module>
         <module>server_version</module>
         <module>server_v1_8_R3</module>
