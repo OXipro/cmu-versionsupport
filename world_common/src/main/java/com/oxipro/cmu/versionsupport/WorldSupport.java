@@ -1,11 +1,9 @@
 package com.oxipro.cmu.versionsupport;
 
 import org.bukkit.World;
-import org.bukkit.plugin.Plugin;
+import org.bukkit.event.Listener;
 
-public interface WorldSupport {
-
-    void enable(Plugin plugin);
+public interface WorldSupport extends Listener {
 
     void keepChunk(World world, int chunkX, int chunkZ);
 

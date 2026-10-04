@@ -1,31 +1,18 @@
 package com.oxipro.cmu.versionsupport;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.World;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.world.WorldUnloadEvent;
-import org.bukkit.plugin.Plugin;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class World_v1_13_R2 implements WorldSupport, Listener {
+public class World_v1_13_R2 implements WorldSupport {
 
     private final Map<String, Set<Long>> kept = new HashMap<String, Set<Long>>();
-    private boolean enabled;
-
-    @Override
-    public void enable(Plugin plugin) {
-        if (enabled || plugin == null) {
-            return;
-        }
-        enabled = true;
-        Bukkit.getPluginManager().registerEvents(this, plugin);
-    }
 
     @Override
     public void keepChunk(World world, int chunkX, int chunkZ) {
