@@ -2,6 +2,7 @@ package com.oxipro.cmu.versionsupport;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nullable;
@@ -105,6 +106,56 @@ public interface ItemStackSupport {
      * @param amount amount to be removed.
      */
     void minusAmount(Player p, ItemStack i, int amount);
+
+    /**
+     * Remove an amount from the hand that triggered the interact.
+     * Only that slot is changed. Off hand is ignored on 1.8.
+     *
+     * @param player target player.
+     * @param event  interact that chose the hand. Null means the main hand.
+     * @param amount amount to remove.
+     */
+    default void minusUsedHand(Player player, PlayerInteractEvent event, int amount) {
+        if (player == null || amount <= 0) {
+            return;
+        }
+        boolean offHand = false;
+        if (event != null) {
+            try {
+                Object hand = event.getClass().getMethod("getHand").invoke(event);
+                offHand = hand != null && "OFF_HAND".equals(String.valueOf(hand));
+            } catch (ReflectiveOperationException e) {
+                offHand = false;
+            }
+        }
+        ItemStack live = offHand ? getInOffHand(player) : getInHand(player);
+        if (live == null || live.getType() == Material.AIR || live.getAmount() <= 0) {
+            return;
+        }
+        ItemStack used = event == null ? null : event.getItem();
+        if (used != null && live != used && !live.isSimilar(used)) {
+            return;
+        }
+        ItemStack next;
+        int left = live.getAmount() - amount;
+        if (left > 0) {
+            live.setAmount(left);
+            next = live;
+        } else {
+            next = new ItemStack(Material.AIR);
+        }
+        if (offHand) {
+            try {
+                player.getInventory().getClass().getMethod("setItemInOffHand", ItemStack.class)
+                        .invoke(player.getInventory(), next);
+            } catch (ReflectiveOperationException e) {
+                return;
+            }
+        } else {
+            player.setItemInHand(next);
+        }
+        player.updateInventory();
+    }
 
     /**
      * Retrieve how much damage does an item do.
