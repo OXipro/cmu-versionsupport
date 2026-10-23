@@ -6,7 +6,7 @@ import org.bukkit.block.data.type.WallSign;
 
 import java.lang.reflect.Field;
 
-class block_v1_13_R1 implements BlockSupport {
+class block_v1_13_R2 implements BlockSupport {
 
     public void setBlockData(Block block, byte data) {
         if (block.getBlockData() instanceof Ageable) {
