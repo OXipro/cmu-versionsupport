@@ -32,4 +32,16 @@ class block_v1_16_R1 implements BlockSupport {
         if (!(sign.getState().getBlockData() instanceof WallSign)) return null;
         return sign.getRelative(((WallSign) sign.getState().getBlockData()).getFacing().getOppositeFace());
     }
+
+    public void sendBlockBreakAnimation(org.bukkit.entity.Player player, org.bukkit.block.Block block, int value) {
+        if (player == null || block == null) {
+            return;
+        }
+        net.minecraft.server.v1_16_R1.BlockPosition position = new net.minecraft.server.v1_16_R1.BlockPosition(block.getX(), block.getY(), block.getZ());
+        net.minecraft.server.v1_16_R1.PacketPlayOutBlockBreakAnimation packet = new net.minecraft.server.v1_16_R1.PacketPlayOutBlockBreakAnimation(player.getEntityId(), position, value);
+        net.minecraft.server.v1_16_R1.PlayerConnection connection = ((org.bukkit.craftbukkit.v1_16_R1.entity.CraftPlayer) player).getHandle().playerConnection;
+        if (connection != null) {
+            connection.sendPacket(packet);
+        }
+    }
 }

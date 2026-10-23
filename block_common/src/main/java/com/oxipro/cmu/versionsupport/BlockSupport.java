@@ -1,6 +1,7 @@
 package com.oxipro.cmu.versionsupport;
 
 import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
 
 import javax.annotation.Nullable;
 
@@ -31,6 +32,11 @@ public interface BlockSupport {
      */
     @Nullable
     Block getBlockBehindSign(Block sign);
+
+    /**
+     * Sends a break-crack stage to one player. The value is the vanilla stage, 0 to 9.
+     */
+    void sendBlockBreakAnimation(Player player, Block block, int value);
 
     class SupportBuilder {
 
