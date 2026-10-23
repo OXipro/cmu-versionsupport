@@ -1,5 +1,6 @@
 package com.oxipro.cmu.versionsupport;
 
+import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 
@@ -13,12 +14,16 @@ class block_v1_10_R1 implements BlockSupport {
 
     public void setDurability(String oldName, String new_v1_13, float durability) {
         try {
-            Field field = net.minecraft.server.v1_10_R1.Block.class.getDeclaredField("durability");
+            net.minecraft.server.v1_10_R1.Block block = net.minecraft.server.v1_10_R1.Block.getByName(oldName);
+            if (block == null) {
+                Bukkit.getLogger().warning("[CMU] Unknown block for hardness: " + oldName);
+                return;
+            }
+            Field field = net.minecraft.server.v1_10_R1.Block.class.getDeclaredField("strength");
             field.setAccessible(true);
-            field.set(net.minecraft.server.v1_10_R1.Block.getByName(oldName), durability);
-
+            field.setFloat(block, durability);
         } catch (NoSuchFieldException | IllegalAccessException e) {
-            e.printStackTrace();
+            Bukkit.getLogger().warning("[CMU] Failed to set block hardness for " + oldName + ": " + e.getMessage());
         }
     }
 

@@ -16,11 +16,12 @@ public interface BlockSupport {
     void setBlockData(Block block, byte data);
 
     /**
-     * Change a block durability.
+     * Sets the break hardness of a block type for the whole server.
+     * This is the destroy speed used to compute how long the block takes to break.
      *
      * @param oldName    vanilla block name for versions before 1.13.
-     * @param new_v1_13  enum name for 1.13+.
-     * @param durability durability.
+     * @param new_v1_13  material name for 1.13+.
+     * @param durability break hardness. 0 breaks instantly.
      */
     void setDurability(String oldName, String new_v1_13, float durability);
 
