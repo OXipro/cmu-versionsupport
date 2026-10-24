@@ -34,9 +34,17 @@ public interface BlockSupport {
     Block getBlockBehindSign(Block sign);
 
     /**
-     * Sends a break-crack stage to one player. The value is the vanilla stage, 0 to 9.
+     * Break hardness currently stored on the server for this block.
      */
-    void sendBlockBreakAnimation(Player player, Block block, int value);
+    float getDurability(Block block);
+
+    /**
+     * Sends the block-break animation packet on one connection.
+     * {@code sourceId} is the animation id from the protocol, not the recipient.
+     * Several cracks at once need different ids.
+     * Stage 0 to 9 shows the crack. Any other value removes it.
+     */
+    void sendBlockBreakAnimation(Player player, int sourceId, Block block, int stage);
 
     class SupportBuilder {
 

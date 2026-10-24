@@ -33,15 +33,33 @@ class block_v1_9_R2 implements BlockSupport {
         return block.getBlock().getRelative(((org.bukkit.material.Sign) block.getData()).getAttachedFace());
     }
 
-    public void sendBlockBreakAnimation(org.bukkit.entity.Player player, org.bukkit.block.Block block, int value) {
+    public float getDurability(org.bukkit.block.Block block) {
+        if (block == null) {
+            return 0.0F;
+        }
+        try {
+            net.minecraft.server.v1_9_R2.World world = ((org.bukkit.craftbukkit.v1_9_R2.CraftWorld) block.getWorld()).getHandle();
+            net.minecraft.server.v1_9_R2.BlockPosition position = new net.minecraft.server.v1_9_R2.BlockPosition(block.getX(), block.getY(), block.getZ());
+            net.minecraft.server.v1_9_R2.Block type = world.getType(position).getBlock();
+            java.lang.reflect.Field field = net.minecraft.server.v1_9_R2.Block.class.getDeclaredField("strength");
+            field.setAccessible(true);
+            return field.getFloat(type);
+        } catch (ReflectiveOperationException ex) {
+            org.bukkit.Bukkit.getLogger().warning("[CMU] Failed to read block hardness: " + ex.getMessage());
+            return 0.0F;
+        }
+    }
+
+    public void sendBlockBreakAnimation(org.bukkit.entity.Player player, int sourceId, org.bukkit.block.Block block, int value) {
         if (player == null || block == null) {
             return;
         }
         net.minecraft.server.v1_9_R2.BlockPosition position = new net.minecraft.server.v1_9_R2.BlockPosition(block.getX(), block.getY(), block.getZ());
-        net.minecraft.server.v1_9_R2.PacketPlayOutBlockBreakAnimation packet = new net.minecraft.server.v1_9_R2.PacketPlayOutBlockBreakAnimation(player.getEntityId(), position, value);
+        net.minecraft.server.v1_9_R2.PacketPlayOutBlockBreakAnimation packet = new net.minecraft.server.v1_9_R2.PacketPlayOutBlockBreakAnimation(sourceId, position, value);
         net.minecraft.server.v1_9_R2.PlayerConnection connection = ((org.bukkit.craftbukkit.v1_9_R2.entity.CraftPlayer) player).getHandle().playerConnection;
         if (connection != null) {
             connection.sendPacket(packet);
         }
     }
+
 }

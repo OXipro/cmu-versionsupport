@@ -2,10 +2,10 @@ package com.oxipro.cmu.versionsupport;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_13_R2.util.CraftMagicNumbers;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Ageable;
 import org.bukkit.block.data.type.WallSign;
+import org.bukkit.craftbukkit.v1_13_R2.util.CraftMagicNumbers;
 
 import java.lang.reflect.Field;
 
@@ -44,15 +44,31 @@ class block_v1_13_R2 implements BlockSupport {
         return sign.getRelative(((WallSign) sign.getState().getBlockData()).getFacing().getOppositeFace());
     }
 
-    public void sendBlockBreakAnimation(org.bukkit.entity.Player player, org.bukkit.block.Block block, int value) {
+    public float getDurability(org.bukkit.block.Block block) {
+        if (block == null) {
+            return 0.0F;
+        }
+        try {
+            net.minecraft.server.v1_13_R2.Block type = ((org.bukkit.craftbukkit.v1_13_R2.block.CraftBlock) block).getNMS().getBlock();
+            java.lang.reflect.Field field = net.minecraft.server.v1_13_R2.Block.class.getDeclaredField("strength");
+            field.setAccessible(true);
+            return field.getFloat(type);
+        } catch (ReflectiveOperationException ex) {
+            org.bukkit.Bukkit.getLogger().warning("[CMU] Failed to read block hardness: " + ex.getMessage());
+            return 0.0F;
+        }
+    }
+
+    public void sendBlockBreakAnimation(org.bukkit.entity.Player player, int sourceId, org.bukkit.block.Block block, int value) {
         if (player == null || block == null) {
             return;
         }
         net.minecraft.server.v1_13_R2.BlockPosition position = new net.minecraft.server.v1_13_R2.BlockPosition(block.getX(), block.getY(), block.getZ());
-        net.minecraft.server.v1_13_R2.PacketPlayOutBlockBreakAnimation packet = new net.minecraft.server.v1_13_R2.PacketPlayOutBlockBreakAnimation(player.getEntityId(), position, value);
+        net.minecraft.server.v1_13_R2.PacketPlayOutBlockBreakAnimation packet = new net.minecraft.server.v1_13_R2.PacketPlayOutBlockBreakAnimation(sourceId, position, value);
         net.minecraft.server.v1_13_R2.PlayerConnection connection = ((org.bukkit.craftbukkit.v1_13_R2.entity.CraftPlayer) player).getHandle().playerConnection;
         if (connection != null) {
             connection.sendPacket(packet);
         }
     }
+
 }

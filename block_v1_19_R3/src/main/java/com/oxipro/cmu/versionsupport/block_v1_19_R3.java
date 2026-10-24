@@ -1,11 +1,8 @@
 package com.oxipro.cmu.versionsupport;
 
-import net.minecraft.world.level.block.state.BlockBase;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Ageable;
 import org.bukkit.block.data.type.WallSign;
-
-import java.lang.reflect.Field;
 
 public class block_v1_19_R3 implements BlockSupport {
 
@@ -17,13 +14,24 @@ public class block_v1_19_R3 implements BlockSupport {
     }
 
     public void setDurability(String oldName, String new_v1_13, float durability) {
+        org.bukkit.Material material = org.bukkit.Material.matchMaterial(new_v1_13);
+        if (material == null || !material.isBlock()) {
+            org.bukkit.Bukkit.getLogger().warning("[CMU] Unknown block for hardness: " + new_v1_13);
+            return;
+        }
         try {
-            Field field = BlockBase.class.getDeclaredField("aI");
+            net.minecraft.world.level.block.Block nms = org.bukkit.craftbukkit.v1_19_R3.util.CraftMagicNumbers.getBlock(material);
+            if (nms == null) {
+                org.bukkit.Bukkit.getLogger().warning("[CMU] No NMS block for hardness: " + new_v1_13);
+                return;
+            }
+            java.lang.reflect.Field field = net.minecraft.world.level.block.state.BlockBase.BlockData.class.getDeclaredField("k");
             field.setAccessible(true);
-            field.set(Class.forName("net.minecraft.server.v1_19_R3.Blocks." + new_v1_13.toUpperCase()), durability);
-
-        } catch (NoSuchFieldException | IllegalAccessException | ClassNotFoundException e) {
-            e.printStackTrace();
+            for (net.minecraft.world.level.block.state.IBlockData state : nms.n().a()) {
+                field.setFloat(state, durability);
+            }
+        } catch (ReflectiveOperationException e) {
+            org.bukkit.Bukkit.getLogger().warning("[CMU] Failed to set block hardness for " + new_v1_13 + ": " + e.getMessage());
         }
     }
 
@@ -32,15 +40,29 @@ public class block_v1_19_R3 implements BlockSupport {
         return sign.getRelative(((WallSign) sign.getState().getBlockData()).getFacing().getOppositeFace());
     }
 
-    public void sendBlockBreakAnimation(org.bukkit.entity.Player player, org.bukkit.block.Block block, int value) {
+    public float getDurability(org.bukkit.block.Block block) {
+        if (block == null) {
+            return 0.0F;
+        }
+        try {
+            net.minecraft.world.level.block.state.IBlockData state = ((org.bukkit.craftbukkit.v1_19_R3.block.CraftBlock) block).getNMS();
+            return state.k;
+        } catch (RuntimeException ex) {
+            org.bukkit.Bukkit.getLogger().warning("[CMU] Failed to read block hardness: " + ex.getMessage());
+            return 0.0F;
+        }
+    }
+
+    public void sendBlockBreakAnimation(org.bukkit.entity.Player player, int sourceId, org.bukkit.block.Block block, int value) {
         if (player == null || block == null) {
             return;
         }
         net.minecraft.core.BlockPosition position = new net.minecraft.core.BlockPosition(block.getX(), block.getY(), block.getZ());
-        net.minecraft.network.protocol.game.PacketPlayOutBlockBreakAnimation packet = new net.minecraft.network.protocol.game.PacketPlayOutBlockBreakAnimation(player.getEntityId(), position, value);
+        net.minecraft.network.protocol.game.PacketPlayOutBlockBreakAnimation packet = new net.minecraft.network.protocol.game.PacketPlayOutBlockBreakAnimation(sourceId, position, value);
         net.minecraft.server.network.PlayerConnection connection = ((org.bukkit.craftbukkit.v1_19_R3.entity.CraftPlayer) player).getHandle().b;
         if (connection != null) {
             connection.a(packet);
         }
     }
+
 }
