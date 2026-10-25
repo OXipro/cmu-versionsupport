@@ -2,6 +2,7 @@ package com.oxipro.cmu.versionsupport;
 
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Ageable;
+import org.bukkit.block.data.type.Slab;
 import org.bukkit.block.data.type.WallSign;
 
 public class block_v1_19_R3 implements BlockSupport {
@@ -65,4 +66,15 @@ public class block_v1_19_R3 implements BlockSupport {
         }
     }
 
+    public boolean isSlab(Block block) {
+        return block != null && block.getBlockData() instanceof Slab;
+    }
+
+    public boolean isUpperHalf(Block block) {
+        if (block == null || !(block.getBlockData() instanceof Slab)) {
+            return false;
+        }
+        Slab.Type type = ((Slab) block.getBlockData()).getType();
+        return type == Slab.Type.TOP || type == Slab.Type.DOUBLE;
+    }
 }

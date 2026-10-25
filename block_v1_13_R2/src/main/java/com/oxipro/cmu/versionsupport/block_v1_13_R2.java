@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Ageable;
+import org.bukkit.block.data.type.Slab;
 import org.bukkit.block.data.type.WallSign;
 import org.bukkit.craftbukkit.v1_13_R2.util.CraftMagicNumbers;
 
@@ -71,4 +72,15 @@ class block_v1_13_R2 implements BlockSupport {
         }
     }
 
+    public boolean isSlab(Block block) {
+        return block != null && block.getBlockData() instanceof Slab;
+    }
+
+    public boolean isUpperHalf(Block block) {
+        if (block == null || !(block.getBlockData() instanceof Slab)) {
+            return false;
+        }
+        Slab.Type type = ((Slab) block.getBlockData()).getType();
+        return type == Slab.Type.TOP || type == Slab.Type.DOUBLE;
+    }
 }

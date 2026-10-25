@@ -46,6 +46,10 @@ public interface BlockSupport {
      */
     void sendBlockBreakAnimation(Player player, int sourceId, Block block, int stage);
 
+    boolean isSlab(Block block);
+
+    boolean isUpperHalf(Block block);
+
     class SupportBuilder {
 
         /**
