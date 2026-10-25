@@ -9,6 +9,8 @@ public interface WorldSupport extends Listener {
 
     void release(World world);
 
+    boolean setGameRule(World world, String key, String value);
+
     class SupportBuilder {
 
         private SupportBuilder() {

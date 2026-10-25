@@ -26,6 +26,12 @@
         </dependency>
         <dependency>
             <groupId>com.oxipro.cmu.versionsupport</groupId>
+            <artifactId>world_v1_21_R7</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.oxipro.cmu.versionsupport</groupId>
             <artifactId>world_common</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>
