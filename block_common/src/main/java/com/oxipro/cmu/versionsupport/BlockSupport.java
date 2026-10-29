@@ -46,6 +46,30 @@ public interface BlockSupport {
      */
     void sendBlockBreakAnimation(Player player, int sourceId, Block block, int stage);
 
+    /**
+     * Reads one block, including its data, without tile-entity contents.
+     *
+     * @param block target. Null returns null.
+     * @return snapshot for {@link #apply(Block, BlockSnapshot)}.
+     */
+    @Nullable
+    BlockSnapshot capture(Block block);
+
+    /**
+     * Writes a snapshot back. Neighbor physics stay off.
+     *
+     * @param block    target.
+     * @param snapshot value from {@link #capture(Block)}.
+     */
+    void apply(Block block, BlockSnapshot snapshot);
+
+    /**
+     * Replaces one block with air. Neighbor physics stay off.
+     *
+     * @param block target.
+     */
+    void setAir(Block block);
+
     boolean isSlab(Block block);
 
     boolean isUpperHalf(Block block);

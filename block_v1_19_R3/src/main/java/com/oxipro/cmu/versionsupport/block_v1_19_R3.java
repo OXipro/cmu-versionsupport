@@ -66,6 +66,28 @@ public class block_v1_19_R3 implements BlockSupport {
         }
     }
 
+
+    public BlockSnapshot capture(Block block) {
+        if (block == null) {
+            return null;
+        }
+        return new BlockSnapshot(0, (byte) 0, block.getBlockData());
+    }
+
+    public void apply(Block block, BlockSnapshot snapshot) {
+        if (block == null || snapshot == null || !(snapshot.modernState instanceof org.bukkit.block.data.BlockData)) {
+            return;
+        }
+        block.setBlockData((org.bukkit.block.data.BlockData) snapshot.modernState, false);
+    }
+
+    public void setAir(Block block) {
+        if (block == null) {
+            return;
+        }
+        block.setType(org.bukkit.Material.AIR, false);
+    }
+
     public boolean isSlab(Block block) {
         return block != null && block.getBlockData() instanceof Slab;
     }
