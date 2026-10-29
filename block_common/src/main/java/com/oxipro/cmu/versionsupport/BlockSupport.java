@@ -70,6 +70,10 @@ public interface BlockSupport {
      */
     void setAir(Block block);
 
+    boolean isSlab(Block block);
+
+    boolean isUpperHalf(Block block);
+
     class SupportBuilder {
 
         /**

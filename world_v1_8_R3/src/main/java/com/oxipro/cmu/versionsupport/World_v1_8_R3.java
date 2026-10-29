@@ -38,6 +38,18 @@ public class World_v1_8_R3 implements WorldSupport {
         kept.remove(world.getName());
     }
 
+    @Override
+    public boolean setGameRule(World world, String key, String value) {
+        if (world == null || key == null || value == null) {
+            return false;
+        }
+        try {
+            return world.setGameRuleValue(key, value);
+        } catch (RuntimeException ex) {
+            return false;
+        }
+    }
+
     @EventHandler
     public void onChunkUnload(ChunkUnloadEvent event) {
         if (event.getChunk() == null || event.getWorld() == null) {

@@ -32,6 +32,18 @@ public class World_v1_13_R2 implements WorldSupport {
     }
 
     @Override
+    public boolean setGameRule(World world, String key, String value) {
+        if (world == null || key == null || value == null) {
+            return false;
+        }
+        try {
+            return world.setGameRuleValue(key, value);
+        } catch (RuntimeException ex) {
+            return false;
+        }
+    }
+
+    @Override
     public void release(World world) {
         if (world == null) {
             return;

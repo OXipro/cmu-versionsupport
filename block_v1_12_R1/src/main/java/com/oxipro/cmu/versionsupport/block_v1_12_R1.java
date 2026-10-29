@@ -87,4 +87,23 @@ class block_v1_12_R1 implements BlockSupport {
         //noinspection deprecation
         block.setTypeIdAndData(0, (byte) 0, false);
     }
+
+    public boolean isSlab(Block block) {
+        if (block == null || block.getType() == null) {
+            return false;
+        }
+        String name = block.getType().name();
+        return name.contains("SLAB") || name.contains("STEP") || name.contains("WOOD_STEP") || name.contains("STONE_SLAB2");
+    }
+
+    @SuppressWarnings("deprecation")
+    public boolean isUpperHalf(Block block) {
+        if (!isSlab(block)) {
+            return false;
+        }
+        if (block.getType().name().contains("DOUBLE")) {
+            return true;
+        }
+        return (block.getData() & 0x8) != 0;
+    }
 }
