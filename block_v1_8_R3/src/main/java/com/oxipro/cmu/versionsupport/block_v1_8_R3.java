@@ -63,4 +63,28 @@ class block_v1_8_R3 implements BlockSupport {
         }
     }
 
+
+    public BlockSnapshot capture(Block block) {
+        if (block == null) {
+            return null;
+        }
+        //noinspection deprecation
+        return new BlockSnapshot(block.getTypeId(), block.getData(), null);
+    }
+
+    public void apply(Block block, BlockSnapshot snapshot) {
+        if (block == null || snapshot == null) {
+            return;
+        }
+        //noinspection deprecation
+        block.setTypeIdAndData(snapshot.legacyId, snapshot.legacyData, false);
+    }
+
+    public void setAir(Block block) {
+        if (block == null) {
+            return;
+        }
+        //noinspection deprecation
+        block.setTypeIdAndData(0, (byte) 0, false);
+    }
 }
