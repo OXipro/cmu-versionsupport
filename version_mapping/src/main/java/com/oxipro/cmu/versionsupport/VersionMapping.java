@@ -2,6 +2,8 @@ package com.oxipro.cmu.versionsupport;
 
 import org.bukkit.Bukkit;
 import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Constructor;
 import java.util.HashSet;
@@ -10,6 +12,8 @@ import java.util.Map;
 import java.util.Set;
 
 public class VersionMapping {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(VersionMapping.class);
 
     private static final Map<String, String> VERSION_MAP = new LinkedHashMap<>();
 
@@ -106,16 +110,16 @@ public class VersionMapping {
         String packageName = Bukkit.getServer().getClass().getPackage().getName();
         String[] parts = packageName.split("\\.");
         if (parts.length >= 4 && parts[3].matches("v\\d+_\\d+_R\\d+")) {
-            Bukkit.getLogger().info("[CMU Debug] Resolved NMS version from package: " + parts[3]);
+            LOGGER.debug("Resolved NMS version from package: {}", parts[3]);
             return parts[3];
         }
 
         String mcVersion = getMCVersion();
         String nmsVersion = mcVersion == null ? null : VERSION_MAP.get(mcVersion);
-        Bukkit.getLogger().info("[CMU Debug] Resolved bukkit version: " + mcVersion);
-        Bukkit.getLogger().info("[CMU Debug] Resolved matching bukkit/nms version: " + nmsVersion);
+        LOGGER.trace("Resolved bukkit version: {}", mcVersion);
+        LOGGER.debug("Resolved NMS version: {}", nmsVersion);
         if (nmsVersion == null) {
-            Bukkit.getLogger().severe("[CMU Debug] Unknown server version: " + Bukkit.getBukkitVersion());
+            LOGGER.error("Unknown server version: {}", Bukkit.getBukkitVersion());
         }
         return nmsVersion;
     }
@@ -149,22 +153,22 @@ public class VersionMapping {
                 continue;
             }
             try {
-                Bukkit.getLogger().info("[CMU Debug] " + label + " - Trying class: " + className);
+                LOGGER.trace("{} - Trying class: {}", label, className);
                 ClassLoader loader = type.getClassLoader();
                 Class<?> loaded = Class.forName(className, true, loader == null ? ClassLoader.getSystemClassLoader() : loader);
                 Constructor<?> constructor = loaded.getDeclaredConstructor();
                 constructor.setAccessible(true);
                 T instance = type.cast(constructor.newInstance());
-                Bukkit.getLogger().info("[CMU Debug] " + label + " - Successfully loaded: " + loaded.getName());
+                LOGGER.debug("Loaded {} for {}", loaded.getName(), label);
                 return instance;
             } catch (ClassNotFoundException ignored) {
+                LOGGER.trace("{} - Class not found: {}", label, className);
             } catch (ReflectiveOperationException | ClassCastException e) {
-                Bukkit.getLogger().severe("[CMU Debug] " + label + " - Failed to instantiate " + className + ": " + e.getMessage());
-                e.printStackTrace();
+                LOGGER.error("{} - Failed to instantiate {}", label, className, e);
                 return null;
             }
         }
-        Bukkit.getLogger().severe("[CMU Debug] " + label + " - No suitable class found for: " + (version == null ? "requested name" : version));
+        LOGGER.error("{} - No suitable class found for: {}", label, version == null ? "requested name" : version);
         return null;
     }
 }
