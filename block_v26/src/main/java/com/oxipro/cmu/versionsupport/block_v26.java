@@ -1,0 +1,149 @@
+package com.oxipro.cmu.versionsupport;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.protocol.game.ClientboundBlockDestructionPacket;
+import net.minecraft.server.network.ServerGamePacketListenerImpl;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import org.bukkit.Location;
+import org.bukkit.block.Block;
+import org.bukkit.block.data.Ageable;
+import org.bukkit.block.data.type.Slab;
+import org.bukkit.block.data.type.Switch;
+import org.bukkit.block.data.type.WallSign;
+import org.bukkit.craftbukkit.block.CraftBlock;
+import org.bukkit.craftbukkit.entity.CraftPlayer;
+import org.bukkit.craftbukkit.util.CraftMagicNumbers;
+
+import java.lang.reflect.Field;
+
+public class block_v26 implements BlockSupport {
+
+    public void setBlockData(Block block, byte data) {
+        if (block.getBlockData() instanceof Ageable) {
+            Ageable ageable = (Ageable) block.getBlockData();
+            ageable.setAge(data);
+            block.setBlockData(ageable, true);
+        }
+    }
+
+    public void setDurability(String oldName, String new_v1_13, float durability) {
+        org.bukkit.Material material = org.bukkit.Material.matchMaterial(new_v1_13);
+        if (material == null || !material.isBlock()) {
+            org.bukkit.Bukkit.getLogger().warning("[CMU] Unknown block for hardness: " + new_v1_13);
+            return;
+        }
+        try {
+            net.minecraft.world.level.block.Block nms = CraftMagicNumbers.getBlock(material);
+            if (nms == null) {
+                org.bukkit.Bukkit.getLogger().warning("[CMU] No NMS block for hardness: " + new_v1_13);
+                return;
+            }
+            Field field = BlockBehaviour.BlockStateBase.class.getDeclaredField("destroySpeed");
+            field.setAccessible(true);
+            for (BlockState state : nms.getStateDefinition().getPossibleStates()) {
+                field.setFloat(state, durability);
+            }
+        } catch (ReflectiveOperationException e) {
+            org.bukkit.Bukkit.getLogger().warning("[CMU] Failed to set block hardness for " + new_v1_13 + ": " + e.getMessage());
+        }
+    }
+
+    public Block getBlockBehindSign(Block sign) {
+        if (!(sign.getState().getBlockData() instanceof WallSign)) return null;
+        return sign.getRelative(((WallSign) sign.getState().getBlockData()).getFacing().getOppositeFace());
+    }
+
+    public float getDurability(org.bukkit.block.Block block) {
+        if (block == null) {
+            return 0.0F;
+        }
+        try {
+            BlockState state = ((CraftBlock) block).getNMS();
+            return state.destroySpeed;
+        } catch (RuntimeException ex) {
+            org.bukkit.Bukkit.getLogger().warning("[CMU] Failed to read block hardness: " + ex.getMessage());
+            return 0.0F;
+        }
+    }
+
+    public void sendBlockBreakAnimation(org.bukkit.entity.Player player, int sourceId, org.bukkit.block.Block block, int value) {
+        if (player == null || block == null) {
+            return;
+        }
+        BlockPos position = new BlockPos(block.getX(), block.getY(), block.getZ());
+        ClientboundBlockDestructionPacket packet = new ClientboundBlockDestructionPacket(sourceId, position, value);
+        ServerGamePacketListenerImpl connection = ((CraftPlayer) player).getHandle().connection;
+        if (connection != null) {
+            connection.send(packet);
+        }
+    }
+
+    public BlockSnapshot capture(Block block) {
+        if (block == null) {
+            return null;
+        }
+        return new BlockSnapshot(0, (byte) 0, block.getBlockData());
+    }
+
+    public void apply(Block block, BlockSnapshot snapshot) {
+        if (block == null || snapshot == null || !(snapshot.modernState instanceof org.bukkit.block.data.BlockData)) {
+            return;
+        }
+        block.setBlockData((org.bukkit.block.data.BlockData) snapshot.modernState, false);
+    }
+
+    public void setAir(Block block) {
+        if (block == null) {
+            return;
+        }
+        block.setType(org.bukkit.Material.AIR, false);
+    }
+
+    public boolean isSlab(Block block) {
+        return block != null && block.getBlockData() instanceof Slab;
+    }
+
+    public boolean isUpperHalf(Block block) {
+        if (block == null || !(block.getBlockData() instanceof Slab)) {
+            return false;
+        }
+        Slab.Type type = ((Slab) block.getBlockData()).getType();
+        return type == Slab.Type.TOP || type == Slab.Type.DOUBLE;
+    }
+
+    public Location mechanismCenter(Block block) {
+        if (block == null || block.getType() == null) {
+            return null;
+        }
+        if (block.getBlockData() instanceof Switch) {
+            Switch data = (Switch) block.getBlockData();
+            if (data.getFace() == Switch.Face.FLOOR) {
+                return at(block, 0.5D, 1D / 16D, 0.5D);
+            }
+            if (data.getFace() == Switch.Face.CEILING) {
+                return at(block, 0.5D, 15D / 16D, 0.5D);
+            }
+            switch (data.getFacing()) {
+                case SOUTH:
+                    return at(block, 0.5D, 0.5D, 1D / 16D);
+                case EAST:
+                    return at(block, 1D / 16D, 0.5D, 0.5D);
+                case WEST:
+                    return at(block, 15D / 16D, 0.5D, 0.5D);
+                case NORTH:
+                    return at(block, 0.5D, 0.5D, 15D / 16D);
+                default:
+                    return at(block, 0.5D, 0.5D, 0.5D);
+            }
+        }
+        if (block.getType().name().endsWith("_PRESSURE_PLATE")) {
+            return at(block, 0.5D, 1D / 32D, 0.5D);
+        }
+        return null;
+    }
+
+    private Location at(Block block, double x, double y, double z) {
+        return new Location(block.getWorld(), block.getX() + x, block.getY() + y, block.getZ() + z);
+    }
+}
