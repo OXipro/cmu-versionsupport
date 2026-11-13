@@ -1,5 +1,6 @@
 package com.oxipro.cmu.versionsupport;
 
+import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
@@ -73,6 +74,13 @@ public interface BlockSupport {
     boolean isSlab(Block block);
 
     boolean isUpperHalf(Block block);
+
+    /**
+     * Visual center of a button, lever, or pressure plate.
+     * Null when {@code block} is not one of those.
+     */
+    @Nullable
+    Location mechanismCenter(Block block);
 
     class SupportBuilder {
 
