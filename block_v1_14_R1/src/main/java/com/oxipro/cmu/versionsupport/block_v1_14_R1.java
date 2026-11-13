@@ -6,6 +6,8 @@ import org.bukkit.block.Block;
 import org.bukkit.block.data.Ageable;
 import org.bukkit.block.data.type.Slab;
 import org.bukkit.block.data.type.WallSign;
+import org.bukkit.Location;
+import org.bukkit.block.data.type.Switch;
 import org.bukkit.craftbukkit.v1_14_R1.util.CraftMagicNumbers;
 
 import java.lang.reflect.Field;
@@ -104,5 +106,40 @@ class block_v1_14_R1 implements BlockSupport {
         }
         Slab.Type type = ((Slab) block.getBlockData()).getType();
         return type == Slab.Type.TOP || type == Slab.Type.DOUBLE;
+    }
+
+    public Location mechanismCenter(Block block) {
+        if (block == null || block.getType() == null) {
+            return null;
+        }
+        if (block.getBlockData() instanceof Switch) {
+            Switch data = (Switch) block.getBlockData();
+            if (data.getFace() == Switch.Face.FLOOR) {
+                return at(block, 0.5D, 1D / 16D, 0.5D);
+            }
+            if (data.getFace() == Switch.Face.CEILING) {
+                return at(block, 0.5D, 15D / 16D, 0.5D);
+            }
+            switch (data.getFacing()) {
+                case SOUTH:
+                    return at(block, 0.5D, 0.5D, 1D / 16D);
+                case EAST:
+                    return at(block, 1D / 16D, 0.5D, 0.5D);
+                case WEST:
+                    return at(block, 15D / 16D, 0.5D, 0.5D);
+                case NORTH:
+                    return at(block, 0.5D, 0.5D, 15D / 16D);
+                default:
+                    return at(block, 0.5D, 0.5D, 0.5D);
+            }
+        }
+        if (block.getType().name().endsWith("_PRESSURE_PLATE")) {
+            return at(block, 0.5D, 1D / 32D, 0.5D);
+        }
+        return null;
+    }
+
+    private Location at(Block block, double x, double y, double z) {
+        return new Location(block.getWorld(), block.getX() + x, block.getY() + y, block.getZ() + z);
     }
 }

@@ -3,6 +3,12 @@ package com.oxipro.cmu.versionsupport;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
+import org.bukkit.Location;
+import org.bukkit.block.BlockFace;
+import org.bukkit.material.Button;
+import org.bukkit.material.Lever;
+import org.bukkit.material.MaterialData;
+import org.bukkit.material.PressurePlate;
 
 import java.lang.reflect.Field;
 
@@ -105,5 +111,44 @@ class block_v1_12_R1 implements BlockSupport {
             return true;
         }
         return (block.getData() & 0x8) != 0;
+    }
+
+    @SuppressWarnings("deprecation")
+    public Location mechanismCenter(Block block) {
+        if (block == null) {
+            return null;
+        }
+        MaterialData data = block.getState().getData();
+        if (data instanceof PressurePlate) {
+            return at(block, 0.5D, 1D / 32D, 0.5D);
+        }
+        BlockFace attached;
+        if (data instanceof Button) {
+            attached = ((Button) data).getAttachedFace();
+        } else if (data instanceof Lever) {
+            attached = ((Lever) data).getAttachedFace();
+        } else {
+            return null;
+        }
+        switch (attached) {
+            case DOWN:
+                return at(block, 0.5D, 1D / 16D, 0.5D);
+            case UP:
+                return at(block, 0.5D, 15D / 16D, 0.5D);
+            case NORTH:
+                return at(block, 0.5D, 0.5D, 1D / 16D);
+            case SOUTH:
+                return at(block, 0.5D, 0.5D, 15D / 16D);
+            case WEST:
+                return at(block, 1D / 16D, 0.5D, 0.5D);
+            case EAST:
+                return at(block, 15D / 16D, 0.5D, 0.5D);
+            default:
+                return at(block, 0.5D, 0.5D, 0.5D);
+        }
+    }
+
+    private Location at(Block block, double x, double y, double z) {
+        return new Location(block.getWorld(), block.getX() + x, block.getY() + y, block.getZ() + z);
     }
 }
