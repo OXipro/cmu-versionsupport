@@ -104,6 +104,70 @@ public class VersionMappingTest {
         );
     }
 
+    @Test
+    public void oneEightForksResolveFromTheCraftBukkitPackage() {
+        String[] servers = {
+                "Spigot",
+                "CraftBukkit",
+                "Paper",
+                "PandaSpigot",
+                "TacoSpigot",
+                "NachoSpigot",
+                "SportPaper",
+                "FlamePaper"
+        };
+        for (String server : servers) {
+            assertEquals(server, "v1_8_R3", VersionMapping.resolve(
+                    "org.bukkit.craftbukkit.v1_8_R3",
+                    "1.8.8-R0.1-SNAPSHOT",
+                    VersionMapping.versions()
+            ));
+            assertEquals(server, "v1_8_R3", VersionMapping.resolve(
+                    "org.bukkit.craftbukkit.v1_8_R3",
+                    "git-" + server + "-1 (MC: 1.8.8)",
+                    VersionMapping.versions()
+            ));
+        }
+    }
+
+    @Test
+    public void oneEightRevisionsWithoutAPackageUseTheMap() {
+        assertResolved("org.bukkit.craftbukkit", "1.8-R0.1-SNAPSHOT", "v1_8_R1");
+        assertResolved("org.bukkit.craftbukkit", "1.8.3-R0.1-SNAPSHOT", "v1_8_R2");
+        assertResolved("org.bukkit.craftbukkit", "1.8.8-R0.1-SNAPSHOT", "v1_8_R3");
+        assertResolved("org.bukkit.craftbukkit.v1_8_R1", "1.8-R0.1-SNAPSHOT", "v1_8_R1");
+        assertResolved("org.bukkit.craftbukkit.v1_8_R2", "1.8.3-R0.1-SNAPSHOT", "v1_8_R2");
+    }
+
+    @Test
+    public void laterForksWithoutAPackageUseTheMappedVersion() {
+        assertResolved("org.bukkit.craftbukkit", "1.12.2-R0.1-SNAPSHOT", "v1_12_R1");
+        assertResolved("org.bukkit.craftbukkit", "1.16.5-R0.1-SNAPSHOT", "v1_16_R3");
+        assertResolved("org.bukkit.craftbukkit", "1.20.4-R0.1-SNAPSHOT", "v1_20_R3");
+        assertResolved("org.bukkit.craftbukkit", "1.21.8-R0.1-SNAPSHOT", "v1_21_R5");
+        assertResolved("org.bukkit.craftbukkit", "1.21.11-R0.1-SNAPSHOT", "v1_21_R7");
+        assertResolved("org.bukkit.craftbukkit.v1_21_R7", "1.21.11-R0.1-SNAPSHOT", "v1_21_R7");
+    }
+
+    @Test
+    public void everyMappedVersionResolvesWithoutAPackageToken() {
+        for (Map.Entry<String, String> entry : VersionMapping.versions().entrySet()) {
+            assertEquals(entry.getKey(), entry.getValue(), VersionMapping.resolve(
+                    "org.bukkit.craftbukkit",
+                    entry.getKey() + "-R0.1-SNAPSHOT",
+                    VersionMapping.versions()
+            ));
+        }
+    }
+
+    private static void assertResolved(String packageName, String bukkitVersion, String expected) {
+        assertEquals(bukkitVersion, expected, VersionMapping.resolve(
+                packageName,
+                bukkitVersion,
+                VersionMapping.versions()
+        ));
+    }
+
     private static Map<String, String> map() {
         Map<String, String> map = new LinkedHashMap<String, String>();
         map.put("1.21.8", "v1_21_R5");

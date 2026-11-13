@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -96,6 +97,10 @@ public class VersionMapping {
         VERSION_MAP.put("1.21.9",  "v1_21_R6");
         VERSION_MAP.put("1.21.10", "v1_21_R6");
         VERSION_MAP.put("1.21.11", "v1_21_R7");
+    }
+
+    static Map<String, String> versions() {
+        return Collections.unmodifiableMap(VERSION_MAP);
     }
 
     @Nullable
