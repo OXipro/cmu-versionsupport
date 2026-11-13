@@ -6,8 +6,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -96,6 +99,10 @@ public class VersionMapping {
         VERSION_MAP.put("1.21.11", "v1_21_R7");
     }
 
+    static Map<String, String> versions() {
+        return Collections.unmodifiableMap(VERSION_MAP);
+    }
+
     @Nullable
     public static String getMCVersion() {
         String bukkitVersion = Bukkit.getBukkitVersion();
@@ -108,20 +115,94 @@ public class VersionMapping {
     @Nullable
     public static String resolveNmsVersion() {
         String packageName = Bukkit.getServer().getClass().getPackage().getName();
-        String[] parts = packageName.split("\\.");
-        if (parts.length >= 4 && parts[3].matches("v\\d+_\\d+_R\\d+")) {
-            LOGGER.debug("Resolved NMS version from package: {}", parts[3]);
-            return parts[3];
-        }
-
-        String mcVersion = getMCVersion();
-        String nmsVersion = mcVersion == null ? null : VERSION_MAP.get(mcVersion);
-        LOGGER.trace("Resolved bukkit version: {}", mcVersion);
-        LOGGER.debug("Resolved NMS version: {}", nmsVersion);
+        String nmsVersion = resolve(packageName, Bukkit.getBukkitVersion(), VERSION_MAP);
         if (nmsVersion == null) {
             LOGGER.error("Unknown server version: {}", Bukkit.getBukkitVersion());
+        } else {
+            LOGGER.debug("Resolved NMS version: {}", nmsVersion);
         }
         return nmsVersion;
+    }
+
+    @Nullable
+    static String resolve(String packageName, String bukkitVersion, Map<String, String> versionMap) {
+        if (packageName != null) {
+            String[] parts = packageName.split("\\.");
+            if (parts.length >= 4 && parts[3].matches("v\\d+_\\d+_R\\d+")) {
+                return parts[3];
+            }
+        }
+        String mcVersion = minecraftVersion(bukkitVersion);
+        if (mcVersion == null) {
+            return null;
+        }
+        String mapped = versionMap == null ? null : versionMap.get(mcVersion);
+        if (mapped != null) {
+            return mapped;
+        }
+        return yearToken(mcVersion);
+    }
+
+    @Nullable
+    static String minecraftVersion(String bukkitVersion) {
+        if (bukkitVersion == null || bukkitVersion.isEmpty()) {
+            return null;
+        }
+        String version = bukkitVersion.split("-")[0];
+        return version.isEmpty() ? null : version;
+    }
+
+    @Nullable
+    static String yearToken(String mcVersion) {
+        if (mcVersion == null || !mcVersion.matches("\\d+\\.\\d+(\\.\\d+)?")) {
+            return null;
+        }
+        String[] parts = mcVersion.split("\\.");
+        int major;
+        try {
+            major = Integer.parseInt(parts[0]);
+        } catch (NumberFormatException ex) {
+            return null;
+        }
+        if (major < 26) {
+            return null;
+        }
+        String minor = parts[1];
+        String patch = parts.length > 2 ? parts[2] : null;
+        if (patch != null && !"0".equals(patch)) {
+            return "v" + major + "_" + minor + "_" + patch;
+        }
+        if ("1".equals(minor)) {
+            return "v" + major;
+        }
+        return "v" + major + "_" + minor;
+    }
+
+    static List<String> versionClassNames(String classPrefix, String version) {
+        List<String> names = new ArrayList<String>();
+        if (version == null || version.isEmpty()) {
+            return names;
+        }
+        names.add(classPrefix + version);
+        int revision = version.lastIndexOf("_R");
+        if (revision > 0) {
+            names.add(classPrefix + version.substring(0, revision));
+            return names;
+        }
+        if (version.matches("v\\d+_\\d+_\\d+")) {
+            String minor = version.substring(0, version.lastIndexOf('_'));
+            names.add(classPrefix + minor);
+            names.add(classPrefix + minor.substring(0, minor.lastIndexOf('_')));
+            return names;
+        }
+        if (version.matches("v\\d+_\\d+")) {
+            int split = version.lastIndexOf('_');
+            int major = Integer.parseInt(version.substring(1, split));
+            if (major >= 26) {
+                names.add(classPrefix + version.substring(0, split));
+            }
+        }
+        return names;
     }
 
     @Nullable
@@ -131,12 +212,11 @@ public class VersionMapping {
             return null;
         }
 
-        String[] candidates = new String[2 + fallbackClassNames.length];
-        candidates[0] = classPrefix + version;
-        int revision = version.lastIndexOf("_R");
-        candidates[1] = revision > 0 ? classPrefix + version.substring(0, revision) : null;
-        System.arraycopy(fallbackClassNames, 0, candidates, 2, fallbackClassNames.length);
-        return instantiate(type, version, candidates);
+        List<String> candidates = new ArrayList<String>(versionClassNames(classPrefix, version));
+        for (String fallback : fallbackClassNames) {
+            candidates.add(fallback);
+        }
+        return instantiate(type, version, candidates.toArray(new String[candidates.size()]));
     }
 
     @Nullable

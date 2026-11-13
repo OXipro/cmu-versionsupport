@@ -32,6 +32,12 @@
         </dependency>
         <dependency>
             <groupId>com.oxipro.cmu.versionsupport</groupId>
+            <artifactId>hologram_v26</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.oxipro.cmu.versionsupport</groupId>
             <artifactId>hologram_common</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>

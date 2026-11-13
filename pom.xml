@@ -47,6 +47,7 @@
         <module>block_v1_21_R5</module>
         <module>block_v1_21_R6</module>
         <module>block_v1_21_R7</module>
+        <module>block_v26</module>
         <module>block_common</module>
 
         <module>itemstack_version</module>
@@ -71,6 +72,7 @@
         <module>itemstack_v1_20_R3</module>
         <module>itemstack_v1_21_R5</module>
         <module>itemstack_v1_21_R7</module>
+        <module>itemstack_v26</module>
 
         <module>title_version</module>
         <module>titlecommon</module>
@@ -132,6 +134,7 @@
         <module>particle_v1_20_R4</module>
         <module>particle_v1_21_R5</module>
         <module>particle_v1_21_R7</module>
+        <module>particle_v26</module>
 
         <module>player_npc_common</module>
         <module>player_npc_v1_12_R1</module>
@@ -162,12 +165,14 @@
         <module>player_utils_v1_20_R3</module>
         <module>player_utils_v1_20_R4</module>
         <module>player_utils_v1_21_R5</module>
+        <module>player_utils_v26</module>
 
         <module>entity_utils_common</module>
         <module>entity_utils_version</module>
         <module>entity_utils_v1_8_R3</module>
         <module>entity_utils_v1_21_R5</module>
         <module>entity_utils_v1_21_R7</module>
+        <module>entity_utils_v26</module>
 
 
 
@@ -176,12 +181,14 @@
         <module>hologram_v1_8_R3</module>
         <module>hologram_v1_21_R5</module>
         <module>hologram_v1_21_R7</module>
+        <module>hologram_v26</module>
 
         <module>world_common</module>
         <module>world_version</module>
         <module>world_v1_8_R3</module>
         <module>world_v1_13_R2</module>
         <module>world_v1_21_R7</module>
+        <module>world_v26</module>
 
         <module>server_common</module>
         <module>server_version</module>
@@ -208,6 +215,7 @@
         <module>server_v1_21_R5</module>
         <module>server_v1_21_R6</module>
         <module>server_v1_21_R7</module>
+        <module>server_v26</module>
 
         <module>version_mapping</module>
     </modules>
