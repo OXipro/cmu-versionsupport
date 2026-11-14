@@ -31,8 +31,8 @@ import java.util.HashSet;
 import java.util.List;
 
 public class HoloLine implements IHoloLine {
-    private static final byte FLAG_SEE_THROUGH = 2;
     private static final int LINE_WIDTH = 2000;
+    private static final int BACKGROUND = 1073741824;
 
     private Component text;
     private IHolo hologram;
@@ -194,8 +194,7 @@ public class HoloLine implements IHoloLine {
         entity.a(nms);
         entity.a(Display.BillboardConstraints.d);
         entity.aD().a(Display.TextDisplay.aX, LINE_WIDTH);
-        entity.aD().a(Display.TextDisplay.aY, 0);
-        entity.d(FLAG_SEE_THROUGH);
+        entity.aD().a(Display.TextDisplay.aY, BACKGROUND);
         float y = 0f;
         if (hologram.getAttachedEntity() != null) {
             int position = hologram.getLines().indexOf(this);

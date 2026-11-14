@@ -32,6 +32,7 @@ import java.util.Set;
 
 public class HoloLine implements IHoloLine {
     private static final int LINE_WIDTH = 2000;
+    private static final int BACKGROUND = 1073741824;
     private static final EntityType<?> TEXT_DISPLAY = BuiltInRegistries.ENTITY_TYPE.getValue(Identifier.withDefaultNamespace("text_display"));
 
     private Component text;
@@ -194,8 +195,7 @@ public class HoloLine implements IHoloLine {
         entity.setText(nms);
         entity.setBillboardConstraints(Display.BillboardConstraints.CENTER);
         entity.getEntityData().set(Display.TextDisplay.DATA_LINE_WIDTH_ID, LINE_WIDTH);
-        entity.getEntityData().set(Display.TextDisplay.DATA_BACKGROUND_COLOR_ID, 0);
-        entity.setFlags(Display.TextDisplay.FLAG_SEE_THROUGH);
+        entity.getEntityData().set(Display.TextDisplay.DATA_BACKGROUND_COLOR_ID, BACKGROUND);
         float y = 0f;
         if (hologram.getAttachedEntity() != null) {
             int position = hologram.getLines().indexOf(this);
