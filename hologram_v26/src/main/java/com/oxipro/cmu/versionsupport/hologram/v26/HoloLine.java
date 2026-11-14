@@ -32,6 +32,7 @@ import java.util.Set;
 
 public class HoloLine implements IHoloLine {
     private static final int LINE_WIDTH = 2000;
+    private static final int BACKGROUND = 1073741824;
     private static final EntityType<?> TEXT_DISPLAY = BuiltInRegistries.ENTITY_TYPE.getValue(Identifier.withDefaultNamespace("text_display"));
 
     private Component text;
@@ -52,7 +53,7 @@ public class HoloLine implements IHoloLine {
         entity.setPos(loc.getX(), loc.getY() + hologram.size() * hologram.getGap(), loc.getZ());
 
         ClientboundAddEntityPacket spawn = spawnPacket();
-        ClientboundSetEntityDataPacket metadata = metadataPacket();
+        ClientboundSetEntityDataPacket metadata = metadataPacket(null);
         ClientboundTeleportEntityPacket teleport = teleportPacket();
 
         for (Player player : hologram.getPlayers()) {
@@ -109,16 +110,22 @@ public class HoloLine implements IHoloLine {
         applyPosition();
         if (isDestroyed()) return;
 
-        ClientboundSetEntityDataPacket metadata = metadataPacket();
         if (hologram.getAttachedEntity() != null) {
             for (Player player : hologram.getPlayers()) {
-                send(player, metadata);
+                send(player, metadataPacket(player));
             }
             return;
         }
         ClientboundTeleportEntityPacket teleport = teleportPacket();
+        if (!hologram.anySeeThrough()) {
+            ClientboundSetEntityDataPacket metadata = metadataPacket(null);
+            for (Player player : hologram.getPlayers()) {
+                send(player, metadata, teleport);
+            }
+            return;
+        }
         for (Player player : hologram.getPlayers()) {
-            send(player, metadata, teleport);
+            send(player, metadataPacket(player), teleport);
         }
     }
 
@@ -130,10 +137,10 @@ public class HoloLine implements IHoloLine {
         if (isDestroyed()) return;
 
         if (hologram.getAttachedEntity() != null) {
-            send(player, metadataPacket());
+            send(player, metadataPacket(player));
             return;
         }
-        send(player, metadataPacket(), teleportPacket());
+        send(player, metadataPacket(player), teleportPacket());
     }
 
     @Override
@@ -194,8 +201,7 @@ public class HoloLine implements IHoloLine {
         entity.setText(nms);
         entity.setBillboardConstraints(Display.BillboardConstraints.CENTER);
         entity.getEntityData().set(Display.TextDisplay.DATA_LINE_WIDTH_ID, LINE_WIDTH);
-        entity.getEntityData().set(Display.TextDisplay.DATA_BACKGROUND_COLOR_ID, 0);
-        entity.setFlags(Display.TextDisplay.FLAG_SEE_THROUGH);
+        entity.getEntityData().set(Display.TextDisplay.DATA_BACKGROUND_COLOR_ID, BACKGROUND);
         float y = 0f;
         if (hologram.getAttachedEntity() != null) {
             int position = hologram.getLines().indexOf(this);
@@ -235,10 +241,27 @@ public class HoloLine implements IHoloLine {
         );
     }
 
-    private ClientboundSetEntityDataPacket metadataPacket() {
+    private ClientboundSetEntityDataPacket metadataPacket(Player player) {
+        entity.setFlags(hologram.isSeeThrough(player) ? Display.TextDisplay.FLAG_SEE_THROUGH : (byte) 0);
+        List<SynchedEntityData.DataValue<?>> dirty = entity.getEntityData().packDirty();
         List<SynchedEntityData.DataValue<?>> metadata = entity.getEntityData().getNonDefaultValues();
         if (metadata == null) {
             metadata = new ArrayList<SynchedEntityData.DataValue<?>>();
+        }
+        if (dirty != null) {
+            for (SynchedEntityData.DataValue<?> item : dirty) {
+                boolean found = false;
+                for (int i = 0; i < metadata.size(); i++) {
+                    if (metadata.get(i).id() == item.id()) {
+                        metadata.set(i, item);
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    metadata.add(item);
+                }
+            }
         }
         return new ClientboundSetEntityDataPacket(entity.getId(), metadata);
     }
