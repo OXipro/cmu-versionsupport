@@ -5,7 +5,9 @@ import com.oxipro.cmu.versionsupport.hologram.IHoloLine;
 import net.kyori.adventure.text.Component;
 import net.minecraft.server.v1_8_R3.Entity;
 import net.minecraft.server.v1_8_R3.PacketPlayOutAttachEntity;
+import net.minecraft.server.v1_8_R3.Vec3D;
 import org.bukkit.Location;
+import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftEntity;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
@@ -418,6 +420,17 @@ public class Hologram implements IHolo {
     @Override
     public void refreshAttach() {
         sendAttachToViewers(true);
+    }
+
+    @Override
+    public boolean hasBlockBetween(Player player, Location target) {
+        if (player == null || target == null || target.getWorld() == null || player.getWorld() != target.getWorld()) {
+            return false;
+        }
+        Location eye = player.getEyeLocation();
+        Vec3D start = new Vec3D(eye.getX(), eye.getY(), eye.getZ());
+        Vec3D end = new Vec3D(target.getX(), target.getY(), target.getZ());
+        return ((CraftWorld) eye.getWorld()).getHandle().rayTrace(start, end, false, true, false) != null;
     }
 
     private void sendAttachToViewers(boolean includeHolo) {

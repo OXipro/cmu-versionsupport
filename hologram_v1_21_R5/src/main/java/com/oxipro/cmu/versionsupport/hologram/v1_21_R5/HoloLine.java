@@ -31,6 +31,7 @@ import java.util.HashSet;
 import java.util.List;
 
 public class HoloLine implements IHoloLine {
+    private static final byte FLAG_SEE_THROUGH = 2;
     private static final int LINE_WIDTH = 2000;
     private static final int BACKGROUND = 1073741824;
 
@@ -52,7 +53,7 @@ public class HoloLine implements IHoloLine {
         entity.a_(loc.getX(), loc.getY() + hologram.size() * hologram.getGap(), loc.getZ());
 
         PacketPlayOutSpawnEntity spawn = spawnPacket();
-        PacketPlayOutEntityMetadata metadata = metadataPacket();
+        PacketPlayOutEntityMetadata metadata = metadataPacket(null);
         PacketPlayOutEntityTeleport teleport = teleportPacket();
 
         for (Player player : hologram.getPlayers()) {
@@ -109,16 +110,22 @@ public class HoloLine implements IHoloLine {
         applyPosition();
         if (isDestroyed()) return;
 
-        PacketPlayOutEntityMetadata metadata = metadataPacket();
         if (hologram.getAttachedEntity() != null) {
             for (Player player : hologram.getPlayers()) {
-                send(player, metadata);
+                send(player, metadataPacket(player));
             }
             return;
         }
         PacketPlayOutEntityTeleport teleport = teleportPacket();
+        if (!hologram.anySeeThrough()) {
+            PacketPlayOutEntityMetadata metadata = metadataPacket(null);
+            for (Player player : hologram.getPlayers()) {
+                send(player, metadata, teleport);
+            }
+            return;
+        }
         for (Player player : hologram.getPlayers()) {
-            send(player, metadata, teleport);
+            send(player, metadataPacket(player), teleport);
         }
     }
 
@@ -130,10 +137,10 @@ public class HoloLine implements IHoloLine {
         if (isDestroyed()) return;
 
         if (hologram.getAttachedEntity() != null) {
-            send(player, metadataPacket());
+            send(player, metadataPacket(player));
             return;
         }
-        send(player, metadataPacket(), teleportPacket());
+        send(player, metadataPacket(player), teleportPacket());
     }
 
     @Override
@@ -234,10 +241,27 @@ public class HoloLine implements IHoloLine {
         );
     }
 
-    private PacketPlayOutEntityMetadata metadataPacket() {
+    private PacketPlayOutEntityMetadata metadataPacket(Player player) {
+        entity.d(hologram.isSeeThrough(player) ? FLAG_SEE_THROUGH : (byte) 0);
+        List<DataWatcher.c<?>> dirty = entity.au().b();
         List<DataWatcher.c<?>> metadata = entity.au().c();
         if (metadata == null) {
-            metadata = new ArrayList<>();
+            metadata = new ArrayList<DataWatcher.c<?>>();
+        }
+        if (dirty != null) {
+            for (DataWatcher.c<?> item : dirty) {
+                boolean found = false;
+                for (int i = 0; i < metadata.size(); i++) {
+                    if (metadata.get(i).a() == item.a()) {
+                        metadata.set(i, item);
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    metadata.add(item);
+                }
+            }
         }
         return new PacketPlayOutEntityMetadata(entity.ar(), metadata);
     }
