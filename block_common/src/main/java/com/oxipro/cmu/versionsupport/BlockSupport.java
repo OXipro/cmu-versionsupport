@@ -84,6 +84,18 @@ public interface BlockSupport {
     Location mechanismCenter(Block block);
 
     /**
+     * True when the block is a flower pot, empty or not.
+     */
+    boolean isFlowerPot(Block block);
+
+    /**
+     * The item shown in the pot. Null when the block is not a pot or the pot is empty.
+     * The pot itself is left unchanged.
+     */
+    @Nullable
+    ItemStack flowerPotContents(Block block);
+
+    /**
      * True for a door, trapdoor, or fence gate.
      */
     boolean isOpenable(Block block);

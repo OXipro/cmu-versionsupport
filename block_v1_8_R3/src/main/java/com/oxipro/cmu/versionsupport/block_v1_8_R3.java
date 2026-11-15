@@ -161,6 +161,30 @@ class block_v1_8_R3 implements BlockSupport {
     }
 
 
+    public boolean isFlowerPot(Block block) {
+        return block != null && block.getType() == Material.FLOWER_POT;
+    }
+
+    public ItemStack flowerPotContents(Block block) {
+        if (!isFlowerPot(block)) {
+            return null;
+        }
+        TileEntity tile = ((CraftWorld) block.getWorld()).getHandle()
+                .getTileEntity(new BlockPosition(block.getX(), block.getY(), block.getZ()));
+        if (!(tile instanceof TileEntityFlowerPot)) {
+            return null;
+        }
+        TileEntityFlowerPot pot = (TileEntityFlowerPot) tile;
+        Item item = pot.b();
+        if (item == null) {
+            return null;
+        }
+        Material material = CraftMagicNumbers.getMaterial(item);
+        if (material == null || material == Material.AIR) {
+            return null;
+        }
+        return new ItemStack(material, 1, (short) pot.c());
+    }
 
     public boolean isOpenable(Block block) {
         if (block == null) {

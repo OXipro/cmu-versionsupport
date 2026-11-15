@@ -144,6 +144,28 @@ class block_v1_13_R2 implements BlockSupport {
     }
 
 
+    public boolean isFlowerPot(Block block) {
+        if (block == null || block.getType() == null) {
+            return false;
+        }
+        String name = block.getType().name();
+        return "FLOWER_POT".equals(name) || name.startsWith("POTTED_");
+    }
+
+    public ItemStack flowerPotContents(Block block) {
+        if (!isFlowerPot(block)) {
+            return null;
+        }
+        String name = block.getType().name();
+        if (!name.startsWith("POTTED_")) {
+            return null;
+        }
+        Material flower = Material.getMaterial(name.substring("POTTED_".length()));
+        if (flower == null || flower == Material.AIR) {
+            return null;
+        }
+        return new ItemStack(flower);
+    }
 
     public boolean isOpenable(Block block) {
         return block != null && block.getBlockData() instanceof Openable;

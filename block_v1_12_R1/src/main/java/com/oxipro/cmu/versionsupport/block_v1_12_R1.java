@@ -156,6 +156,24 @@ class block_v1_12_R1 implements BlockSupport {
     }
 
 
+    public boolean isFlowerPot(Block block) {
+        return block != null && block.getType() == Material.FLOWER_POT;
+    }
+
+    public ItemStack flowerPotContents(Block block) {
+        if (!isFlowerPot(block)) {
+            return null;
+        }
+        BlockState state = block.getState();
+        if (!(state instanceof FlowerPot)) {
+            return null;
+        }
+        MaterialData contents = ((FlowerPot) state).getContents();
+        if (contents == null || contents.getItemType() == null || contents.getItemType() == Material.AIR) {
+            return null;
+        }
+        return new ItemStack(contents.getItemType(), 1, contents.getData());
+    }
 
     public boolean isOpenable(Block block) {
         if (block == null) {
