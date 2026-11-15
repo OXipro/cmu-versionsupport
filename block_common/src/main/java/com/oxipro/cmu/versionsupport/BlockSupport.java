@@ -3,6 +3,7 @@ package com.oxipro.cmu.versionsupport;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nullable;
 
@@ -81,6 +82,25 @@ public interface BlockSupport {
      */
     @Nullable
     Location mechanismCenter(Block block);
+
+    /**
+     * True for a door, trapdoor, or fence gate.
+     */
+    boolean isOpenable(Block block);
+
+    /**
+     * The other half of a tall door. Null for a one-block openable.
+     */
+    @Nullable
+    Block openablePair(Block block);
+
+    /**
+     * Opens or closes a door, trapdoor, or gate.
+     * A tall door is changed from its lower half.
+     *
+     * @return true when the block is an openable.
+     */
+    boolean setOpen(Block block, boolean open);
 
     class SupportBuilder {
 

@@ -1,5 +1,12 @@
 package com.oxipro.cmu.versionsupport;
 
+import org.bukkit.Material;
+import org.bukkit.block.FlowerPot;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.material.Door;
+import org.bukkit.material.Gate;
+import org.bukkit.material.Openable;
+import org.bukkit.material.TrapDoor;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
@@ -145,6 +152,55 @@ class block_v1_10_R1 implements BlockSupport {
             default:
                 return at(block, 0.5D, 0.5D, 0.5D);
         }
+    }
+
+
+
+    public boolean isOpenable(Block block) {
+        if (block == null) {
+            return false;
+        }
+        MaterialData data = block.getState().getData();
+        return data instanceof Door || data instanceof TrapDoor || data instanceof Gate;
+    }
+
+    public Block openablePair(Block block) {
+        if (block == null) {
+            return null;
+        }
+        MaterialData data = block.getState().getData();
+        if (!(data instanceof Door)) {
+            return null;
+        }
+        return ((Door) data).isTopHalf()
+                ? block.getRelative(BlockFace.DOWN)
+                : block.getRelative(BlockFace.UP);
+    }
+
+    public boolean setOpen(Block block, boolean open) {
+        if (!isOpenable(block)) {
+            return false;
+        }
+        Block target = block;
+        MaterialData data = block.getState().getData();
+        if (data instanceof Door && ((Door) data).isTopHalf()) {
+            target = block.getRelative(BlockFace.DOWN);
+            if (!(target.getState().getData() instanceof Door)) {
+                return false;
+            }
+        }
+        BlockState state = target.getState();
+        MaterialData body = state.getData();
+        if (!(body instanceof Openable)) {
+            return false;
+        }
+        Openable openable = (Openable) body;
+        if (openable.isOpen() != open) {
+            openable.setOpen(open);
+            state.setData(body);
+            state.update(true, true);
+        }
+        return true;
     }
 
     private Location at(Block block, double x, double y, double z) {

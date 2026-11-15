@@ -1,5 +1,10 @@
 package com.oxipro.cmu.versionsupport;
 
+import org.bukkit.Material;
+import org.bukkit.block.BlockFace;
+import org.bukkit.block.data.Openable;
+import org.bukkit.block.data.type.Door;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Ageable;
 import org.bukkit.block.data.type.Slab;
@@ -132,6 +137,41 @@ public class block_v1_21_R7 implements BlockSupport {
             return at(block, 0.5D, 1D / 32D, 0.5D);
         }
         return null;
+    }
+
+
+
+    public boolean isOpenable(Block block) {
+        return block != null && block.getBlockData() instanceof Openable;
+    }
+
+    public Block openablePair(Block block) {
+        if (block == null || !(block.getBlockData() instanceof Door)) {
+            return null;
+        }
+        Door door = (Door) block.getBlockData();
+        return door.getHalf() == Door.Half.TOP
+                ? block.getRelative(BlockFace.DOWN)
+                : block.getRelative(BlockFace.UP);
+    }
+
+    public boolean setOpen(Block block, boolean open) {
+        if (!isOpenable(block)) {
+            return false;
+        }
+        Block target = block;
+        if (block.getBlockData() instanceof Door && ((Door) block.getBlockData()).getHalf() == Door.Half.TOP) {
+            target = block.getRelative(BlockFace.DOWN);
+            if (!(target.getBlockData() instanceof Openable)) {
+                return false;
+            }
+        }
+        Openable data = (Openable) target.getBlockData();
+        if (data.isOpen() != open) {
+            data.setOpen(open);
+            target.setBlockData(data, true);
+        }
+        return true;
     }
 
     private Location at(Block block, double x, double y, double z) {
