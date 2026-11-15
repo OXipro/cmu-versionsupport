@@ -1,5 +1,8 @@
 package com.oxipro.cmu.versionsupport;
 
+import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientboundAnimatePacket;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
@@ -58,6 +61,18 @@ public class PlayerUtils_v26 implements PlayerUtilsSupport {
     public ItemStack getOffHandItem(Player player) {
         return player.getInventory().getItemInOffHand();
     }
+
+    @Override
+    public boolean isOffHand(org.bukkit.event.Event event) {
+        if (event instanceof PlayerInteractEvent) {
+            return ((PlayerInteractEvent) event).getHand() == EquipmentSlot.OFF_HAND;
+        }
+        if (event instanceof PlayerInteractEntityEvent) {
+            return ((PlayerInteractEntityEvent) event).getHand() == EquipmentSlot.OFF_HAND;
+        }
+        return false;
+    }
+
 
     @Override
     public void setCollide(Player p, boolean v) {

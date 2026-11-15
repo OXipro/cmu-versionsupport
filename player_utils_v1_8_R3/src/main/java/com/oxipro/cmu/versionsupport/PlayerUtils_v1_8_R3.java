@@ -52,6 +52,12 @@ public class PlayerUtils_v1_8_R3 implements PlayerUtilsSupport {
     }
 
     @Override
+    public boolean isOffHand(org.bukkit.event.Event event) {
+        return false;
+    }
+
+
+    @Override
     public void setCollide(Player p, boolean v) {
         p.spigot().setCollidesWithEntities(v);
     }

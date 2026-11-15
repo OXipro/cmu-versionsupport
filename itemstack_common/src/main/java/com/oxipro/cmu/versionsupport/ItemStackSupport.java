@@ -2,7 +2,6 @@ package com.oxipro.cmu.versionsupport;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -120,7 +119,15 @@ public interface ItemStackSupport {
         if (player == null || amount <= 0) {
             return;
         }
-        boolean offHand = isOffHand(event);
+        boolean offHand = false;
+        if (event != null) {
+            try {
+                Object hand = event.getClass().getMethod("getHand").invoke(event);
+                offHand = hand != null && "OFF_HAND".equals(String.valueOf(hand));
+            } catch (ReflectiveOperationException ignored) {
+                offHand = false;
+            }
+        }
         ItemStack live = offHand ? getInOffHand(player) : getInHand(player);
         if (live == null || live.getType() == Material.AIR || live.getAmount() <= 0) {
             return;
@@ -148,22 +155,6 @@ public interface ItemStackSupport {
             player.setItemInHand(next);
         }
         player.updateInventory();
-    }
-
-    /**
-     * True when the interact came from the off hand.
-     * Always false on 1.8, which has no off hand.
-     */
-    default boolean isOffHand(Event event) {
-        if (event == null) {
-            return false;
-        }
-        try {
-            Object hand = event.getClass().getMethod("getHand").invoke(event);
-            return hand != null && "OFF_HAND".equals(String.valueOf(hand));
-        } catch (ReflectiveOperationException ignored) {
-            return false;
-        }
     }
 
     /**

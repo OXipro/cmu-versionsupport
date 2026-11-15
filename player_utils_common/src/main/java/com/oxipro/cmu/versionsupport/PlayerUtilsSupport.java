@@ -1,6 +1,7 @@
 package com.oxipro.cmu.versionsupport;
 
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.plugin.Plugin;
@@ -39,6 +40,12 @@ public interface PlayerUtilsSupport {
      * Uses Spigot collidesWithEntities on 1.8, Bukkit setCollidable on 1.9+.
      */
     void setCollide(Player player, boolean collide);
+
+    /**
+     * True when the interact came from the off hand.
+     * Always false on 1.8, which has no off hand.
+     */
+    boolean isOffHand(Event event);
 
     /**
      * Get the item in the player's off hand. Always null on 1.8.
