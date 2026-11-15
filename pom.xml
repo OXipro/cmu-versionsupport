@@ -217,6 +217,15 @@
         <module>server_v1_21_R7</module>
         <module>server_v26</module>
 
+        <module>text_display_common</module>
+        <module>text_display_version</module>
+        <module>text_display_v1_20_R4</module>
+        <module>text_display_v1_21_R1</module>
+        <module>text_display_v1_21_R5</module>
+        <module>text_display_v1_21_R6</module>
+        <module>text_display_v1_21_R7</module>
+        <module>text_display_v26</module>
+
         <module>version_mapping</module>
     </modules>
 
