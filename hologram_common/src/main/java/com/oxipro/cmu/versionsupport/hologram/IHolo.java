@@ -127,4 +127,19 @@ public interface IHolo {
      * Re-send the mount packet. Call after teleport, respawn, or real passenger changes.
      */
     void refreshAttach();
+
+    default boolean hasBlockBetween(Player player, Location target) {
+        return false;
+    }
+
+    default void setSeeThrough(Player player, boolean seeThrough) {
+    }
+
+    default boolean isSeeThrough(Player player) {
+        return false;
+    }
+
+    default boolean anySeeThrough() {
+        return false;
+    }
 }

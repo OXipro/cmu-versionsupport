@@ -5,16 +5,19 @@ import com.oxipro.cmu.versionsupport.hologram.IHoloLine;
 import net.kyori.adventure.text.Component;
 import net.minecraft.network.protocol.game.PacketPlayOutMount;
 import net.minecraft.server.network.PlayerConnection;
+import org.bukkit.FluidCollisionMode;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_21_R5.entity.CraftEntity;
 import org.bukkit.craftbukkit.v1_21_R5.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 public class Hologram implements IHolo {
 
@@ -25,6 +28,7 @@ public class Hologram implements IHolo {
     private boolean showing = true;
     private Entity attached;
     private double attachOffset = 0.0;
+    private final Set<UUID> seeThrough = new HashSet<UUID>();
 
     public Hologram(Player p, List<IHoloLine> lines, Location loc) {
         this.players = new HashSet<Player>();
@@ -79,9 +83,52 @@ public class Hologram implements IHolo {
     @Override
     public void removePlayer(Player player) {
         this.players.remove(player);
+        if (player != null) {
+            this.seeThrough.remove(player.getUniqueId());
+        }
         for (IHoloLine line : this.lines) {
             line.remove(player);
         }
+    }
+
+    @Override
+    public boolean isSeeThrough(Player player) {
+        return player != null && seeThrough.contains(player.getUniqueId());
+    }
+
+    @Override
+    public boolean anySeeThrough() {
+        return !seeThrough.isEmpty();
+    }
+
+    @Override
+    public void setSeeThrough(Player player, boolean seeThrough) {
+        if (player == null) {
+            return;
+        }
+        boolean changed = seeThrough
+                ? this.seeThrough.add(player.getUniqueId())
+                : this.seeThrough.remove(player.getUniqueId());
+        if (!changed || !players.contains(player)) {
+            return;
+        }
+        for (IHoloLine line : lines) {
+            line.update(player);
+        }
+    }
+
+    @Override
+    public boolean hasBlockBetween(Player player, Location target) {
+        if (player == null || target == null || target.getWorld() == null || player.getWorld() != target.getWorld()) {
+            return false;
+        }
+        Location eye = player.getEyeLocation();
+        Vector direction = target.toVector().subtract(eye.toVector());
+        double distance = direction.length();
+        if (distance < 1.0E-4) {
+            return false;
+        }
+        return eye.getWorld().rayTraceBlocks(eye, direction, distance, FluidCollisionMode.NEVER, true) != null;
     }
 
     @Override
