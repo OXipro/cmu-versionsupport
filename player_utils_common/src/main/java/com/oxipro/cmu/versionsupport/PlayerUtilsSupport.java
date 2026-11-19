@@ -80,8 +80,7 @@ public interface PlayerUtilsSupport {
         public static PlayerUtilsSupport load() {
             return VersionMapping.load(
                     PlayerUtilsSupport.class,
-                    "com.oxipro.cmu.versionsupport.PlayerUtils_",
-                    "com.oxipro.cmu.versionsupport.PlayerUtils_Default"
+                    "com.oxipro.cmu.versionsupport.PlayerUtils_"
             );
         }
     }
