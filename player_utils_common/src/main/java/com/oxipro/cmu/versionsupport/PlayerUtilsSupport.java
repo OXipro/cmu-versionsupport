@@ -1,5 +1,6 @@
 package com.oxipro.cmu.versionsupport;
 
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
@@ -71,6 +72,13 @@ public interface PlayerUtilsSupport {
      */
     double getAbsorptionHearts(Player player);
 
+    /**
+     * Glowing outline of {@code target}, visible only to {@code viewer}.
+     * {@code color} is the vanilla team color. {@link GlowColor#id()} is the color index written on the team packet, 0 through 15.
+     * Null keeps the viewer's current team color. 1.8 has no glowing outline and does nothing.
+     */
+    default void glow(Entity target, Player viewer, GlowColor color, boolean enabled) {
+    }
 
     /**
      * Show or hide {@code target}'s worn armor for a single viewer.

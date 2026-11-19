@@ -85,6 +85,20 @@ public class PlayerUtils_v1_9_R2 implements PlayerUtilsSupport {
         return Math.max(0.0F, ((CraftPlayer) player).getHandle().getAbsorptionHearts());
     }
 
+    @Override
+    public void glow(org.bukkit.entity.Entity target, Player viewer, GlowColor color, boolean enabled) {
+        if (target == null || viewer == null) {
+            return;
+        }
+        syncGlowTeam(viewer, target, color, enabled);
+        net.minecraft.server.v1_9_R2.Entity handle = ((org.bukkit.craftbukkit.v1_9_R2.entity.CraftEntity) target).getHandle();
+        net.minecraft.server.v1_9_R2.DataWatcherObject<Byte> flags = new net.minecraft.server.v1_9_R2.DataWatcherObject<>(0, net.minecraft.server.v1_9_R2.DataWatcherRegistry.a);
+        byte value = handle.getDataWatcher().get(flags);
+        value = enabled ? (byte) (value | 0x40) : (byte) (value & ~0x40);
+        net.minecraft.server.v1_9_R2.DataWatcher watcher = new net.minecraft.server.v1_9_R2.DataWatcher(handle);
+        watcher.register(flags, value);
+        sendPacket(viewer, new net.minecraft.server.v1_9_R2.PacketPlayOutEntityMetadata(handle.getId(), watcher, true));
+    }
 
     @Override
     public void hideArmor(Player target, Player viewer, boolean hidden) {
@@ -106,4 +120,32 @@ public class PlayerUtils_v1_9_R2 implements PlayerUtilsSupport {
     }
 
 
+    private void syncGlowTeam(Player viewer, org.bukkit.entity.Entity target, GlowColor color, boolean enabled) {
+        String entry = GlowTeams.entry(target);
+        String previous = GlowTeams.take(viewer.getUniqueId(), target.getEntityId());
+        if (previous != null) {
+            net.minecraft.server.v1_9_R2.Scoreboard removing = new net.minecraft.server.v1_9_R2.Scoreboard();
+            net.minecraft.server.v1_9_R2.ScoreboardTeam old = removing.createTeam(previous);
+            sendPacket(viewer, new net.minecraft.server.v1_9_R2.PacketPlayOutScoreboardTeam(old, 1));
+        }
+        if (enabled && color != null) {
+            String name = GlowTeams.name(target.getEntityId(), color);
+            net.minecraft.server.v1_9_R2.Scoreboard board = new net.minecraft.server.v1_9_R2.Scoreboard();
+            net.minecraft.server.v1_9_R2.ScoreboardTeam team = board.createTeam(name);
+            team.setAllowFriendlyFire(true);
+            team.setNameTagVisibility(net.minecraft.server.v1_9_R2.ScoreboardTeamBase.EnumNameTagVisibility.ALWAYS);
+            team.setCollisionRule(net.minecraft.server.v1_9_R2.ScoreboardTeamBase.EnumTeamPush.ALWAYS);
+            net.minecraft.server.v1_9_R2.EnumChatFormat colorFormat = net.minecraft.server.v1_9_R2.EnumChatFormat.a(color.id());
+            team.a(colorFormat);
+            board.addPlayerToTeam(entry, name);
+            sendPacket(viewer, new net.minecraft.server.v1_9_R2.PacketPlayOutScoreboardTeam(team, 0));
+            GlowTeams.keep(viewer.getUniqueId(), target.getEntityId(), name);
+        } else if (previous != null) {
+            net.minecraft.server.v1_9_R2.Scoreboard scoreboard = ((org.bukkit.craftbukkit.v1_9_R2.scoreboard.CraftScoreboard) viewer.getScoreboard()).getHandle();
+            net.minecraft.server.v1_9_R2.ScoreboardTeam real = scoreboard.getPlayerTeam(entry);
+            if (real != null) {
+                sendPacket(viewer, new net.minecraft.server.v1_9_R2.PacketPlayOutScoreboardTeam(real, java.util.Collections.singleton(entry), 3));
+            }
+        }
+    }
 }
