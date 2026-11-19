@@ -18,7 +18,7 @@ import org.bukkit.plugin.Plugin;
 
 import java.util.List;
 
-public class PlayerUtils_v1_16_R1 implements PlayerUtilsSupport {
+public class PlayerUtils_v1_16_R3 implements PlayerUtilsSupport {
     @Override
     public void hidePlayer(Player toBeHidden, Player receiver, Plugin plugin) {
         receiver.hidePlayer(plugin, toBeHidden);

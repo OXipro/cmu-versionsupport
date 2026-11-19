@@ -19,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class PlayerUtils_v1_19_R3 implements PlayerUtilsSupport {
+public class PlayerUtils_v1_19_R2 implements PlayerUtilsSupport {
     @Override
     public void hidePlayer(Player toBeHidden, @NotNull Player receiver, Plugin plugin) {
         receiver.hidePlayer(plugin, toBeHidden);
