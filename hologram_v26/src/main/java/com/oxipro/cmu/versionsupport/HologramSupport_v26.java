@@ -16,6 +16,11 @@ import java.util.List;
 public class HologramSupport_v26 implements HologramSupport {
 
     @Override
+    public boolean occludesNatively() {
+        return true;
+    }
+
+    @Override
     public IHolo createHologram(Player player, Location location, String... lines) {
         return createHologram(player, location, toComponents(lines));
     }

@@ -28,6 +28,15 @@ public interface HologramSupport {
 
     IHoloLine lineFromText(Component text, IHolo hologram);
 
+    /**
+     * True when the client hides the hologram behind solid blocks
+     * unless a viewer is marked see-through. Text displays do this.
+     * Armor-stand holograms do not.
+     */
+    default boolean occludesNatively() {
+        return false;
+    }
+
     default IHolo createHologram(Player player, Entity entity, String... lines) {
         IHolo hologram = createHologram(player, entity.getLocation(), lines);
         hologram.attach(entity);
