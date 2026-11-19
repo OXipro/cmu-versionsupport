@@ -96,4 +96,27 @@ public class PlayerUtils_v26 implements PlayerUtilsSupport {
         }
         return Math.max(0.0D, player.getAbsorptionAmount());
     }
+
+
+    @Override
+    public void hideArmor(Player target, Player viewer, boolean hidden) {
+        if (target == null || viewer == null || target.equals(viewer)) {
+            return;
+        }
+        java.util.List<com.mojang.datafixers.util.Pair<net.minecraft.world.entity.EquipmentSlot, net.minecraft.world.item.ItemStack>> slots = new java.util.ArrayList<>();
+        slots.add(new com.mojang.datafixers.util.Pair<>(net.minecraft.world.entity.EquipmentSlot.FEET, item(hidden, target.getInventory().getBoots())));
+        slots.add(new com.mojang.datafixers.util.Pair<>(net.minecraft.world.entity.EquipmentSlot.LEGS, item(hidden, target.getInventory().getLeggings())));
+        slots.add(new com.mojang.datafixers.util.Pair<>(net.minecraft.world.entity.EquipmentSlot.CHEST, item(hidden, target.getInventory().getChestplate())));
+        slots.add(new com.mojang.datafixers.util.Pair<>(net.minecraft.world.entity.EquipmentSlot.HEAD, item(hidden, target.getInventory().getHelmet())));
+        sendPacket(viewer, new net.minecraft.network.protocol.game.ClientboundSetEquipmentPacket(target.getEntityId(), slots));
+    }
+
+    private net.minecraft.world.item.ItemStack item(boolean hidden, org.bukkit.inventory.ItemStack stack) {
+        if (hidden || stack == null || stack.getType() == org.bukkit.Material.AIR) {
+            return net.minecraft.world.item.ItemStack.EMPTY;
+        }
+        return org.bukkit.craftbukkit.inventory.CraftItemStack.asNMSCopy(stack);
+    }
+
+
 }

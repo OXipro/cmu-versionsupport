@@ -85,4 +85,26 @@ public class PlayerUtils_v1_11_R1 implements PlayerUtilsSupport {
         }
         return Math.max(0.0F, ((CraftPlayer) player).getHandle().getAbsorptionHearts());
     }
+
+
+    @Override
+    public void hideArmor(Player target, Player viewer, boolean hidden) {
+        if (target == null || viewer == null || target.equals(viewer)) {
+            return;
+        }
+        int id = target.getEntityId();
+        sendPacket(viewer, new net.minecraft.server.v1_11_R1.PacketPlayOutEntityEquipment(id, net.minecraft.server.v1_11_R1.EnumItemSlot.FEET, item(hidden, target.getInventory().getBoots())));
+        sendPacket(viewer, new net.minecraft.server.v1_11_R1.PacketPlayOutEntityEquipment(id, net.minecraft.server.v1_11_R1.EnumItemSlot.LEGS, item(hidden, target.getInventory().getLeggings())));
+        sendPacket(viewer, new net.minecraft.server.v1_11_R1.PacketPlayOutEntityEquipment(id, net.minecraft.server.v1_11_R1.EnumItemSlot.CHEST, item(hidden, target.getInventory().getChestplate())));
+        sendPacket(viewer, new net.minecraft.server.v1_11_R1.PacketPlayOutEntityEquipment(id, net.minecraft.server.v1_11_R1.EnumItemSlot.HEAD, item(hidden, target.getInventory().getHelmet())));
+    }
+
+    private net.minecraft.server.v1_11_R1.ItemStack item(boolean hidden, org.bukkit.inventory.ItemStack stack) {
+        if (hidden || stack == null || stack.getType() == org.bukkit.Material.AIR) {
+            return new net.minecraft.server.v1_11_R1.ItemStack(net.minecraft.server.v1_11_R1.Blocks.AIR);
+        }
+        return org.bukkit.craftbukkit.v1_11_R1.inventory.CraftItemStack.asNMSCopy(stack);
+    }
+
+
 }

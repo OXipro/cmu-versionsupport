@@ -5,7 +5,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.World;
+import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemStack;
@@ -78,6 +80,26 @@ public class PlayerUtils_v1_8_R3 implements PlayerUtilsSupport {
         for (org.bukkit.entity.Player viewer : Bukkit.getOnlinePlayers()) {
             ((CraftPlayer) viewer).getHandle().playerConnection.sendPacket(packet);
         }
+    }
+
+    @Override
+    public void hideArmor(Player target, Player viewer, boolean hidden) {
+        if (target == null || viewer == null || target.equals(viewer)) {
+            return;
+        }
+        int id = target.getEntityId();
+        PlayerConnection connection = ((CraftPlayer) viewer).getHandle().playerConnection;
+        connection.sendPacket(equipment(id, 1, hidden ? null : target.getInventory().getBoots()));
+        connection.sendPacket(equipment(id, 2, hidden ? null : target.getInventory().getLeggings()));
+        connection.sendPacket(equipment(id, 3, hidden ? null : target.getInventory().getChestplate()));
+        connection.sendPacket(equipment(id, 4, hidden ? null : target.getInventory().getHelmet()));
+    }
+
+    private PacketPlayOutEntityEquipment equipment(int id, int slot, org.bukkit.inventory.ItemStack stack) {
+        net.minecraft.server.v1_8_R3.ItemStack item = stack == null || stack.getType() == Material.AIR
+                ? null
+                : CraftItemStack.asNMSCopy(stack);
+        return new PacketPlayOutEntityEquipment(id, slot, item);
     }
 
     @Override

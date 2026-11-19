@@ -71,6 +71,15 @@ public interface PlayerUtilsSupport {
      */
     double getAbsorptionHearts(Player player);
 
+
+    /**
+     * Show or hide {@code target}'s worn armor for a single viewer.
+     * The target still has the items. {@code hidden} false resends the real armor.
+     * The wearer is skipped, because that client draws its armor from the inventory.
+     */
+    default void hideArmor(Player target, Player viewer, boolean hidden) {
+    }
+
     class SupportBuilder {
 
         /**
